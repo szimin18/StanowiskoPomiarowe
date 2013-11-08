@@ -9,8 +9,11 @@ namespace Stanowisko.Symulator
 {
     class Simulator : IMeasuringDevice
     {
+        private long _time;
+
         public string StartConnection()
         {
+            _time = System.DateTime.Now.Millisecond;
             return null;
         }
 
