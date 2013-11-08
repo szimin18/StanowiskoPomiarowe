@@ -1,8 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
-MinimumVisualStudioVersion = 10.0.40219.1
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stanowisko.GUI", "Stanowisko.GUI\Stanowisko.GUI.csproj", "{8403D196-780C-4863-B0A2-557DBB51AF00}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Symulator", "Symulator\Symulator.csproj", "{00AA9AAD-CD50-4F45-9D73-8CBC41D2F5DD}"
@@ -11,11 +9,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedClasses", "SharedClas
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testy", "UnitTestProject1\Testy.csproj", "{C062EE8F-F23E-4EA0-82C2-7F67AB00EE11}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rejestrator", "Rejestrator\Rejestrator.csproj", "{EC3D4147-F5B1-4C53-921F-EEDEC6DD4E9A}"
+EndProject
 Global
-	GlobalSection(SubversionScc) = preSolution
-		Svn-Managed = True
-		Manager = AnkhSVN - Subversion Support for Visual Studio
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -37,8 +33,16 @@ Global
 		{C062EE8F-F23E-4EA0-82C2-7F67AB00EE11}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C062EE8F-F23E-4EA0-82C2-7F67AB00EE11}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C062EE8F-F23E-4EA0-82C2-7F67AB00EE11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC3D4147-F5B1-4C53-921F-EEDEC6DD4E9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC3D4147-F5B1-4C53-921F-EEDEC6DD4E9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC3D4147-F5B1-4C53-921F-EEDEC6DD4E9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC3D4147-F5B1-4C53-921F-EEDEC6DD4E9A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
 	EndGlobalSection
 EndGlobal
