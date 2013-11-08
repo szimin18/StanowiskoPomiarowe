@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Symulator", "Symulator\Symu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedClasses", "SharedClasses\SharedClasses.csproj", "{A0CC950A-D0A7-4912-8396-5EF6CD7F8B35}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testy", "UnitTestProject1\Testy.csproj", "{C062EE8F-F23E-4EA0-82C2-7F67AB00EE11}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testy", "Testy\Testy.csproj", "{C062EE8F-F23E-4EA0-82C2-7F67AB00EE11}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rejestrator", "Rejestrator\Rejestrator.csproj", "{EC3D4147-F5B1-4C53-921F-EEDEC6DD4E9A}"
 EndProject
