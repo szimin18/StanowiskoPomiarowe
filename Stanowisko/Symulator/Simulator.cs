@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Symulator
 {
-    class Simulator : MeasuringDevice
+    class Simulator
     {
     }
 }
