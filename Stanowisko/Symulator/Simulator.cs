@@ -7,7 +7,7 @@ using SharedClasses;
 
 namespace Symulator
 {
-    class Simulator : MeasuringDevice
+    class Simulator : IMeasuringDevice
     {
         public string StartConnection()
         {

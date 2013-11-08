@@ -7,7 +7,7 @@ using SharedClasses;
 
 namespace Symulator
 {
-    interface MeasuringDevice
+    interface IMeasuringDevice
     {
         string StartConnection();
         void StopConnection();
