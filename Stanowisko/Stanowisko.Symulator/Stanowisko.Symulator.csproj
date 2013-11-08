@@ -7,7 +7,7 @@
     <ProjectGuid>{00AA9AAD-CD50-4F45-9D73-8CBC41D2F5DD}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Symulator</RootNamespace>
+    <RootNamespace>Stanowisko.Symulator</RootNamespace>
     <AssemblyName>Symulator</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

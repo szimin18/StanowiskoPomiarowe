@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SharedClasses;
 
-namespace Symulator
+namespace Stanowisko.Symulator
 {
     interface IMeasuringDevice
     {
