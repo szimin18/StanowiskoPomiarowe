@@ -7,7 +7,7 @@
     <ProjectGuid>{A0CC950A-D0A7-4912-8396-5EF6CD7F8B35}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SharedClasses</RootNamespace>
+    <RootNamespace>Stanowisko.SharedClasses</RootNamespace>
     <AssemblyName>SharedClasses</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
