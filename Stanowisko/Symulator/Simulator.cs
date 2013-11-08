@@ -8,5 +8,9 @@ namespace Symulator
 {
     class Simulator
     {
+        string StartConnection()
+        {
+            return null;
+        }
     }
 }
