@@ -13,8 +13,8 @@ namespace Stanowisko.SharedClasses
 
         public Sample(double value, DateTime readingTime)
         {
-            this._value = value;
-            this._readingTime = readingTime;
+            _value = value;
+            _readingTime = readingTime;
         }
 
         public double Value
