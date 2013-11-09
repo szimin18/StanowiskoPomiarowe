@@ -35,9 +35,9 @@ namespace Stanowisko.Testy
 
         //shows that attempt to get sample from disconnected device fails
         [TestMethod]
+        [ExpectedException(typeof(Exception), "Połączenie nie istnieje")]
         public void GettingSampleFromDisconnectedDeviceTest()
         {
-            Assert.Fail("Połączenie nie istnieje");
             _simulator.GetSample();
         }
 
