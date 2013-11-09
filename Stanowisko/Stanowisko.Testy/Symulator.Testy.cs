@@ -7,7 +7,7 @@ namespace Stanowisko.Testy
     [TestClass]
     public class SimulatorTests
     {
-        private Simulator _simulator;
+        private IMeasuringDevice _simulator;
 
         [TestInitialize]
         public void InitializeSimulator()
