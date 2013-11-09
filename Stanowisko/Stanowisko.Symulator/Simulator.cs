@@ -27,7 +27,14 @@ namespace Stanowisko.Symulator
         #region Private Methods
         private double SimulatingFunction(double miliseconds)
         {
-            return 0;
+            if (miliseconds < 1000 || miliseconds > 3000)
+            {
+                return 1;
+            }
+            else
+            {
+                return (miliseconds - 2000) * (2000 - miliseconds) / 1000000 + 2;
+            }
         }
         #endregion
 
