@@ -53,6 +53,12 @@
     <Compile Include="Symulator.Test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Stanowisko.Symulator\Stanowisko.Symulator.csproj">
+      <Project>{00aa9aad-cd50-4f45-9d73-8cbc41d2f5dd}</Project>
+      <Name>Stanowisko.Symulator</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

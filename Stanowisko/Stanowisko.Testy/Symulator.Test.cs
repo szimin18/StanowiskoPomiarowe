@@ -1,14 +1,16 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Stanowisko.Symulator;
 
 namespace Stanowisko.Testy
 {
     [TestClass]
-    public class UnitTest1
+    public class SymulatorTesty
     {
         [TestMethod]
-        public void TestMethod1()
+        public void ConnectingTest()
         {
+            IMeasuringDevice simulator = new Simulator();
         }
     }
 }
