@@ -8,5 +8,18 @@ namespace Stanowisko.SharedClasses
 {
     public class Measurement
     {
+        protected List<Sample> _samples;
+        public Measurement(List<Sample> samples)
+        {
+            this._samples = samples;
+        }
+
+        public List<Sample> Samples
+        {
+            get
+            {
+                return _samples;
+            }
+        }
     }
 }

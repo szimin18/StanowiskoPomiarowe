@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.20827.3
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stanowisko.GUI", "Stanowisko.GUI\Stanowisko.GUI.csproj", "{8403D196-780C-4863-B0A2-557DBB51AF00}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stanowisko.Symulator", "Stanowisko.Symulator\Stanowisko.Symulator.csproj", "{00AA9AAD-CD50-4F45-9D73-8CBC41D2F5DD}"
@@ -12,6 +14,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stanowisko.Rejestrator", "Stanowisko.Rejestrator\Stanowisko.Rejestrator.csproj", "{EC3D4147-F5B1-4C53-921F-EEDEC6DD4E9A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stanowisko.Exporter", "Stanowisko.Exporter\Stanowisko.Exporter.csproj", "{424D01C1-7608-4888-8B3E-CE6FE6012A5A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stanowisko.Calculator", "..\..\..\..\Documents\Visual Studio 2013\Projects\Calculator\Calculator\Stanowisko.Calculator.csproj", "{3611D09E-BF1C-42B8-9737-92D2556A4000}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stanowisko.CalculatorTests", "..\..\..\..\Documents\Visual Studio 2013\Projects\Calculator\UnitTestProject1\Stanowisko.CalculatorTests.csproj", "{3018B2AA-8FA4-48D7-9BDF-7EE5FF68D743}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,6 +49,14 @@ Global
 		{424D01C1-7608-4888-8B3E-CE6FE6012A5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{424D01C1-7608-4888-8B3E-CE6FE6012A5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{424D01C1-7608-4888-8B3E-CE6FE6012A5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3611D09E-BF1C-42B8-9737-92D2556A4000}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3611D09E-BF1C-42B8-9737-92D2556A4000}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3611D09E-BF1C-42B8-9737-92D2556A4000}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3611D09E-BF1C-42B8-9737-92D2556A4000}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3018B2AA-8FA4-48D7-9BDF-7EE5FF68D743}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3018B2AA-8FA4-48D7-9BDF-7EE5FF68D743}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3018B2AA-8FA4-48D7-9BDF-7EE5FF68D743}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3018B2AA-8FA4-48D7-9BDF-7EE5FF68D743}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
