@@ -54,7 +54,7 @@
     <Compile Include="ComputableMeasurementTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\Source\Repos\StanowiskoPomiarowe\Stanowisko\Stanowisko.SharedClasses\Stanowisko.SharedClasses.csproj">
+    <ProjectReference Include="..\Stanowisko.SharedClasses\Stanowisko.SharedClasses.csproj">
       <Project>{a0cc950a-d0a7-4912-8396-5ef6cd7f8b35}</Project>
       <Name>Stanowisko.SharedClasses</Name>
     </ProjectReference>
