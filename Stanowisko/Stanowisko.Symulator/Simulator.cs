@@ -7,6 +7,7 @@ namespace Stanowisko.Symulator
     {
         #region Private Member Variables
         private DateTime _startingTime;
+        private bool _isConnected = false;
         #endregion
 
         #region Private Properties
@@ -14,6 +15,12 @@ namespace Stanowisko.Symulator
         {
             set { _startingTime = value; }
             get { return _startingTime; }
+        }
+
+        private bool IsConnected
+        {
+            set { _isConnected = value; }
+            get { return _isConnected; }
         }
         #endregion
 
@@ -34,19 +41,34 @@ namespace Stanowisko.Symulator
         #region Public Methods
         public string StartConnection()
         {
-            StartingTime = DateTime.Now;
-            return null;
+            if (IsConnected)
+            {
+                return "Połączenie już istnieje";
+            }
+            else
+            {
+                IsConnected = true;
+                StartingTime = DateTime.Now;
+                return null;
+            }
         }
 
         public void StopConnection()
         {
-
+            IsConnected = false;
         }
 
         public Sample GetSample()
         {
-            DateTime currentTime = DateTime.Now;
-            return new Sample(SimulatingFunction((currentTime - StartingTime).TotalMilliseconds), currentTime);
+            if (IsConnected)
+            {
+                DateTime currentTime = DateTime.Now;
+                return new Sample(SimulatingFunction((currentTime - StartingTime).TotalMilliseconds), currentTime);
+            }
+            else
+            {
+                throw new Exception();
+            }
         }
 
         public void ShowSettingsWindow()
