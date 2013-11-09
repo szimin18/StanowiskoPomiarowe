@@ -33,11 +33,23 @@ namespace Stanowisko.Testy
             _simulator.StopConnection();
         }
 
+        //shows that attempt to get sample from disconnected device fails
         [TestMethod]
         public void GettingSampleFromDisconnectedDeviceTest()
         {
             Assert.Fail("Połączenie nie istnieje");
             _simulator.GetSample();
+        }
+
+        //shows that mane attempts to get sample from connected device succeed
+        [TestMethod]
+        public void GettingSampleFromConnectedDeviceTest()
+        {
+            _simulator.StartConnection();
+            for (int i = 0; i < 10000; i++)
+            {
+                _simulator.GetSample();
+            }
         }
     }
 }
