@@ -7,7 +7,7 @@ using Stanowisko.SharedClasses;
 
 namespace Stanowisko.Symulator
 {
-    class Simulator : IMeasuringDevice
+    public class Simulator : IMeasuringDevice
     {
         private long _time;
 
