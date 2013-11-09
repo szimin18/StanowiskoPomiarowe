@@ -50,8 +50,19 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Persistance.Test.cs" />
     <Compile Include="Symulator.Test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Stanowisko.Persistance\Stanowisko.Persistance.csproj">
+      <Project>{34B68FDC-73D1-4F4B-9A34-79A83F6043E7}</Project>
+      <Name>Stanowisko.Persistance</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Stanowisko.SharedClasses\Stanowisko.SharedClasses.csproj">
+      <Project>{A0CC950A-D0A7-4912-8396-5EF6CD7F8B35}</Project>
+      <Name>Stanowisko.SharedClasses</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
