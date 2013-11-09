@@ -42,6 +42,12 @@
     <Compile Include="Recorder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Stanowisko.SharedClasses\Stanowisko.SharedClasses.csproj">
+      <Project>{a0cc950a-d0a7-4912-8396-5ef6cd7f8b35}</Project>
+      <Name>Stanowisko.SharedClasses</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

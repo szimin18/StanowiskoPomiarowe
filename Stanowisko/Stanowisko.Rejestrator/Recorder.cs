@@ -9,9 +9,9 @@ namespace Rejestrator
 {
     interface Recorder
     {
-        public void startRecording();
-        public void stopRecording();
-        public Measurement getRecording();
-        public void setPeriod(uint period);
+        void startRecording();
+        void stopRecording();
+        Measurement getRecording();
+        void setPeriod(uint period);
     }
 }
