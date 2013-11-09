@@ -39,8 +39,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Persistance.cs" />
+    <Compile Include="IPersistance.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Stanowisko.SharedClasses\Stanowisko.SharedClasses.csproj">
+      <Project>{A0CC950A-D0A7-4912-8396-5EF6CD7F8B35}</Project>
+      <Name>Stanowisko.SharedClasses</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
