@@ -22,12 +22,12 @@ namespace Stanowisko.Symulator
 
         }
 
-        public Sample Sampling()
+        public Sample GetSample()
         {
             return null;
         }
 
-        public void ChangeSettings()
+        public void ShowSettingsWindow()
         {
 
         }

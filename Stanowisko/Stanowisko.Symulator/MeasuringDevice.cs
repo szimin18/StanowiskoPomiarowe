@@ -11,7 +11,7 @@ namespace Stanowisko.Symulator
     {
         string StartConnection();
         void StopConnection();
-        Sample Sampling();
-        void ChangeSettings();
+        Sample GetSample();
+        void ShowSettingsWindow();
     }
 }
