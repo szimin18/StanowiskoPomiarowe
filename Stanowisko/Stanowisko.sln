@@ -15,9 +15,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stanowisko.Rejestrator", "S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stanowisko.Exporter", "Stanowisko.Exporter\Stanowisko.Exporter.csproj", "{424D01C1-7608-4888-8B3E-CE6FE6012A5A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stanowisko.Calculator", "..\..\..\..\Documents\Visual Studio 2013\Projects\Calculator\Calculator\Stanowisko.Calculator.csproj", "{3611D09E-BF1C-42B8-9737-92D2556A4000}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stanowisko.Calculator", "Stanowisko.Calculator\Stanowisko.Calculator.csproj", "{3611D09E-BF1C-42B8-9737-92D2556A4000}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stanowisko.CalculatorTests", "..\..\..\..\Documents\Visual Studio 2013\Projects\Calculator\UnitTestProject1\Stanowisko.CalculatorTests.csproj", "{3018B2AA-8FA4-48D7-9BDF-7EE5FF68D743}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stanowisko.CalculatorTests", "Stanowisko.CalculatorTests\Stanowisko.CalculatorTests.csproj", "{3018B2AA-8FA4-48D7-9BDF-7EE5FF68D743}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
