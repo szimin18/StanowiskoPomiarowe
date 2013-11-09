@@ -54,6 +54,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Stanowisko.SharedClasses\Stanowisko.SharedClasses.csproj">
+      <Project>{a0cc950a-d0a7-4912-8396-5ef6cd7f8b35}</Project>
+      <Name>Stanowisko.SharedClasses</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Stanowisko.Symulator\Stanowisko.Symulator.csproj">
       <Project>{00aa9aad-cd50-4f45-9d73-8cbc41d2f5dd}</Project>
       <Name>Stanowisko.Symulator</Name>
