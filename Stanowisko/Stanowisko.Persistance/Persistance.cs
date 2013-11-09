@@ -1,4 +1,4 @@
-﻿namespace Persistance
+﻿namespace Stanowisko.Persistance
 {
     public class Persistance
     {
