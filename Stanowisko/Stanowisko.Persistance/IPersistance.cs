@@ -7,9 +7,9 @@ namespace Stanowisko.Persistance
     {
         void Save(Experiment experiment);
 
-        void Save(int measurementID, Sample sample);
+        void Save(int measurementId, Sample sample);
 
-        void Save(int experimentID, Measurement measurement);
+        void Save(int experimentId, Measurement measurement);
 
         void RemoveSamples(Measurement measurement, IEnumerable<int> range);
 
