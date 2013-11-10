@@ -70,7 +70,8 @@ namespace Stanowisko.Symulator
             if (IsConnected)
             {
                 DateTime currentTime = DateTime.Now;
-                return new Sample(SimulatingFunction((currentTime - StartingTime).TotalMilliseconds), currentTime);
+                double totalMiliseconds = (currentTime - StartingTime).TotalMilliseconds;
+                return new Sample(SimulatingFunction(totalMiliseconds), totalMiliseconds);
             }
             else
             {
