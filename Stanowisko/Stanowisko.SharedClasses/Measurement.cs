@@ -5,7 +5,7 @@ namespace Stanowisko.SharedClasses
 
     public class Measurement
     {
-        private readonly List<Sample> _samples = new List<Sample>();
+        protected readonly List<Sample> _samples = new List<Sample>();
 
         private static int _nextId;
 
