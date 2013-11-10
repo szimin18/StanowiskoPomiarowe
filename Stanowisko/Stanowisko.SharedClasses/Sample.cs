@@ -1,36 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Stanowisko.SharedClasses
+﻿namespace Stanowisko.SharedClasses
 {
     public class Sample
     {
-        double _value;
-        DateTime _readingTime;
+        public double Value { get; private set; }
 
-        public Sample(double value, DateTime readingTime)
-        {
-            _value = value;
-            _readingTime = readingTime;
-        }
+        public double Time { get; private set; }
 
-        public double Value
+        public Sample(double value, double time)
         {
-            get
-            {
-                return _value;
-            }
+            Value = value;
+            Time = time;
         }
-
-        public DateTime ReadingTime
-        {
-            get
-            {
-                return _readingTime;
-            }
-        }
+        
     }
 }
