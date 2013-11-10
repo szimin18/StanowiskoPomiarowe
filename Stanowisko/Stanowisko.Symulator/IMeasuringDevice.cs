@@ -7,7 +7,7 @@ using Stanowisko.SharedClasses;
 
 namespace Stanowisko.Symulator
 {
-    interface IMeasuringDevice
+    public interface IMeasuringDevice
     {
         string StartConnection();
         void StopConnection();
