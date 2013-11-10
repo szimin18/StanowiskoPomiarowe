@@ -24,8 +24,6 @@ namespace Stanowisko.SharedClasses
             Add(samples);
         }
 
-
-
         public void Add(List<Sample> samples)
         {
             _samples.AddRange(samples);
@@ -34,6 +32,13 @@ namespace Stanowisko.SharedClasses
         public void Remove(List<Sample> samples)
         {
             if (_samples != null) _samples.RemoveAll(samples.Contains);
+        }
+
+        public List<Sample> GetSamples()
+        {
+            var res = new List<Sample>();
+            if (_samples != null) res.AddRange(_samples);
+            return res;
         }
     }
 }
