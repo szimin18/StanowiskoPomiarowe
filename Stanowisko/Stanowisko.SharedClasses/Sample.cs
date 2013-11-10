@@ -1,12 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Stanowisko.SharedClasses
+﻿namespace Stanowisko.SharedClasses
 {
     public class Sample
     {
+        public double Value { get; private set; }
+
+        public double Time { get; private set; }
+
+        public Sample(double value, double time)
+        {
+            Value = value;
+            Time = time;
+        }
+        
     }
 }
