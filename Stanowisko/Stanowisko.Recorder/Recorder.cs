@@ -36,6 +36,7 @@ namespace Rejestrator
             _period = _defaultPeriod;
             _timer = new Timer(_period);
             _timer.Elapsed += new ElapsedEventHandler(_timer_Elapsed);
+            _samples = new List<Sample>();
         }
         #endregion
 
