@@ -41,11 +41,16 @@
   <ItemGroup>
     <Compile Include="IRecorder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Recorder.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Stanowisko.SharedClasses\Stanowisko.SharedClasses.csproj">
       <Project>{a0cc950a-d0a7-4912-8396-5ef6cd7f8b35}</Project>
       <Name>Stanowisko.SharedClasses</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Stanowisko.Symulator\Stanowisko.Symulator.csproj">
+      <Project>{00aa9aad-cd50-4f45-9d73-8cbc41d2f5dd}</Project>
+      <Name>Stanowisko.Symulator</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
