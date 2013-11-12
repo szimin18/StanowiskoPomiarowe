@@ -8,8 +8,9 @@ using Stanowisko.SharedClasses;
 
 namespace Stanowisko.Calculator
 {
-    public class ComputableMeasurement : Measurement
+    public class MeasurementCalculator
     {
+        private Measurement _measurement;
         private int _curveBeginning;
         private int _curveEnd;
         private double _coefficent;
@@ -19,9 +20,11 @@ namespace Stanowisko.Calculator
             double h = 1.0; //czas między pomiarami
             double value = 0.0;
 
-            for (int i = 0; i < _samples.Count - 1; ++i)
+            List<Sample> samples = _measurement.GetSamples();
+
+            for (int i = 0; i < samples.Count - 1; ++i)
             {
-                value += (_samples.ElementAt(i).Value + _samples.ElementAt(i + 1).Value);
+                value += (samples.ElementAt(i).Value + samples.ElementAt(i + 1).Value);
             }
             value *= h/2;    
 
@@ -35,22 +38,25 @@ namespace Stanowisko.Calculator
             //wartość wyznaczana doświadczalnie
             double epsilon = 0.01;
 
-            double firstValue = _samples.ElementAt(0).Value;
+            
+            List<Sample> samples = _measurement.GetSamples();
+
+            double firstValue = samples.ElementAt(0).Value;
             _curveBeginning = 0;
-            for (int i = 1; i < _samples.Count; ++i)
+            for (int i = 1; i < samples.Count; ++i)
             {
-                if ((Math.Abs(_samples.ElementAt(i).Value - firstValue)) > epsilon)
+                if ((Math.Abs(samples.ElementAt(i).Value - firstValue)) > epsilon)
                 {
                     _curveBeginning = i-1;
                     break;
                 }
             }
 
-            double lastValue = _samples.ElementAt(_samples.Count-1).Value;
-            _curveEnd = _samples.Count-1;
-            for (int i = _samples.Count-2; i > 0; --i)
+            double lastValue = samples.ElementAt(samples.Count-1).Value;
+            _curveEnd = samples.Count-1;
+            for (int i = samples.Count-2; i > 0; --i)
             {
-                if (Math.Abs(_samples.ElementAt(i).Value - lastValue) > epsilon)
+                if (Math.Abs(samples.ElementAt(i).Value - lastValue) > epsilon)
                 {
                     _curveEnd = i+1;
                     break;
@@ -58,8 +64,9 @@ namespace Stanowisko.Calculator
             }
         }
 
-        public ComputableMeasurement(List<Sample> readings) : base(readings)
+        public MeasurementCalculator(Measurement measurements)
         {
+            this._measurement = measurements;
             this.initializeBoundaries();
         }
 

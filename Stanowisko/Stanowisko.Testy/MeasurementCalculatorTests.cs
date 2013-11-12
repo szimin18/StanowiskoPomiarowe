@@ -2,8 +2,8 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Reflection;
 using System.Collections.Generic;
-using Stanowisko.Calculator;
 using Stanowisko.SharedClasses;
+using Stanowisko.Calculator;
 
 namespace CalculatorTest
 {
@@ -16,9 +16,10 @@ namespace CalculatorTest
             List<Sample> readings = new List<Sample>();
             for (int i = 0; i < 11; ++i)
             {
-                readings.Add(new Sample(i, new DateTime()));
+                readings.Add(new Sample(i, 0.0));
             }
-            ComputableMeasurement firstTarget = new ComputableMeasurement(readings);
+            Measurement firstMeasurement = new Measurement(readings);
+            MeasurementCalculator firstTarget = new MeasurementCalculator(firstMeasurement);
             firstTarget.Coefficent = 1;
 
             Assert.AreEqual(firstTarget.CalculateHeat(), 50.0);
@@ -26,9 +27,10 @@ namespace CalculatorTest
             List<Sample> secondReadings = new List<Sample>();
             for (int i = 0; i < 11; ++i)
             {
-                secondReadings.Add(new Sample((-i * (i - 10)), new DateTime()));
+                secondReadings.Add(new Sample((-i * (i - 10)), 0.0));
             }
-            ComputableMeasurement secondTarget = new ComputableMeasurement(secondReadings);
+            Measurement secondMeasurement = new Measurement(secondReadings);
+            MeasurementCalculator secondTarget = new MeasurementCalculator(secondMeasurement);
             secondTarget.Coefficent = 1;
 
             double epsilon = 2;
@@ -42,9 +44,10 @@ namespace CalculatorTest
             List<Sample> readings = new List<Sample>();
             for (int i = 0; i < 10; ++i)
             {
-                readings.Add(new Sample(i, new DateTime()));
+                readings.Add(new Sample(i, 0.0));
             }
-            ComputableMeasurement firstTarget = new ComputableMeasurement(readings);
+            Measurement firstMeasurement = new Measurement(readings);
+            MeasurementCalculator firstTarget = new MeasurementCalculator(firstMeasurement);
 
             Assert.AreEqual(0, firstTarget.CurveBeginning);
             Assert.AreEqual(9, firstTarget.CurveEnd);
@@ -52,20 +55,21 @@ namespace CalculatorTest
             List<Sample> secondReadings = new List<Sample>();
             for (int i = 0; i < 4; ++i)
             {
-                secondReadings.Add(new Sample(0, new DateTime()));
+                secondReadings.Add(new Sample(0, 0.0));
             }
             
             for (int i = 0; i < 10; ++i)
             {
-                secondReadings.Add(new Sample((-i * (i - 10)), new DateTime()));
+                secondReadings.Add(new Sample((-i * (i - 10)), 0.0));
             }
 
             for (int i = 0; i < 2; ++i)
             {
-                secondReadings.Add(new Sample(0, new DateTime()));
+                secondReadings.Add(new Sample(0, 0.0));
             }
 
-            ComputableMeasurement secondTarget = new ComputableMeasurement(secondReadings);
+            Measurement secondMeasurement = new Measurement(secondReadings);
+            MeasurementCalculator secondTarget = new MeasurementCalculator(secondMeasurement);
 
             Assert.AreEqual(4, secondTarget.CurveBeginning);
             Assert.AreEqual(14, secondTarget.CurveEnd);
