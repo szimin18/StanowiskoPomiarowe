@@ -6,7 +6,7 @@ namespace Stanowisko.Symulator
     public class Simulator : IMeasuringDevice
     {
         #region Private Member Variables
-        private DateTime _startingTime;
+        private Double _startingTime;
         private bool _isConnected = false;
         #endregion
 
