@@ -39,9 +39,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IIntegratingModule.cs" />
     <Compile Include="IMeasurementCalculator.cs" />
     <Compile Include="MeasurementCalculator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TrapezoidalIntegratingModule.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Stanowisko.SharedClasses\Stanowisko.SharedClasses.csproj">

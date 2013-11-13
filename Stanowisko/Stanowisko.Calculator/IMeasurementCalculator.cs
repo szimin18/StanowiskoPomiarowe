@@ -4,14 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Calculator
+namespace Stanowisko.Calculator
 {
-    interface IMeasurementCalculator
+    public interface IMeasurementCalculator
     {
-        private double Integration();
-        private void initializeBoundaries();
-        public void Calibrate(double heat);
-        public double CalculateHeat();
+        void Calibrate(double heat);
+        double CalculateHeat();
 
     }
 }

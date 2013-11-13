@@ -8,28 +8,13 @@ using Stanowisko.SharedClasses;
 
 namespace Stanowisko.Calculator
 {
-    public class MeasurementCalculator
+    public class MeasurementCalculator : IMeasurementCalculator
     {
         private Measurement _measurement;
         private int _curveBeginning;
         private int _curveEnd;
         private double _coefficent;
-
-        private double Integration()
-        {
-            double h = 1.0; //czas między pomiarami
-            double value = 0.0;
-
-            List<Sample> samples = _measurement.GetSamples();
-
-            for (int i = 0; i < samples.Count - 1; ++i)
-            {
-                value += (samples.ElementAt(i).Value + samples.ElementAt(i + 1).Value);
-            }
-            value *= h/2;    
-
-            return value;
-        }
+        private IIntegratingModule _integrator;
 
         private void initializeBoundaries()
             //wyznaczam pozycje krzywej, uznając, że zaczyna się wtedy, kiedy wartości
@@ -68,6 +53,7 @@ namespace Stanowisko.Calculator
         {
             this._measurement = measurements;
             this.initializeBoundaries();
+            this._integrator = new TrapezoidalIntegratingModule();
         }
 
         public int CurveBeginning
@@ -111,12 +97,12 @@ namespace Stanowisko.Calculator
 
         public void Calibrate(double heat)
         {
-            _coefficent=heat / Integration();
+            _coefficent=heat / _integrator.Integrate(_measurement.GetSamples(), CurveBeginning, CurveEnd);
         }
 
         public double CalculateHeat()
         {
-            return _coefficent * Integration();
+            return _coefficent * _integrator.Integrate(_measurement.GetSamples(), CurveBeginning, CurveEnd);
         }
     }
 }
