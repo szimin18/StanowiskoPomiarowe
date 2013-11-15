@@ -13,9 +13,9 @@ namespace Stanowisko.SharedClasses
 
         public Sample(double value, double time)
         {
-            Id = Convert.ToInt32(File.ReadAllText("SampleID.csv"));
+            Id = Convert.ToInt32(File.ReadAllText("../../SampleID.csv"));
             var i = Id + 1;
-            File.WriteAllText("SampleID.csv", i.ToString());
+            File.WriteAllText("../../SampleID.csv", i.ToString());
             Value = value;
             Time = time;
         }

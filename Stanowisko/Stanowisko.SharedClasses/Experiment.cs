@@ -24,9 +24,9 @@ namespace Stanowisko.SharedClasses
 
         public Experiment(String name)
         {
-            Id = Convert.ToInt32(File.ReadAllText("ExperimentID.csv"));
+            Id = Convert.ToInt32(File.ReadAllText("../../ExperimentID.csv"));
             var i = Id + 1;
-            File.WriteAllText("ExperimentID.csv", i.ToString());
+            File.WriteAllText("../../ExperimentID.csv", i.ToString());
             Name = name;
         }
 

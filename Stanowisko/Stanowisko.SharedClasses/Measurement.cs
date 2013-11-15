@@ -15,16 +15,16 @@ namespace Stanowisko.SharedClasses
 
         public Measurement()
         {
-            Id = Convert.ToInt32(File.ReadAllText("MeasurementID.csv"));
+            Id = Convert.ToInt32(File.ReadAllText("../../MeasurementID.csv"));
             var i = Id + 1;
-            File.WriteAllText("MeasurementID.csv", i.ToString());
+            File.WriteAllText("../../MeasurementID.csv", i.ToString());
         }
 
         public Measurement(List<Sample> samples)
         {
-            Id = Convert.ToInt32(File.ReadAllText("MeasurementID.csv"));
+            Id = Convert.ToInt32(File.ReadAllText("../../MeasurementID.csv"));
             var i = Id + 1;
-            File.WriteAllText("MeasurementID.csv", i.ToString());
+            File.WriteAllText("../../MeasurementID.csv", i.ToString());
             Add(samples);
         }
 
