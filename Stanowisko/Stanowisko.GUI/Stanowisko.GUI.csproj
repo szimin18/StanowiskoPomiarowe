@@ -36,6 +36,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -92,6 +93,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Stanowisko.Exporter\Stanowisko.Exporter.csproj">
+      <Project>{424d01c1-7608-4888-8b3e-ce6fe6012a5a}</Project>
+      <Name>Stanowisko.Exporter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Stanowisko.SharedClasses\Stanowisko.SharedClasses.csproj">
+      <Project>{a0cc950a-d0a7-4912-8396-5ef6cd7f8b35}</Project>
+      <Name>Stanowisko.SharedClasses</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -13,6 +13,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using Stanowisko.Exporter;
+using Stanowisko.SharedClasses;
+
 namespace Stanowisko.GUI
 {
     /// <summary>
@@ -24,5 +27,14 @@ namespace Stanowisko.GUI
         {
             InitializeComponent();
         }
+
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            Exporter.Exporter.ExportMeasurement(null);
+        }
+
+
     }
+
+
 }

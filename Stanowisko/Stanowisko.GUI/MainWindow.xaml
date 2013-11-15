@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        
+        <Button x:Name="SaveButton" Content="Button" HorizontalAlignment="Left" Margin="152,82,0,0" VerticalAlignment="Top" Width="252" Height="139" Click="SaveButton_Click"/>
+
     </Grid>
 </Window>
