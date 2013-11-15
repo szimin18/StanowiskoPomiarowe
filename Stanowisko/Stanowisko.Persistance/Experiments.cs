@@ -9,14 +9,63 @@ namespace Stanowisko.Persistance
 {
     public class Experiments : DAO
     {
-        public Experiments(DBConnection connection) : base(connection)
-        {
-            
-        }
+        readonly SQLiteDatabase _db = new SQLiteDatabase();
 
+        public Experiments(DBConnection connection)
+            : base(connection)
+        {
+        }
+        public void Add(Experiment e)
+        {
+            var data = new Dictionary<String, String>
+                {
+                    {"ID", e.Id.ToString()},
+                    {"Name", e.Name},
+                    {"Description", e.Description},
+                    {"Goal", e.Description},
+                    {"result", e.Result.ToString()},
+                    {"Summary", e.Summart}
+                };
+
+            try
+            {
+                _db.Insert("Experiments", data);
+            }
+            catch (Exception)
+            {
+
+            }
+
+        }
         public void Update(Experiment e)
         {
-            throw new NotImplementedException();
+            var data = new Dictionary<String, String>
+                {
+                    {"ID", e.Id.ToString()},
+                    {"Name", e.Name},
+                    {"Description", e.Description},
+                    {"Goal", e.Description},
+                    {"result", e.Result.ToString()},
+                    {"Summary", e.Summart}
+                };
+
+            var parameters = e.Parameters.Select(pair => new Dictionary<String, String>
+                {
+                    {"Experiment", e.Id.ToString()}, {"Name", pair.Key}, {"Value", pair.Value}
+                });
+
+            try
+            {
+                _db.Update("Experiments", data, where: String.Format("Experiments.ID = {0}", e.Id.ToString()));
+                foreach (var p in parameters.Where(p => p != null))
+                {
+                    _db.Update("Parameters", p, String.Format("Parameters.name = {0} and Parameters.value = {1}", p["Name"], p["Value"]));
+                }
+            }
+            catch (Exception)
+            {
+
+            }
         }
 
         public Experiment Get(int id)

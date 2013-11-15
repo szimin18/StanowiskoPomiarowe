@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 
 namespace Stanowisko.SharedClasses
 {
@@ -7,20 +9,22 @@ namespace Stanowisko.SharedClasses
     {
         protected readonly List<Sample> _samples = new List<Sample>();
 
-        private static int _nextId;
-
         public int Id { get; private set; }
 
         public double Result { get; set; }
 
         public Measurement()
         {
-            Id = _nextId++;
+            Id = Convert.ToInt32(File.ReadAllText("MeasurementID.csv"));
+            var i = Id + 1;
+            File.WriteAllText("MeasurementID.csv", i.ToString());
         }
 
         public Measurement(List<Sample> samples)
         {
-            Id = _nextId++;
+            Id = Convert.ToInt32(File.ReadAllText("MeasurementID.csv"));
+            var i = Id + 1;
+            File.WriteAllText("MeasurementID.csv", i.ToString());
             Add(samples);
         }
 

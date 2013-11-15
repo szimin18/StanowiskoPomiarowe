@@ -1,31 +1,48 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Stanowisko.SharedClasses;
 
 namespace Stanowisko.Persistance
 {
     public class Measurements : DAO
     {
+        readonly SQLiteDatabase _db = new SQLiteDatabase();
         public Measurements(DBConnection connection) : base(connection)
         {
         }
 
-        public void Remove(Measurement measurement)
+        public void Update(Experiment experiment, Measurement measurement)
         {
-            throw new NotImplementedException();
+            var data = new Dictionary<String, String>
+                {
+                    {"ID", measurement.Id.ToString()},
+                    {"experiment", experiment.Id.ToString()},
+                    {"result", experiment.Result.ToString()}
+                };
+            try
+            {
+                _db.Update("Measurements", data, where: String.Format("MEASUREMENTS.ID = {0}", measurement.Id.ToString()));
+            }
+            catch (Exception)
+            {
+            }
         }
 
-        public void RemoveSamples(Measurement measurement, IEnumerable<int> range)
+        public void Add(Experiment experiment, Measurement measurement)
         {
-            throw new NotImplementedException();
-        }
-
-        public void Add(Experiment experimentId, Measurement measurement)
-        {
-            throw new NotImplementedException();
+            var data = new Dictionary<String, String>
+                {
+                    {"ID", measurement.Id.ToString()},
+                    {"experiment", experiment.Id.ToString()},
+                    {"result", experiment.Result.ToString()}
+                };
+            try
+            {
+                _db.Insert("Measurements", data);
+            }
+            catch (Exception)
+            {
+            }
         }
     }
 }

@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Stanowisko.SharedClasses
 {
     public class Experiment
     {
-        private static int _nextId;
-
         private readonly Dictionary<string, string> _parameters = new Dictionary<string, string>();
 
         private readonly List<Measurement> _measurements = new List<Measurement>();
@@ -21,11 +20,13 @@ namespace Stanowisko.SharedClasses
         
         public double Result { get; set; }
         
-        public string Summart { get; set; }
+        public string Summary { get; set; }
 
         public Experiment(String name)
         {
-            Id = _nextId++;
+            Id = Convert.ToInt32(File.ReadAllText("ExperimentID.csv"));
+            var i = Id + 1;
+            File.WriteAllText("ExperimentID.csv", i.ToString());
             Name = name;
         }
 
