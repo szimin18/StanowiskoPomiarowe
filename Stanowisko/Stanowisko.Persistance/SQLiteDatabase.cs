@@ -67,6 +67,25 @@ namespace Stanowisko.Persistance
             return value != null ? value.ToString() : "";
         }
 
+        public List<Dictionary<string, string>> GetAll(String tableName, List<string> columns)
+        {
+            var cnn = new SQLiteConnection(_dbConnection);
+            cnn.Open();
+
+            var sql = String.Format("select * from {0} ", tableName);
+            var command = new SQLiteCommand(sql, cnn);
+            var reader = command.ExecuteReader();
+            var res = new List<Dictionary<string, string>>();
+
+            while (reader.Read())
+            {
+                var d = columns.ToDictionary(column => column, column => (string)reader[column]);
+                res.Add(d);
+            }
+            cnn.Close();
+            return res;
+        }
+
         public List<Dictionary<string, string>> GetAll(String tableName, String idName, String idValue, List<String> columns)
         {
             var cnn = new SQLiteConnection(_dbConnection);

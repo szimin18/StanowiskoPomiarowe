@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using Stanowisko.SharedClasses;
 
 namespace Stanowisko.Persistance
 {
-    
 
-    class Samples : ISamples
+
+    class Samples : DAO, ISamples
     {
-        readonly SQLiteDatabase _db = new SQLiteDatabase();
+
+        public Samples(SQLiteDatabase db) : base(db)
+        {
+        }
 
         public void Add(Sample sample, Measurement measurement)
         {
@@ -25,7 +27,7 @@ namespace Stanowisko.Persistance
             {
                 _db.Insert("Samples", data);
             }
-            catch
+            catch (Exception)
             {
 
             }
@@ -33,7 +35,7 @@ namespace Stanowisko.Persistance
         public List<Sample> GetAll(Measurement m)
         {
             var columns = new List<string> { "ID", "value", "time" };
-            var data = _db.GetAll("Samples", "measurement", "m.Id", columns);
+            var data = _db.GetAll("Samples", "measurement", m.Id.ToString(), columns);
             
             var result = data.Select(row =>
                 new Sample( Convert.ToInt32(row["Id"]),
@@ -42,5 +44,6 @@ namespace Stanowisko.Persistance
            
             return result;
         }
+
     }
 }

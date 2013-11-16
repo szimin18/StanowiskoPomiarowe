@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Stanowisko.SharedClasses;
 
 namespace Stanowisko.Persistance
@@ -13,7 +9,8 @@ namespace Stanowisko.Persistance
 
         void Update(Experiment e);
 
-        Experiment Get(int id);
+        List<Experiment> GetAll();
+
     }
 
 

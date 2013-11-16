@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Stanowisko.SharedClasses;
 
 namespace Stanowisko.Persistance
 {
     public class Measurements : DAO, IMeasurements
     {
+        private Samples _samplesDAO ;
 
         public Measurements(SQLiteDatabase db)
             : base(db)
         {
+            _samplesDAO = new Samples(db);
         }
 
         public void Add(Measurement measurement, Experiment experiment)
@@ -18,8 +21,11 @@ namespace Stanowisko.Persistance
                 {
                     {"ID", measurement.Id.ToString()},
                     {"experiment", experiment.Id.ToString()},
-                    {"result", experiment.Result.ToString()}
+                    {"result", experiment.Result.ToString()},
+                    {"beginning", measurement.Beginning.Id.ToString()},
+                    {"end", measurement.End.Id.ToString()}
                 };
+
             try
             {
                 _db.Insert("Measurements", data);
@@ -35,7 +41,9 @@ namespace Stanowisko.Persistance
                 {
                     {"ID", measurement.Id.ToString()},
                     {"experiment", experiment.Id.ToString()},
-                    {"result", experiment.Result.ToString()}
+                    {"result", experiment.Result.ToString()},
+                    {"beginning", measurement.Beginning.Id.ToString()},
+                    {"end", measurement.End.Id.ToString()}
                 };
 
             try
@@ -45,6 +53,34 @@ namespace Stanowisko.Persistance
             catch (Exception)
             {
             }
+        }
+
+        public List<Measurement> GetAll(Experiment experiment)
+        {
+            var columns = new List<string>{"ID", "result", "beginning", "end"};
+            var data = _db.GetAll("Measurements", "experiment", experiment.Id.ToString(), columns);
+            
+            var res = new List<Measurement>();
+            
+            foreach (var row in data)
+            {
+                var m = new Measurement(Convert.ToInt32(row["ID"]));
+
+                var samples = _samplesDAO.GetAll(m);
+                var beginning = samples.Where(s => s.Id == Convert.ToInt32(row["beginning"])).ToList()[0];
+                var end = samples.Where(s => s.Id == Convert.ToInt32(row["end"])).ToList()[0];
+                var result = Convert.ToDouble(row["result"]);
+
+                m.Add(samples);
+                m.Beginning = beginning;
+                m.End = end;
+                m.Result = result;
+
+                res.Add(m);
+            }
+
+            return res;
+
         }
     }
 }

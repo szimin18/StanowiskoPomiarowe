@@ -7,10 +7,11 @@ namespace Stanowisko.Persistance
 {
     public class Experiments : DAO, IExperiments
     {
-
+        private Measurements _measurementDAO;
         public Experiments(SQLiteDatabase db)
             : base(db)
         {
+            _measurementDAO = new Measurements(db);
         }
 
         public void Add(Experiment e)
@@ -18,11 +19,11 @@ namespace Stanowisko.Persistance
             var data = new Dictionary<String, String>
                 {
                     {"ID", e.Id.ToString()},
-                    {"Name", e.Name},
-                    {"Description", e.Description},
-                    {"Goal", e.Description},
+                    {"name", e.Name},
+                    {"description", e.Description},
+                    {"goal", e.Description},
                     {"result", e.Result.ToString()},
-                    {"Summary", e.Summary}
+                    {"summary", e.Summary}
                 };
 
             try
@@ -41,16 +42,16 @@ namespace Stanowisko.Persistance
             var data = new Dictionary<String, String>
                 {
                     {"ID", e.Id.ToString()},
-                    {"Name", e.Name},
-                    {"Description", e.Description},
-                    {"Goal", e.Description},
+                    {"name", e.Name},
+                    {"description", e.Description},
+                    {"goal", e.Description},
                     {"result", e.Result.ToString()},
-                    {"Summary", e.Summary}
+                    {"summary", e.Summary}
                 };
 
             var parameters = e.Parameters.Select(pair => new Dictionary<String, String>
                 {
-                    {"Experiment", e.Id.ToString()}, {"Name", pair.Key}, {"Value", pair.Value}
+                    {"experiment", e.Id.ToString()}, {"name", pair.Key}, {"value", pair.Value}
                 });
 
             try
@@ -67,9 +68,33 @@ namespace Stanowisko.Persistance
             }
         }
 
-        public Experiment Get(int id)
+        public List<Experiment> GetAll()
         {
-            throw new NotImplementedException();
+            var columns = new List<string> {"ID", "name", "description", "goal", "result", "summary"};
+            var experiments = _db.GetAll("Experiments", columns);
+            var result = new List<Experiment>();
+
+            foreach (var experiment in experiments)
+            {
+                var eId = Convert.ToInt32(experiment["ID"]);
+                var name = experiment["name"];
+
+                var paramColumns = new List<string> {"name", "value"};
+                var ps = _db.GetAll("Parameters", "experiment", eId.ToString(), paramColumns);
+                var parameters = ps.ToDictionary(parameter => parameter["name"], parameter => parameter["value"]);
+
+                var e = new Experiment(eId, name)
+                    {
+                        Description = experiment["description"],
+                        Goal = experiment["goal"],
+                        Result = Convert.ToDouble(experiment["result"]),
+                        Summary = experiment["summary"],
+                        Parameters = parameters
+                    };
+                result.Add(e);
+            }
+
+            return result;
         }
     }
 }

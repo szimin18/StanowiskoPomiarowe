@@ -12,5 +12,7 @@ namespace Stanowisko.Persistance
         void Add(Measurement measurement, Experiment experiment);
 
         void Update(Measurement measurement, Experiment experiment);
+
+        List<Measurement> GetAll(Experiment experiment);
     }
 }
