@@ -6,7 +6,7 @@ namespace Stanowisko.SharedClasses
 {
     public class Experiment
     {
-        private readonly Dictionary<string, string> _parameters = new Dictionary<string, string>();
+        private Dictionary<string, string> _parameters = new Dictionary<string, string>();
 
         private readonly List<Measurement> _measurements = new List<Measurement>();
 
@@ -22,7 +22,17 @@ namespace Stanowisko.SharedClasses
 
         public string Summary { get; set; }
 
-        public Dictionary<string, string> Parameters { get { return _parameters; } }
+        public Dictionary<string, string> Parameters
+        {
+            set { _parameters = value; }
+            get { return _parameters; }
+        }
+
+        public Experiment(int id, String name)
+        {
+            Name = name;
+            Id = Id;
+        }
 
         public Experiment(String name)
         {

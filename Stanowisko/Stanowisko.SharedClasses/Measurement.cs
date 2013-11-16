@@ -24,6 +24,11 @@ namespace Stanowisko.SharedClasses
             File.WriteAllText("../../MeasurementID.csv", i.ToString());
         }
 
+        public Measurement(int id)
+        {
+            Id = id;
+        }
+
         public Measurement(List<Sample> samples)
         {
             Id = Convert.ToInt32(File.ReadAllText("../../MeasurementID.csv"));
