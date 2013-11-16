@@ -14,7 +14,7 @@ namespace Stanowisko.Exporter
 
         private static List<IMeasurementExporter> _measurementExporters;
 
-        public static Exporter()
+        static Exporter()
         {
             _measurementExporters = new List<IMeasurementExporter>();
             _measurementExporters.Add(new MockMeasurementExporter("Txt", "*.txt"));
