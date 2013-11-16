@@ -6,8 +6,8 @@ namespace Stanowisko.Persistance
 {
     public class Measurements : DAO
     {
-        readonly SQLiteDatabase _db = new SQLiteDatabase();
-        public Measurements(DBConnection connection) : base(connection)
+        
+        public Measurements(SQLiteDatabase db) : base(db)
         {
         }
 
@@ -21,14 +21,14 @@ namespace Stanowisko.Persistance
                 };
             try
             {
-                _db.Update("Measurements", data, where: String.Format("MEASUREMENTS.ID = {0}", measurement.Id.ToString()));
+                _db.Update("Measurements", data, String.Format("MEASUREMENTS.ID = {0}", measurement.Id));
             }
             catch (Exception)
             {
             }
         }
 
-        public void Add(Experiment experiment, Measurement measurement)
+        public void Add(Measurement measurement, Experiment experiment)
         {
             var data = new Dictionary<String, String>
                 {

@@ -1,18 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Stanowisko.SharedClasses;
 
 namespace Stanowisko.Persistance
 {
     public class Experiments : DAO
     {
-        readonly SQLiteDatabase _db = new SQLiteDatabase();
 
-        public Experiments(DBConnection connection)
-            : base(connection)
+        public Experiments(SQLiteDatabase db)
+            : base(db)
         {
         }
         public void Add(Experiment e)
@@ -24,7 +21,7 @@ namespace Stanowisko.Persistance
                     {"Description", e.Description},
                     {"Goal", e.Description},
                     {"result", e.Result.ToString()},
-                    {"Summary", e.Summart}
+                    {"Summary", e.Summary}
                 };
 
             try
@@ -46,7 +43,7 @@ namespace Stanowisko.Persistance
                     {"Description", e.Description},
                     {"Goal", e.Description},
                     {"result", e.Result.ToString()},
-                    {"Summary", e.Summart}
+                    {"Summary", e.Summary}
                 };
 
             var parameters = e.Parameters.Select(pair => new Dictionary<String, String>

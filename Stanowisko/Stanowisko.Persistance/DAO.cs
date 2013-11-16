@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Stanowisko.Persistance
+﻿namespace Stanowisko.Persistance
 {
     public abstract class DAO
     {
-        private readonly DBConnection _connection;
+        protected readonly SQLiteDatabase _db = new SQLiteDatabase();
 
-        protected DAO(DBConnection connection)
+        protected DAO(SQLiteDatabase db)
         {
-            _connection = connection;
+            _db = db;
         }
     }
 }
