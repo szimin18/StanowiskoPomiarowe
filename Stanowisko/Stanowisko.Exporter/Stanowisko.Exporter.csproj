@@ -44,9 +44,12 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CSVExperimentExporter.cs" />
     <Compile Include="Exporter.cs" />
     <Compile Include="IExperimentExporter.cs" />
     <Compile Include="IMeasurementExporter.cs" />
+    <Compile Include="MockExperimentExporter.cs" />
+    <Compile Include="MockMeasurementExporter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

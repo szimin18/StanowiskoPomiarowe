@@ -14,17 +14,21 @@ namespace Stanowisko.Exporter
 
         private static List<IMeasurementExporter> _measurementExporters;
 
+        public static Exporter()
+        {
+            _measurementExporters = new List<IMeasurementExporter>();
+            _measurementExporters.Add(new MockMeasurementExporter("Txt", "*.txt"));
+        }
+
         public static void ExportMeasurement(Measurement measurement)
         {
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
             String filter = "";
-            /*
+            
             foreach (IMeasurementExporter exporter in _measurementExporters) 
             {
-                saveFileDialog1.Filter += exporter.TypeName + "|" + exporter.TypeExtension + "|";
-            }*/
-
-            filter = "John|*.john|Resiak|*.rsk|";
+                filter += exporter.TypeName + "|" + exporter.TypeExtension + "|";
+            }
             saveFileDialog1.Filter = filter.TrimEnd(new char[] { '|' });
             saveFileDialog1.Title = "Export measurement";
             saveFileDialog1.ShowDialog();
