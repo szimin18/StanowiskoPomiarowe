@@ -7,11 +7,15 @@ namespace Stanowisko.SharedClasses
 
     public class Measurement
     {
-        protected readonly List<Sample> _samples = new List<Sample>();
+        private readonly List<Sample> _samples = new List<Sample>();
 
         public int Id { get; private set; }
 
         public double Result { get; set; }
+
+        public Sample Beginning { get; set; }
+
+        public Sample End { get; set; }
 
         public Measurement()
         {
@@ -38,7 +42,7 @@ namespace Stanowisko.SharedClasses
             if (_samples != null) _samples.RemoveAll(samples.Contains);
         }
 
-        public List<Sample> GetSamples()
+        public List<Sample> Samples()
         {
             var res = new List<Sample>();
             if (_samples != null) res.AddRange(_samples);
