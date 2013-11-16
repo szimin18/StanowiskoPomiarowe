@@ -43,7 +43,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DAO.cs" />
-    <Compile Include="DBConnection.cs" />
     <Compile Include="Experiments.cs" />
     <Compile Include="IPersistance.cs" />
     <Compile Include="Measurements.cs" />
