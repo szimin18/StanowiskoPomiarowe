@@ -47,7 +47,7 @@ namespace Stanowisko.SharedClasses
             if (_samples != null) _samples.RemoveAll(samples.Contains);
         }
 
-        public List<Sample> Samples()
+        public List<Sample> GetSamples()
         {
             var res = new List<Sample>();
             if (_samples != null) res.AddRange(_samples);
