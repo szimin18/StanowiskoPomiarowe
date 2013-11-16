@@ -11,16 +11,18 @@ namespace Stanowisko.SharedClasses
         private readonly List<Measurement> _measurements = new List<Measurement>();
 
         public int Id { get; private set; }
-        
+
         public string Name { get; private set; }
-        
+
         public string Description { get; set; }
-        
+
         public string Goal { get; set; }
-        
+
         public double Result { get; set; }
-        
+
         public string Summary { get; set; }
+
+        public Dictionary<string, string> Parameters { get { return _parameters; } }
 
         public Experiment(String name)
         {
@@ -31,7 +33,7 @@ namespace Stanowisko.SharedClasses
         }
 
 
-         
+
         public void AddMeasurements(List<Measurement> ms)
         {
             _measurements.AddRange(ms);
