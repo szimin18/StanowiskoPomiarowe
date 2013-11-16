@@ -6,7 +6,9 @@ using Stanowisko.SharedClasses;
 
 namespace Stanowisko.Persistance
 {
-    class Samples
+    
+
+    class Samples : ISamples
     {
         readonly SQLiteDatabase _db = new SQLiteDatabase();
 

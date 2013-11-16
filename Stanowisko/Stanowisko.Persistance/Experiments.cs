@@ -5,13 +5,14 @@ using Stanowisko.SharedClasses;
 
 namespace Stanowisko.Persistance
 {
-    public class Experiments : DAO
+    public class Experiments : DAO, IExperiments
     {
 
         public Experiments(SQLiteDatabase db)
             : base(db)
         {
         }
+
         public void Add(Experiment e)
         {
             var data = new Dictionary<String, String>
@@ -34,6 +35,7 @@ namespace Stanowisko.Persistance
             }
 
         }
+
         public void Update(Experiment e)
         {
             var data = new Dictionary<String, String>
