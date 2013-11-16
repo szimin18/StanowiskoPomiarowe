@@ -1,36 +1,49 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Stanowisko.SharedClasses
 {
     public class Experiment
     {
-        private static int _nextId;
-
-        private readonly Dictionary<string, string> _parameters = new Dictionary<string, string>();
+        private Dictionary<string, string> _parameters = new Dictionary<string, string>();
 
         private readonly List<Measurement> _measurements = new List<Measurement>();
 
         public int Id { get; private set; }
-        
+
         public string Name { get; private set; }
-        
+
         public string Description { get; set; }
-        
+
         public string Goal { get; set; }
-        
+
         public double Result { get; set; }
-        
-        public string Summart { get; set; }
+
+        public string Summary { get; set; }
+
+        public Dictionary<string, string> Parameters
+        {
+            set { _parameters = value; }
+            get { return _parameters; }
+        }
+
+        public Experiment(int id, String name)
+        {
+            Name = name;
+            Id = Id;
+        }
 
         public Experiment(String name)
         {
-            Id = _nextId++;
+            Id = Convert.ToInt32(File.ReadAllText("../../ExperimentID.csv"));
+            var i = Id + 1;
+            File.WriteAllText("../../ExperimentID.csv", i.ToString());
             Name = name;
         }
 
 
-         
+
         public void AddMeasurements(List<Measurement> ms)
         {
             _measurements.AddRange(ms);

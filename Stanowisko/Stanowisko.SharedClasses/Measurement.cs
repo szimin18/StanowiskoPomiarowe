@@ -1,26 +1,39 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 
 namespace Stanowisko.SharedClasses
 {
 
     public class Measurement
     {
-        protected readonly List<Sample> _samples = new List<Sample>();
-
-        private static int _nextId;
+        private readonly List<Sample> _samples = new List<Sample>();
 
         public int Id { get; private set; }
 
         public double Result { get; set; }
 
+        public Sample Beginning { get; set; }
+
+        public Sample End { get; set; }
+
         public Measurement()
         {
-            Id = _nextId++;
+            Id = Convert.ToInt32(File.ReadAllText("../../MeasurementID.csv"));
+            var i = Id + 1;
+            File.WriteAllText("../../MeasurementID.csv", i.ToString());
+        }
+
+        public Measurement(int id)
+        {
+            Id = id;
         }
 
         public Measurement(List<Sample> samples)
         {
-            Id = _nextId++;
+            Id = Convert.ToInt32(File.ReadAllText("../../MeasurementID.csv"));
+            var i = Id + 1;
+            File.WriteAllText("../../MeasurementID.csv", i.ToString());
             Add(samples);
         }
 
@@ -34,7 +47,7 @@ namespace Stanowisko.SharedClasses
             if (_samples != null) _samples.RemoveAll(samples.Contains);
         }
 
-        public List<Sample> GetSamples()
+        public List<Sample> Samples()
         {
             var res = new List<Sample>();
             if (_samples != null) res.AddRange(_samples);

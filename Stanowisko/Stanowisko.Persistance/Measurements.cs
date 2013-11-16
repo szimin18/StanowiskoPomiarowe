@@ -1,31 +1,86 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Stanowisko.SharedClasses;
 
 namespace Stanowisko.Persistance
 {
-    public class Measurements : DAO
+    public class Measurements : DAO, IMeasurements
     {
-        public Measurements(DBConnection connection) : base(connection)
+        private Samples _samplesDAO ;
+
+        public Measurements(SQLiteDatabase db)
+            : base(db)
         {
+            _samplesDAO = new Samples(db);
         }
 
-        public void Remove(Measurement measurement)
+        public void Add(Measurement measurement, Experiment experiment)
         {
-            throw new NotImplementedException();
+            var data = new Dictionary<String, String>
+                {
+                    {"ID", measurement.Id.ToString()},
+                    {"experiment", experiment.Id.ToString()},
+                    {"result", experiment.Result.ToString()},
+                    {"beginning", measurement.Beginning.Id.ToString()},
+                    {"end", measurement.End.Id.ToString()}
+                };
+
+            try
+            {
+                _db.Insert("Measurements", data);
+            }
+            catch (Exception)
+            {
+            }
         }
 
-        public void RemoveSamples(Measurement measurement, IEnumerable<int> range)
+        public void Update(Measurement measurement, Experiment experiment)
         {
-            throw new NotImplementedException();
+            var data = new Dictionary<String, String>
+                {
+                    {"ID", measurement.Id.ToString()},
+                    {"experiment", experiment.Id.ToString()},
+                    {"result", experiment.Result.ToString()},
+                    {"beginning", measurement.Beginning.Id.ToString()},
+                    {"end", measurement.End.Id.ToString()}
+                };
+
+            try
+            {
+                _db.Update("Measurements", data, String.Format("MEASUREMENTS.ID = {0}", measurement.Id));
+            }
+            catch (Exception)
+            {
+            }
         }
 
-        public void Add(Experiment experimentId, Measurement measurement)
+        public List<Measurement> GetAll(Experiment experiment)
         {
-            throw new NotImplementedException();
+            var columns = new List<string>{"ID", "result", "beginning", "end"};
+            var data = _db.GetAll("Measurements", "experiment", experiment.Id.ToString(), columns);
+            
+            var res = new List<Measurement>();
+            
+            foreach (var row in data)
+            {
+                var m = new Measurement(Convert.ToInt32(row["ID"]));
+
+                var samples = _samplesDAO.GetAll(m);
+                var beginning = samples.Where(s => s.Id == Convert.ToInt32(row["beginning"])).ToList()[0];
+                var end = samples.Where(s => s.Id == Convert.ToInt32(row["end"])).ToList()[0];
+                var result = Convert.ToDouble(row["result"]);
+
+                m.Add(samples);
+                m.Beginning = beginning;
+                m.End = end;
+                m.Result = result;
+
+                res.Add(m);
+            }
+
+            return res;
+
         }
     }
 }
