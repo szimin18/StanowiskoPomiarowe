@@ -14,14 +14,14 @@ namespace Stanowisko.Testy
     [TestClass]
     class ExperimentsTest
     {
-        internal class DataBaseStub : DBConnection
+        internal class DataBaseStub : SQLiteDatabase
         {
             public List<Experiment> Exs = new List<Experiment>();
 
         }
 
         private DataBaseStub _dbStub;
-        private Experiments _es ;
+        private Experiments _es;
 
         public void SetUp()
         {
@@ -53,24 +53,5 @@ namespace Stanowisko.Testy
             Assert.IsTrue(res == e);
         }
 
-        [TestMethod]
-        public void GetExistingExperiment()
-        {
-            SetUp();
-            var e = new Experiment("e");
-            _dbStub.Exs.Add(e);
-
-            var res = _es.Get(e.Id);
-            Assert.IsTrue(e == res);
-        }
-
-        [TestMethod]
-        public void GetUnexistingExperiment()
-        {
-            SetUp();
-
-            var res = _es.Get(100);
-            Assert.IsTrue(res == null);
-        }
     }
 }
