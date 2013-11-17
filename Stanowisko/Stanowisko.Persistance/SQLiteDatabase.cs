@@ -6,7 +6,7 @@ using System.Data.SQLite;
 
 namespace Stanowisko.Persistance
 {
-    public class SQLiteDatabase
+    public class SQLiteDatabase : ISQLiteDatabase
     {
         readonly String _dbConnection;
 

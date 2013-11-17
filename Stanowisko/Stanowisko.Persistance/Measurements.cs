@@ -9,7 +9,7 @@ namespace Stanowisko.Persistance
     {
         private Samples _samplesDAO ;
 
-        public Measurements(SQLiteDatabase db)
+        public Measurements(ISQLiteDatabase db)
             : base(db)
         {
             _samplesDAO = new Samples(db);

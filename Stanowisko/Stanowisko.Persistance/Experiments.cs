@@ -8,7 +8,7 @@ namespace Stanowisko.Persistance
     public class Experiments : DAO, IExperiments
     {
         private Measurements _measurementDAO;
-        public Experiments(SQLiteDatabase db)
+        public Experiments(ISQLiteDatabase db)
             : base(db)
         {
             _measurementDAO = new Measurements(db);
