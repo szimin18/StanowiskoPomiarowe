@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace Stanowisko.SharedClasses
 {
-    public class Experiment
+    public class Experiment : IEquatable<Experiment>
     {
         private Dictionary<string, string> _parameters = new Dictionary<string, string>();
 
@@ -31,7 +32,7 @@ namespace Stanowisko.SharedClasses
         public Experiment(int id, String name)
         {
             Name = name;
-            Id = Id;
+            Id = id;
         }
 
         public Experiment(String name)
@@ -41,8 +42,6 @@ namespace Stanowisko.SharedClasses
             File.WriteAllText("../../ExperimentID.csv", i.ToString());
             Name = name;
         }
-
-
 
         public void AddMeasurements(List<Measurement> ms)
         {
@@ -62,6 +61,18 @@ namespace Stanowisko.SharedClasses
         public void RemoveDescription(string name)
         {
             _parameters.Remove(name);
+        }
+
+        public bool Equals(Experiment e)
+        {
+            return e.Id == Id &&
+                e.Name.Equals(Name) &&
+                e.Result.Equals(Result) &&
+                e.Summary.Equals(Summary) &&
+                e.Goal.Equals(Goal) &&
+                e.Description.Equals(Description) &&
+                e._measurements.All(m => _measurements.Contains(m)) &&
+                e.Parameters.Equals(Parameters);
         }
     }
 }
