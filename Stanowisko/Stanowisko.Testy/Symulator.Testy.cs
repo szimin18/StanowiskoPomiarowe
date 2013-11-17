@@ -15,21 +15,33 @@ namespace Stanowisko.Testy
             _simulator = new Simulator();
         }
 
-        //checks for validity of opening connection when it is opened or closed
+        //checks for validity of opening connection
         [TestMethod]
-        public void ConnectingTest()
+        public void StartConnectionTest1()
+        {
+            Assert.AreEqual(_simulator.StartConnection(), null);
+        }
+
+        //checks for validity of opening connection when it is already opened
+        [TestMethod]
+        public void StartConnectionTest2()
         {
             Assert.AreEqual(_simulator.StartConnection(), null);
             Assert.AreEqual(_simulator.StartConnection(), "Połączenie już istnieje");
         }
 
-        //checks for validity of multiple following reqests to to stop connection when it is opened or closed
+        //checks for validity of reqests to stop connection when it is closed
         [TestMethod]
-        public void DisconnectingTest()
+        public void StopConnectionTest1()
         {
             _simulator.StopConnection();
+        }
+
+        //checks for validity of reqests to stop connection when it is opened
+        [TestMethod]
+        public void StopConnectionTest1()
+        {
             _simulator.StartConnection();
-            _simulator.StopConnection();
             _simulator.StopConnection();
         }
 
