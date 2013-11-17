@@ -5,9 +5,7 @@ using Stanowisko.SharedClasses;
 
 namespace Stanowisko.Persistance
 {
-
-
-    class Samples : DAO, ISamples
+    public class Samples : DAO, ISamples
     {
 
         public Samples(SQLiteDatabase db) : base(db)
