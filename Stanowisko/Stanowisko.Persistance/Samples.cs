@@ -8,7 +8,7 @@ namespace Stanowisko.Persistance
     public class Samples : DAO, ISamples
     {
 
-        public Samples(ISQLiteDatabase db)
+        public Samples(IDatabase db)
             : base(db)
         {
         }

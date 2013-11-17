@@ -14,7 +14,7 @@ namespace Stanowisko.Testy
     [TestClass]
     public class ExperimentsTest
     {
-        private DataBaseMock db;
+        private InMemoryDatabase db;
         private Experiments experimentsDAO;
 
         Experiment e;
@@ -36,7 +36,7 @@ namespace Stanowisko.Testy
 
         public void SetUp()
         {
-            db = new DataBaseMock();
+            db = new InMemoryDatabase();
             experimentsDAO = new Experiments(db);
             e = new Experiment(1, "e")
                 {

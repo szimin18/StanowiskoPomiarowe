@@ -10,14 +10,14 @@ namespace Stanowisko.Testy
     [TestClass]
     public class SamplesTest
     {
-        
-        private DataBaseMock db;
+
+        private InMemoryDatabase db;
 
         private Samples samplesDAO;
 
         public void SetUp()
         {
-            db = new DataBaseMock();
+            db = new InMemoryDatabase();
             samplesDAO = new Samples(db);
         }
 

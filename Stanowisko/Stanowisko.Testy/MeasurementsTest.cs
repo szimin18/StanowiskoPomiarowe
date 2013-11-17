@@ -10,7 +10,7 @@ namespace Stanowisko.Testy
     [TestClass]
     public class MeasurementsTest
     {
-        private DataBaseMock db;
+        private InMemoryDatabase db;
 
         private Measurements measurementDAO;
 
@@ -29,7 +29,7 @@ namespace Stanowisko.Testy
 
         public void SetUp()
         {
-            db = new DataBaseMock();
+            db = new InMemoryDatabase();
             measurementDAO = new Measurements(db);
 
             m1 = new Measurement(1) { Result = 3.14, Beginning = s1, End = s2 };

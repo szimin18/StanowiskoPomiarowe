@@ -7,7 +7,7 @@ using Stanowisko.Persistance;
 
 namespace Stanowisko.Testy
 {
-    class DataBaseMock : ISQLiteDatabase
+    public class InMemoryDatabase : IDatabase
     {
         public List<Dictionary<string, string>> Experiments = new List<Dictionary<string, string>>();
         public List<Dictionary<string, string>> Measurements = new List<Dictionary<string, string>>();
