@@ -9,24 +9,26 @@ using Stanowisko.SharedClasses;
 
 namespace Stanowisko.Exporter
 {
-    class CSVExperimentExporter : IExperimentExporter
+    class CSVMeasurementExporter : IMeasurementExporter
     {
-        public CSVExperimentExporter()
+        public CSVMeasurementExporter()
         {
             TypeName = "CSV";
             TypeExtension = "csv";
         }
 
-        public bool Export(FileStream fileStream, Experiment experiment)
+        public bool Export(FileStream fileStream, Measurement measurement)
         {
             try
             {
                 StreamWriter streamWriter = new StreamWriter(fileStream);
-                streamWriter.WriteLine("Name," + experiment.Name);
-                streamWriter.WriteLine("Goal," + experiment.Goal);
-                streamWriter.WriteLine("Result," + experiment.Result);
-                streamWriter.WriteLine("Description," + experiment.Description);
-                streamWriter.WriteLine("Summary," + experiment.Summart);
+                streamWriter.WriteLine("Result," + measurement.Result);
+                streamWriter.WriteLine();
+                streamWriter.WriteLine("Time,Value");
+                foreach (Sample sample in measurement.GetSamples() )
+                {
+                    streamWriter.WriteLine(sample.Time + "," + sample.Value);
+                }
             }
             catch (Exception e)
             {

@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CSVExperimentExporter.cs" />
+    <Compile Include="CSVMeasurementExporter.cs" />
     <Compile Include="Exporter.cs" />
     <Compile Include="IExperimentExporter.cs" />
     <Compile Include="IMeasurementExporter.cs" />
