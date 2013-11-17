@@ -66,13 +66,13 @@ namespace Stanowisko.SharedClasses
         public bool Equals(Experiment e)
         {
             return e.Id == Id &&
-                e.Name.Equals(Name) &&
-                e.Result.Equals(Result) &&
-                e.Summary.Equals(Summary) &&
-                e.Goal.Equals(Goal) &&
-                e.Description.Equals(Description) &&
-                e._measurements.All(m => _measurements.Contains(m)) &&
-                e.Parameters.Equals(Parameters);
+                     e.Name.Equals(Name) &&
+                     e.Result.Equals(Result) &&
+                     e.Summary.Equals(Summary) &&
+                     e.Goal.Equals(Goal) &&
+                     e.Description.Equals(Description) &&
+                     e._measurements.All(m => _measurements.Contains(m)) &&
+                     e.Parameters.Equals(Parameters);
         }
     }
 }

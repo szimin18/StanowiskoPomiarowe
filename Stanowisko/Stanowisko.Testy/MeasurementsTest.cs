@@ -86,7 +86,7 @@ namespace Stanowisko.Testy
         }
 
         [TestMethod]
-        public void GetAllTest()
+        public void GetAllSamples()
         {
             SetUp();
 

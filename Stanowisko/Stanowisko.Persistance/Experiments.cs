@@ -21,7 +21,7 @@ namespace Stanowisko.Persistance
                     {"ID", e.Id.ToString()},
                     {"name", e.Name},
                     {"description", e.Description},
-                    {"goal", e.Description},
+                    {"goal", e.Goal},
                     {"result", e.Result.ToString()},
                     {"summary", e.Summary}
                 };
@@ -29,6 +29,7 @@ namespace Stanowisko.Persistance
             try
             {
                 _db.Insert("Experiments", data);
+                _db.Insert("Parameters", e.Parameters);
             }
             catch (Exception)
             {
@@ -44,7 +45,7 @@ namespace Stanowisko.Persistance
                     {"ID", e.Id.ToString()},
                     {"name", e.Name},
                     {"description", e.Description},
-                    {"goal", e.Description},
+                    {"goal", e.Goal},
                     {"result", e.Result.ToString()},
                     {"summary", e.Summary}
                 };

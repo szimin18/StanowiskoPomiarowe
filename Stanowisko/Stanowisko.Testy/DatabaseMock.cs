@@ -12,7 +12,7 @@ namespace Stanowisko.Testy
         public List<Dictionary<string, string>> Experiments = new List<Dictionary<string, string>>();
         public List<Dictionary<string, string>> Measurements = new List<Dictionary<string, string>>();
         public List<Dictionary<string, string>> Samples = new List<Dictionary<string, string>>();
-
+        public List<Dictionary<string, string>> Parameters = new List<Dictionary<string, string>>();
         private List<Dictionary<string, string>> table;
 
         private void setTable(string tableName)
@@ -28,7 +28,10 @@ namespace Stanowisko.Testy
                 case "Experiments":
                     table = Experiments;
                     break;
-}
+                case "Parameters":
+                    table = Parameters;
+                    break;
+            }
         }
 
         public List<Dictionary<string, string>> GetAll(string tableName, List<string> columns)
