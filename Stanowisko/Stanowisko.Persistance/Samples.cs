@@ -37,9 +37,9 @@ namespace Stanowisko.Persistance
             var data = _db.GetAll("Samples", "measurement", m.Id.ToString(), columns);
             
             var result = data.Select(row =>
-                new Sample( Convert.ToInt32(row["Id"]),
-                            Convert.ToDouble(row["value"]),
-                            Convert.ToDouble(row["time"]))).ToList();
+                new Sample( Convert.ToInt32(row["ID"]),
+                            Convert.ToDouble(row["value"].Replace(".", ",")),
+                            Convert.ToDouble(row["time"].Replace(".", ",")))).ToList();
            
             return result;
         }
