@@ -5,23 +5,9 @@ namespace Stanowisko.Symulator
 {
     public class Simulator : IMeasuringDevice
     {
-        #region Private Member Variables
-        private DateTime _startingTime;
-        private bool _isConnected = false;
-        #endregion
-
         #region Private Properties
-        private DateTime StartingTime
-        {
-            set { _startingTime = value; }
-            get { return _startingTime; }
-        }
-
-        private bool IsConnected
-        {
-            set { _isConnected = value; }
-            get { return _isConnected; }
-        }
+        private DateTime StartingTime { set; get; }
+        private bool IsConnected { set; get; }
         #endregion
 
         #region Private Methods
