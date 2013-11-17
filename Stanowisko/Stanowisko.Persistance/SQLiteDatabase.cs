@@ -129,22 +129,7 @@ namespace Stanowisko.Persistance
             return returnCode;
         }
 
-        public bool Delete(String tableName, String where)
-        {
-            var returnCode = true;
-            
-            try
-            {
-                ExecuteNonQuery(String.Format("delete from {0} where {1};", tableName, where));
-            }
-            catch (Exception)
-            {
-                returnCode = false;
-            }
-            
-            return returnCode;
-        }
-        public bool Insert(String tableName, Dictionary<String, String> data)
+       public bool Insert(String tableName, Dictionary<String, String> data)
         {
             var columns = "";
             var values = "";
