@@ -39,7 +39,7 @@ namespace Stanowisko.Testy
 
         //checks for validity of reqests to stop connection when it is opened
         [TestMethod]
-        public void StopConnectionTest1()
+        public void StopConnectionTest2()
         {
             _simulator.StartConnection();
             _simulator.StopConnection();
