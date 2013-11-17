@@ -10,78 +10,7 @@ namespace Stanowisko.Testy
     [TestClass]
     public class MeasurementsTest
     {
-        internal class DataBaseStub : ISQLiteDatabase
-        {
-            public List<Dictionary<string, string>> Measurements = new List<Dictionary<string, string>>();
-            public List<Dictionary<string, string>> Samples = new List<Dictionary<string, string>>();
-
-
-            public List<Dictionary<string, string>> GetAll(string tableName, List<string> columns)
-            {
-                return new List<Dictionary<string, string>>();
-            }
-
-            public List<Dictionary<string, string>> GetAll(string tableName, string idName, string idValue, List<string> columns)
-            {
-                var table = new List<Dictionary<string, string>>();
-                switch (tableName)
-                {
-                    case "Samples":
-                        table = Samples;
-                        break;
-                    case "Measurements":
-                        table = Measurements;
-                        break;
-                }
-               
-                return (from row in table
-                        where row[idName] == idValue
-                        select columns.ToDictionary(column => column, column => row[column])).ToList();
-            }
-
-            public bool Update(string tableName, Dictionary<string, string> data, string where)
-            {
-                var table = new List<Dictionary<string, string>>();
-                switch (tableName)
-                {
-                    case "Samples":
-                        table = Samples;
-                        break;
-                    case "Measurements":
-                        table = Measurements;
-                        break;
-                }
-
-                var e = table.Find(dictionary => dictionary["ID"] == data["ID"]);
-                var i = table.IndexOf(e);
-
-                table[i] = data;
-
-                return false;
-            }
-
-            public bool Delete(string tableName, string @where)
-            {
-                return false;
-            }
-
-            public bool Insert(string tableName, Dictionary<string, string> data)
-            {
-                switch (tableName)
-                {
-                    case "Samples":
-                        Samples.Add(data);
-                        return true;
-                    case "Measurements":
-                        Measurements.Add(data);
-                        return true;
-                    default:
-                        return false;
-                }
-            }
-        }
-
-        private DataBaseStub db;
+        private DataBaseMock db;
 
         private Measurements measurementDAO;
 
@@ -100,7 +29,7 @@ namespace Stanowisko.Testy
 
         public void SetUp()
         {
-            db = new DataBaseStub();
+            db = new DataBaseMock();
             measurementDAO = new Measurements(db);
 
             m1 = new Measurement(1) { Result = 3.14, Beginning = s1, End = s2 };

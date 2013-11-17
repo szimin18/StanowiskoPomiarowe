@@ -10,59 +10,14 @@ namespace Stanowisko.Testy
     [TestClass]
     public class SamplesTest
     {
-        internal class DataBaseStub : ISQLiteDatabase
-        {
-            public List<Dictionary<string, string>> Samples = new List<Dictionary<string, string>>();
-
-            public List<Dictionary<string, string>> GetAll(string tableName, List<string> columns)
-            {
-                return new List<Dictionary<string, string>>();
-            }
-
-            public List<Dictionary<string, string>> GetAll(String tableName, String idName, String idValue, List<String> columns)
-            {
-                var res = new List<Dictionary<string, string>>();
-
-                if (tableName == "Samples")
-                {
-                    res.AddRange(from sample in Samples
-                                 where sample[idName] == idValue
-                                 select columns.ToDictionary(column => column, column => sample[column]));
-                }
-
-                return res;
-            }
-
-            public bool Update(string tableName, Dictionary<string, string> data, string @where)
-            {
-                return false;
-            }
-
-            public bool Delete(string tableName, string @where)
-            {
-                return false;
-            }
-
-            public bool Insert(string tableName, Dictionary<string, string> data)
-            {
-                switch (tableName)
-                {
-                    case "Samples":
-                        Samples.Add(data);
-                        return true;
-                    default:
-                        return false;
-                }
-            }
-        }
-
-        private DataBaseStub db;
+        
+        private DataBaseMock db;
 
         private Samples samplesDAO;
 
         public void SetUp()
         {
-            db = new DataBaseStub();
+            db = new DataBaseMock();
             samplesDAO = new Samples(db);
         }
 
