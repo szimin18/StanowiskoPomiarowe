@@ -53,12 +53,12 @@ namespace Stanowisko.SharedClasses
             if (ms != null) _measurements.RemoveAll(ms.Contains);
         }
 
-        public void AddDescription(string name, string desc)
+        public void AddParameters(string name, string desc)
         {
             _parameters.Add(name, desc);
         }
 
-        public void RemoveDescription(string name)
+        public void RemoveParameter(string name)
         {
             _parameters.Remove(name);
         }
@@ -68,7 +68,7 @@ namespace Stanowisko.SharedClasses
             return new Dictionary<string, string>(_parameters);
         }
 
-        public List<Measurement> getMeasurements()
+        public List<Measurement> GetMeasurements()
         {
             return new List<Measurement>(_measurements);
         }
