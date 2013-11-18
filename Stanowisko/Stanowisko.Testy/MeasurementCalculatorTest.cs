@@ -21,8 +21,8 @@ namespace CalculatorTest
             Measurement firstMeasurement = new Measurement(readings);
             MeasurementCalculator firstTarget = new MeasurementCalculator(firstMeasurement);
 
-            Assert.AreEqual(0, firstTarget.CurveBeginning);
-            Assert.AreEqual(9, firstTarget.CurveEnd);
+            Assert.AreEqual(0, firstTarget.GetBoundaries().Item1);
+            Assert.AreEqual(9, firstTarget.GetBoundaries().Item2);
 
         }
 
@@ -48,8 +48,8 @@ namespace CalculatorTest
             Measurement secondMeasurement = new Measurement(secondReadings);
             MeasurementCalculator secondTarget = new MeasurementCalculator(secondMeasurement);
 
-            Assert.AreEqual(4, secondTarget.CurveBeginning);
-            Assert.AreEqual(14, secondTarget.CurveEnd);
+            Assert.AreEqual(4, secondTarget.GetBoundaries().Item1);
+            Assert.AreEqual(14, secondTarget.GetBoundaries().Item2);
         }
     }
 }
