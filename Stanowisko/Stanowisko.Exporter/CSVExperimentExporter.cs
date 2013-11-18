@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using System.Globalization;
 using System.IO;
 using Stanowisko.SharedClasses;
 
@@ -14,7 +15,7 @@ namespace Stanowisko.Exporter
         public CSVExperimentExporter()
         {
             TypeName = "CSV";
-            TypeExtension = "csv";
+            TypeExtension = "*.csv";
         }
 
         public bool Export(FileStream fileStream, Experiment experiment)
@@ -24,7 +25,7 @@ namespace Stanowisko.Exporter
                 StreamWriter streamWriter = new StreamWriter(fileStream);
                 streamWriter.WriteLine("Name," + experiment.Name);
                 streamWriter.WriteLine("Goal," + experiment.Goal);
-                streamWriter.WriteLine("Result," + experiment.Result);
+                streamWriter.WriteLine("Result," + experiment.Result.ToString(CultureInfo.InvariantCulture));
                 streamWriter.WriteLine("Description," + experiment.Description);
                 streamWriter.WriteLine("Summary," + experiment.Summart);
             }

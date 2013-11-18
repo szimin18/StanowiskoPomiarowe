@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using System.Globalization;
 using System.IO;
 using Stanowisko.SharedClasses;
 
@@ -14,7 +15,7 @@ namespace Stanowisko.Exporter
         public CSVMeasurementExporter()
         {
             TypeName = "CSV";
-            TypeExtension = "csv";
+            TypeExtension = "*.csv";
         }
 
         public bool Export(FileStream fileStream, Measurement measurement)
@@ -22,13 +23,15 @@ namespace Stanowisko.Exporter
             try
             {
                 StreamWriter streamWriter = new StreamWriter(fileStream);
-                streamWriter.WriteLine("Result," + measurement.Result);
+                streamWriter.WriteLine("Result," + measurement.Result.ToString(CultureInfo.InvariantCulture));
                 streamWriter.WriteLine();
                 streamWriter.WriteLine("Time,Value");
                 foreach (Sample sample in measurement.GetSamples() )
                 {
-                    streamWriter.WriteLine(sample.Time + "," + sample.Value);
+                    streamWriter.WriteLine(sample.Time.ToString(CultureInfo.InvariantCulture) +
+                        "," + sample.Value.ToString(CultureInfo.InvariantCulture));
                 }
+                streamWriter.Close();
             }
             catch (Exception e)
             {
