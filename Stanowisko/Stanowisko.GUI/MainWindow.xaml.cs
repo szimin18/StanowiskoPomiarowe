@@ -30,7 +30,7 @@ namespace Stanowisko.GUI
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            Exporter.Exporter.ExportMeasurement(null);
+            Exporter.Exporter.ExportMeasurement(new Measurement());
         }
 
 
