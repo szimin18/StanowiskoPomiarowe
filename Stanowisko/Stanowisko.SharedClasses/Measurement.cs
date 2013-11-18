@@ -50,9 +50,7 @@ namespace Stanowisko.SharedClasses
 
         public List<Sample> GetSamples()
         {
-            var res = new List<Sample>();
-            if (_samples != null) res.AddRange(_samples);
-            return res;
+           return new List<Sample>(_samples);
         }
 
         public bool Equals(Measurement m)
