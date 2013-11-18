@@ -63,6 +63,16 @@ namespace Stanowisko.SharedClasses
             _parameters.Remove(name);
         }
 
+        public Dictionary<string, string> GetParameters()
+        {
+            return new Dictionary<string, string>(_parameters);
+        }
+
+        public List<Measurement> getMeasurements()
+        {
+            return new List<Measurement>(_measurements);
+        }
+
         public bool Equals(Experiment e)
         {
             return e.Id == Id &&
