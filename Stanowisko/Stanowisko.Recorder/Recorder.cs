@@ -3,18 +3,20 @@ using Stanowisko.Symulator;
 using System;
 using System.Collections.Generic;
 using System.Timers;
+using System.Windows.Forms;
 
-namespace Rejestrator
+namespace Stanowisko.Recorder
 {
-    class Recorder : IRecorder
+    public class Recorder : IRecorder
     {
         #region Private Member Variables
         private const uint _defaultPeriod = 1000;
         private uint _period;
         private List<Sample> _samples;
-        private bool _isRecording;
+        private bool _isRecording = false;
+        private bool _isConnected = false;
         private IMeasuringDevice _measuringDevice;
-        private Timer _timer;
+        private System.Timers.Timer _timer;
         #endregion
 
         #region Private Methods
@@ -34,7 +36,7 @@ namespace Rejestrator
         {
             this._measuringDevice = measuringDevice;
             _period = _defaultPeriod;
-            _timer = new Timer(_period);
+            _timer = new System.Timers.Timer(_period);
             _timer.Elapsed += new ElapsedEventHandler(_timer_Elapsed);
             _samples = new List<Sample>();
         }
@@ -43,6 +45,14 @@ namespace Rejestrator
         #region Public Methods
         public void startRecording()
         {
+            if (!_isConnected)
+            {
+                string errorMessage = _measuringDevice.StartConnection();
+                if (errorMessage != null)
+                {
+                    MessageBox.Show(errorMessage);
+                }
+            }
             _isRecording = true;
             _timer.Start();
         }
@@ -50,6 +60,8 @@ namespace Rejestrator
         public void stopRecording()
         {
             _timer.Stop();
+            _measuringDevice.StopConnection();
+            _isConnected = false;
             _isRecording = false;
         }
 
