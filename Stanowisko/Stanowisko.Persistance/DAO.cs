@@ -1,15 +1,12 @@
-﻿using System.Collections.Generic;
-using Stanowisko.SharedClasses;
-
-namespace Stanowisko.Persistance
+﻿namespace Stanowisko.Persistance
 {
     public abstract class DAO
     {
-        protected readonly IDatabase _db = new SQLiteDatabase();
+        protected readonly IDatabase Db = new SQLiteDatabase();
 
         protected DAO(IDatabase db)
         {
-            _db = db;
+            Db = db;
         }
 
     }

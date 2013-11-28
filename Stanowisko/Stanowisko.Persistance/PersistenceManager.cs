@@ -3,7 +3,7 @@ using Stanowisko.SharedClasses;
 
 namespace Stanowisko.Persistance
 {
-    class PersistenceManager :IPersistenceManager
+    class PersistenceManager : IPersistenceManager
     {
         private readonly Experiments _experiments;
 
@@ -26,12 +26,12 @@ namespace Stanowisko.Persistance
 
         public void AddMeasurement(Measurement m, Experiment e)
         {
-            _measurements.Add(m,e);
+            _measurements.Add(m, e);
         }
 
         public void AddSample(Sample s, Measurement m)
         {
-            _samples.Add(s,m);
+            _samples.Add(s, m);
         }
 
         public void UpdateExperiment(Experiment e)
@@ -41,7 +41,7 @@ namespace Stanowisko.Persistance
 
         public void UpdateMeasurement(Measurement m, Experiment e)
         {
-            _measurements.Update(m,e);
+            _measurements.Update(m, e);
         }
 
         public List<Experiment> GetAllExperiments()

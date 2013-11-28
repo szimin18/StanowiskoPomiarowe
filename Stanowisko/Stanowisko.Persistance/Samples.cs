@@ -18,7 +18,7 @@ namespace Stanowisko.Persistance
             var data = ToJSON(sample, measurement);
             try
             {
-                _db.Insert("Samples", data);
+                Db.Insert("Samples", data);
             }
             catch (Exception)
             {
@@ -28,13 +28,13 @@ namespace Stanowisko.Persistance
         public List<Sample> GetAll(Measurement m)
         {
             var columns = new List<string> { "ID", "value", "time" };
-            var data = _db.GetAll("Samples", "measurement", m.Id.ToString(), columns);
-            
+            var data = Db.GetAll("Samples", "measurement", m.Id.ToString(), columns);
+
             var result = data.Select(row =>
-                new Sample( Convert.ToInt32(row["ID"]),
+                new Sample(Convert.ToInt32(row["ID"]),
                             Convert.ToDouble(row["value"].Replace(".", ",")),
                             Convert.ToDouble(row["time"].Replace(".", ",")))).ToList();
-           
+
             return result;
         }
 

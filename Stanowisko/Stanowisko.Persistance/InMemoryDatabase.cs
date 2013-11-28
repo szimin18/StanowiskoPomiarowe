@@ -1,35 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Stanowisko.Persistance;
 
-namespace Stanowisko.Testy
+namespace Stanowisko.Persistance
 {
     public class InMemoryDatabase : IDatabase
     {
         public List<Dictionary<string, string>> Experiments = new List<Dictionary<string, string>>();
-        public List<Dictionary<string, string>> Measurements = new List<Dictionary<string, string>>();
-        public List<Dictionary<string, string>> Samples = new List<Dictionary<string, string>>();
-        public List<Dictionary<string, string>> Parameters = new List<Dictionary<string, string>>();
-        private List<Dictionary<string, string>> table;
 
-        private void setTable(string tableName)
+        public List<Dictionary<string, string>> Measurements = new List<Dictionary<string, string>>();
+
+        public List<Dictionary<string, string>> Samples = new List<Dictionary<string, string>>();
+
+        public List<Dictionary<string, string>> Parameters = new List<Dictionary<string, string>>();
+
+        private List<Dictionary<string, string>> _table;
+
+        private void SetTable(string tableName)
         {
             switch (tableName)
             {
                 case "Samples":
-                    table = Samples;
+                    _table = Samples;
                     break;
                 case "Measurements":
-                    table = Measurements;
+                    _table = Measurements;
                     break;
                 case "Experiments":
-                    table = Experiments;
+                    _table = Experiments;
                     break;
                 case "Parameters":
-                    table = Parameters;
+                    _table = Parameters;
                     break;
             }
         }
@@ -41,29 +41,29 @@ namespace Stanowisko.Testy
 
         public List<Dictionary<string, string>> GetAll(string tableName, string idName, string idValue, List<string> columns)
         {
-            setTable(tableName);
+            SetTable(tableName);
 
-            return (from row in table
+            return (from row in _table
                     where row[idName] == idValue
                     select columns.ToDictionary(column => column, column => row[column])).ToList();
         }
 
         public bool Update(string tableName, Dictionary<string, string> data, string where)
         {
-            setTable(tableName);
+            SetTable(tableName);
 
-            var e = table.Find(dictionary => dictionary["ID"] == data["ID"]);
-            var i = table.IndexOf(e);
+            var e = _table.Find(dictionary => dictionary["ID"] == data["ID"]);
+            var i = _table.IndexOf(e);
 
-            table[i] = data;
+            _table[i] = data;
 
             return false;
         }
 
         public bool Insert(string tableName, Dictionary<string, string> data)
         {
-            setTable(tableName);
-            table.Add(data);
+            SetTable(tableName);
+            _table.Add(data);
             return true;
         }
     }

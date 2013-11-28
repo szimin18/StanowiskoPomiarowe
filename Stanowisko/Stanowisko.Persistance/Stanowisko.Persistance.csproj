@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="DAO.cs" />
     <Compile Include="IPersistenceManager.cs" />
+    <Compile Include="PersistenceFactory.cs" />
     <Compile Include="PersistenceManager.cs" />
     <Compile Include="InMemoryDatabase.cs" />
     <Compile Include="Experiments.cs" />
