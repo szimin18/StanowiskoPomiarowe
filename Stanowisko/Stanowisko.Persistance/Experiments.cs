@@ -5,7 +5,7 @@ using Stanowisko.SharedClasses;
 
 namespace Stanowisko.Persistance
 {
-    public class Experiments : DAO, IExperiments
+    public class Experiments : DAO
     {
         private Measurements _measurementDAO;
         public Experiments(IDatabase db)
@@ -16,15 +16,7 @@ namespace Stanowisko.Persistance
 
         public void Add(Experiment e)
         {
-            var data = new Dictionary<String, String>
-                {
-                    {"ID", e.Id.ToString()},
-                    {"name", e.Name},
-                    {"description", e.Description},
-                    {"goal", e.Goal},
-                    {"result", e.Result.ToString()},
-                    {"summary", e.Summary}
-                };
+            var data = ToJSON(e);
 
             try
             {
@@ -40,15 +32,7 @@ namespace Stanowisko.Persistance
 
         public void Update(Experiment e)
         {
-            var data = new Dictionary<String, String>
-                {
-                    {"ID", e.Id.ToString()},
-                    {"name", e.Name},
-                    {"description", e.Description},
-                    {"goal", e.Goal},
-                    {"result", e.Result.ToString()},
-                    {"summary", e.Summary}
-                };
+            var data = ToJSON(e);
 
             var parameters = e.Parameters.Select(pair => new Dictionary<String, String>
                 {
@@ -96,6 +80,20 @@ namespace Stanowisko.Persistance
             }
 
             return result;
+        }
+
+        public Dictionary<string, string> ToJSON(Experiment e)
+        {
+            return new Dictionary<String, String>
+                {
+                    {"ID", e.Id.ToString()},
+                    {"name", e.Name},
+                    {"description", e.Description},
+                    {"goal", e.Goal},
+                    {"result", e.Result.ToString()},
+                    {"summary", e.Summary}
+                };
+            
         }
     }
 }

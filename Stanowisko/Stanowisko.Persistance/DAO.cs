@@ -1,4 +1,7 @@
-﻿namespace Stanowisko.Persistance
+﻿using System.Collections.Generic;
+using Stanowisko.SharedClasses;
+
+namespace Stanowisko.Persistance
 {
     public abstract class DAO
     {
@@ -8,5 +11,6 @@
         {
             _db = db;
         }
+
     }
 }

@@ -5,7 +5,7 @@ using Stanowisko.SharedClasses;
 
 namespace Stanowisko.Persistance
 {
-    public class Samples : DAO, ISamples
+    public class Samples : DAO
     {
 
         public Samples(IDatabase db)
@@ -15,13 +15,7 @@ namespace Stanowisko.Persistance
 
         public void Add(Sample sample, Measurement measurement)
         {
-            var data = new Dictionary<string, string>
-                {
-                    {"ID", sample.Id.ToString()},
-                    {"measurement", measurement.Id.ToString()},
-                    {"value", sample.Value.ToString()},
-                    {"time", sample.Time.ToString()}
-                };
+            var data = ToJSON(sample, measurement);
             try
             {
                 _db.Insert("Samples", data);
@@ -44,5 +38,15 @@ namespace Stanowisko.Persistance
             return result;
         }
 
+        public Dictionary<string, string> ToJSON(Sample s, Measurement m)
+        {
+            return new Dictionary<string, string>
+                {
+                    {"ID", s.Id.ToString()},
+                    {"measurement", m.Id.ToString()},
+                    {"value", s.Value.ToString()},
+                    {"time", s.Time.ToString()}
+                };
+        }
     }
 }

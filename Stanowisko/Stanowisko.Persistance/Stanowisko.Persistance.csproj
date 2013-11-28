@@ -43,11 +43,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DAO.cs" />
+    <Compile Include="IPersistenceManager.cs" />
+    <Compile Include="PersistenceManager.cs" />
     <Compile Include="InMemoryDatabase.cs" />
     <Compile Include="Experiments.cs" />
-    <Compile Include="IExperiments.cs" />
-    <Compile Include="IMeasurements.cs" />
-    <Compile Include="ISamples.cs" />
     <Compile Include="IDatabase.cs" />
     <Compile Include="Measurements.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

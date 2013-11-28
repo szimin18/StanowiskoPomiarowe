@@ -5,7 +5,7 @@ using Stanowisko.SharedClasses;
 
 namespace Stanowisko.Persistance
 {
-    public class Measurements : DAO, IMeasurements
+    public class Measurements : DAO
     {
         private readonly Samples _samplesDAO;
 
@@ -17,14 +17,7 @@ namespace Stanowisko.Persistance
 
         public void Add(Measurement measurement, Experiment experiment)
         {
-            var data = new Dictionary<String, String>
-                {
-                    {"ID", measurement.Id.ToString()},
-                    {"experiment", experiment.Id.ToString()},
-                    {"result", measurement.Result.ToString()},
-                    {"beginning", measurement.Beginning.Id.ToString()},
-                    {"end", measurement.End.Id.ToString()}
-                };
+            var data = ToJSON(measurement, experiment);
 
             try
             {
@@ -41,14 +34,7 @@ namespace Stanowisko.Persistance
 
         public void Update(Measurement measurement, Experiment experiment)
         {
-            var data = new Dictionary<String, String>
-                {
-                    {"ID", measurement.Id.ToString()},
-                    {"experiment", experiment.Id.ToString()},
-                    {"result", measurement.Result.ToString()},
-                    {"beginning", measurement.Beginning.Id.ToString()},
-                    {"end", measurement.End.Id.ToString()}
-                };
+            var data = ToJSON(measurement, experiment);
 
             try
             {
@@ -85,6 +71,18 @@ namespace Stanowisko.Persistance
             }
 
             return res;
+        }
+
+        public Dictionary<string, string> ToJSON(Measurement m, Experiment e)
+        {
+            return new Dictionary<String, String>
+                {
+                    {"ID", m.Id.ToString()},
+                    {"experiment", e.Id.ToString()},
+                    {"result", m.Result.ToString()},
+                    {"beginning", m.Beginning.Id.ToString()},
+                    {"end", m.End.Id.ToString()}
+                }; 
         }
     }
 }

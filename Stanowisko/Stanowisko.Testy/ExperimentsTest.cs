@@ -110,6 +110,8 @@ namespace Stanowisko.Testy
         [TestMethod]
         public void UpdateExperiment()
         {
+
+
             SetUp();
             experimentsDAO.Add(e);
             e.Summary = "summary";
@@ -121,6 +123,7 @@ namespace Stanowisko.Testy
             var e2 = db.Experiments[0];
 
             Assert.IsTrue(e2.Count == d.Count && !e2.Except(d).Any());
+
         }
 
     }
