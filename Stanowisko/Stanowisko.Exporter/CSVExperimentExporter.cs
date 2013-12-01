@@ -30,6 +30,12 @@ namespace Stanowisko.Exporter
                 streamWriter.WriteLine("Result," + experiment.Result.ToString(CultureInfo.InvariantCulture));
                 streamWriter.WriteLine("Summary," + experiment.Summary);
                 streamWriter.WriteLine();
+                streamWriter.WriteLine("Key,Value");
+                foreach (string key in experiment.GetParameters().Keys)
+                {
+                    streamWriter.WriteLine(key + experiment.GetParameters().TryGetValue(key));
+                }
+                streamWriter.WriteLine();
                 streamWriter.WriteLine("Id,Result");
                 foreach (Measurement measurement in experiment.GetMeasurements())
                 {
