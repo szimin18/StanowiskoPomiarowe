@@ -23,12 +23,14 @@ namespace Stanowisko.Exporter
             try
             {
                 StreamWriter streamWriter = new StreamWriter(fileStream);
+                streamWriter.WriteLine("Id," + measurement.Id.ToString(CultureInfo.InvariantCulture));
                 streamWriter.WriteLine("Result," + measurement.Result.ToString(CultureInfo.InvariantCulture));
                 streamWriter.WriteLine();
-                streamWriter.WriteLine("Time,Value");
+                streamWriter.WriteLine("Id,Time,Value");
                 foreach (Sample sample in measurement.GetSamples() )
                 {
-                    streamWriter.WriteLine(sample.Time.ToString(CultureInfo.InvariantCulture) +
+                    streamWriter.WriteLine(sample.Id.ToString(CultureInfo.InvariantCulture) +
+                        "," + sample.Time.ToString(CultureInfo.InvariantCulture) +
                         "," + sample.Value.ToString(CultureInfo.InvariantCulture));
                 }
                 streamWriter.Close();
