@@ -23,6 +23,7 @@ namespace Stanowisko.Exporter
 
             _measurementExporters.Add(new MockMeasurementExporter("Mock", "*.mck"));
             _measurementExporters.Add(new CSVMeasurementExporter());
+            _measurementExporters.Add(new XLSMeasurementExporter());
             filter = "";
             foreach (IMeasurementExporter exporter in _measurementExporters)
             {
@@ -34,13 +35,14 @@ namespace Stanowisko.Exporter
 
             _experimentExporters.Add(new MockExperimentExporter("Mock", "*.mck"));
             _experimentExporters.Add(new CSVExperimentExporter());
+            _experimentExporters.Add(new XLSExperimentExporter());
             filter = "";
             foreach (IMeasurementExporter exporter in _measurementExporters)
             {
                 filter += exporter.TypeName + "|" + exporter.TypeExtension + "|";
             }
             _saveExperimentFileDialog.Filter = filter.TrimEnd(new char[] { '|' });
-            _saveExperimentFileDialog.Title = "Export experiment/measurement";
+            _saveExperimentFileDialog.Title = "Export experiment";
             _saveExperimentFileDialog.AddExtension = true;
         }
 

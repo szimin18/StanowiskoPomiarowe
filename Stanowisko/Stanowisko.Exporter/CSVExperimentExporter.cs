@@ -36,7 +36,7 @@ namespace Stanowisko.Exporter
                 streamWriter.WriteLine("Key,Value");
                 foreach (string key in experiment.GetParameters().Keys)
                 {
-                    streamWriter.WriteLine(key + experiment.GetParameters().TryGetValue(key));
+                    streamWriter.WriteLine(key + experiment.GetParameters()[key]);
                 }
                 streamWriter.WriteLine();
                 streamWriter.WriteLine("Id,Result");

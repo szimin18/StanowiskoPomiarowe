@@ -30,10 +30,10 @@ namespace Stanowisko.GUI
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            Sample s1 = new Sample(1.23, 5.12);
-            Sample s2 = new Sample(2.34, 6.03);
-            Sample s3 = new Sample(3.45, 6.77);
-            Measurement tmpMeasurement = new Measurement();
+            Sample s1 = new Sample(1, 1.23, 5.12);
+            Sample s2 = new Sample(2, 2.34, 6.03);
+            Sample s3 = new Sample(3, 3.45, 6.77);
+            Measurement tmpMeasurement = new Measurement(1);
             tmpMeasurement.Add(new List<Sample>() { s1, s2, s3 });
             tmpMeasurement.Result = 3.14;
             Exporter.Exporter.ExportMeasurement(tmpMeasurement);

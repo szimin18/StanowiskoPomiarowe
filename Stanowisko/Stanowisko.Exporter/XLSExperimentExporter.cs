@@ -27,7 +27,6 @@ namespace Stanowisko.Exporter
             {
                 Microsoft.Office.Interop.Excel.Application saveApp = new Microsoft.Office.Interop.Excel.Application();
                 Microsoft.Office.Interop.Excel.Workbook workbook = saveApp.Workbooks.Open(saveFileDialog.FileName);
-                int sheets = 1;
                 Microsoft.Office.Interop.Excel.Worksheet worksheet = workbook.Worksheets.get_Item(0);
                 worksheet.Cells[1, 1] = "Id";
                 worksheet.Cells[1, 2] = experiment.Id.ToString(CultureInfo.InvariantCulture);
@@ -47,7 +46,7 @@ namespace Stanowisko.Exporter
                 foreach (string key in experiment.GetParameters().Keys)
                 {
                     worksheet.Cells[row, 4] = key;
-                    worksheet.Cells[row, 5] = experiment.GetParameters().TryGetValue(key);
+                    worksheet.Cells[row, 5] = experiment.GetParameters()[key];
                     row++;
                 }
                 worksheet.Cells[1, 7] = "Id";
@@ -59,8 +58,7 @@ namespace Stanowisko.Exporter
                     worksheet.Cells[row, 8] = measurement.Result.ToString(CultureInfo.InvariantCulture);
                     row++;
                 }
-                worksheet.SaveAs(saveFileDialog.FileName);
-                workbook.Save();
+                workbook.Close(true, saveFileDialog.FileName);
             }
             catch (Exception e)
             {
