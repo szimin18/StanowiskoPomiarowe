@@ -40,7 +40,7 @@ namespace Stanowisko.Exporter
                 filter += exporter.TypeName + "|" + exporter.TypeExtension + "|";
             }
             _saveExperimentFileDialog.Filter = filter.TrimEnd(new char[] { '|' });
-            _saveExperimentFileDialog.Title = "Export experiment";
+            _saveExperimentFileDialog.Title = "Export experiment/measurement";
             _saveExperimentFileDialog.AddExtension = true;
         }
 
@@ -54,10 +54,7 @@ namespace Stanowisko.Exporter
 
             if (_saveMeasurementFileDialog.FileName != "")
             {
-                System.IO.FileStream fileStream =
-                   (System.IO.FileStream)_saveMeasurementFileDialog.OpenFile();
-                _measurementExporters[_saveMeasurementFileDialog.FilterIndex - 1].Export(fileStream, measurement);
-                fileStream.Close();
+                _measurementExporters[_saveMeasurementFileDialog.FilterIndex - 1].Export(_saveMeasurementFileDialog, measurement);
             }
         }
 
@@ -71,10 +68,7 @@ namespace Stanowisko.Exporter
 
             if (_saveExperimentFileDialog.FileName != "")
             {
-                System.IO.FileStream fileStream =
-                   (System.IO.FileStream)_saveExperimentFileDialog.OpenFile();
-                _experimentExporters[_saveExperimentFileDialog.FilterIndex - 1].Export(fileStream, experiment);
-                fileStream.Close();
+                _experimentExporters[_saveExperimentFileDialog.FilterIndex - 1].Export(_saveExperimentFileDialog, experiment);
             }
         }
     }

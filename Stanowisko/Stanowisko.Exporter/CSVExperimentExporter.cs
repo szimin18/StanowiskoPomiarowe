@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 using System.Globalization;
 using System.IO;
@@ -18,10 +19,12 @@ namespace Stanowisko.Exporter
             TypeExtension = "*.csv";
         }
 
-        public bool Export(FileStream fileStream, Experiment experiment)
+        public bool Export(SaveFileDialog saveFileDialog, Experiment experiment)
         {
             try
             {
+                System.IO.FileStream fileStream =
+                    (System.IO.FileStream)saveFileDialog.OpenFile();
                 StreamWriter streamWriter = new StreamWriter(fileStream);
                 streamWriter.WriteLine("Id," + experiment.Id.ToString(CultureInfo.InvariantCulture));
                 streamWriter.WriteLine("Name," + experiment.Name);
@@ -43,6 +46,7 @@ namespace Stanowisko.Exporter
                         "," + measurement.Result.ToString(CultureInfo.InvariantCulture));
                 }
                 streamWriter.Close();
+                fileStream.Close();
             }
             catch (Exception e)
             {

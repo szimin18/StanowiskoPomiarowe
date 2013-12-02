@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 using System.IO;
 using Stanowisko.SharedClasses;
@@ -17,7 +18,7 @@ namespace Stanowisko.Exporter
             TypeExtension = typeExtesion;
         }
 
-        public bool Export(FileStream fileStream, Experiment experiment)
+        public bool Export(SaveFileDialog saveFileDialog, Experiment experiment)
         {
             return true;
         }
