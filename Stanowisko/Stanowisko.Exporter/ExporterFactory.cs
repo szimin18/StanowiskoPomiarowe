@@ -43,6 +43,7 @@ namespace Stanowisko.Exporter
         {
             get { return _fileType; }
         }
+
         public string FileExtension
         {
             get { return _fileExtension; }
@@ -53,7 +54,7 @@ namespace Stanowisko.Exporter
             return (Exporter<T>) _exporterType.GetConstructor(new Type[] {}).Invoke(new object[] {});
         }
 
-        internal ExporterFactory(string fileType, string fileExtension, Type exporterType)
+        protected internal ExporterFactory(string fileType, string fileExtension, Type exporterType)
         {
             _fileType = fileType;
             _fileExtension = fileExtension;
