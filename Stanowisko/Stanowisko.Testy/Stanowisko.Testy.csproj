@@ -57,6 +57,7 @@
     <Compile Include="SamplesTest.cs" />
     <Compile Include="Symulator.Testy.cs" />
     <Compile Include="TrapezoidalIntegratingModuleTest.cs" />
+    <Compile Include="RecorderTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Stanowisko.Calculator\Stanowisko.Calculator.csproj">
@@ -66,6 +67,10 @@
     <ProjectReference Include="..\Stanowisko.Persistance\Stanowisko.Persistance.csproj">
       <Project>{34B68FDC-73D1-4F4B-9A34-79A83F6043E7}</Project>
       <Name>Stanowisko.Persistance</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Stanowisko.Recorder\Stanowisko.Recorder.csproj">
+      <Project>{ec3d4147-f5b1-4c53-921f-eedec6dd4e9a}</Project>
+      <Name>Stanowisko.Recorder</Name>
     </ProjectReference>
     <ProjectReference Include="..\Stanowisko.SharedClasses\Stanowisko.SharedClasses.csproj">
       <Project>{A0CC950A-D0A7-4912-8396-5EF6CD7F8B35}</Project>

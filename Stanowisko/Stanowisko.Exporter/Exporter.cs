@@ -3,19 +3,46 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
-using Stanowisko.SharedClasses;
+using System.IO;
+using System.Windows.Forms;
 
 namespace Stanowisko.Exporter
 {
-    public static class Exporter
+    public abstract class Exporter<T>
     {
-        public static void ExportMeasurement(Measurement measurement)
+        public readonly string FileType;
+        public readonly string FileExtension;
+
+        public string OutputFileName
         {
+            get;
+            set;
         }
 
-        public static void ExportExperiment(Experiment experiment)
+        internal Exporter(string fileType, string fileExtension)
         {
+            if (fileType == null)
+                throw new ArgumentNullException("fileType");
+            if (fileExtension == null)
+                throw new ArgumentNullException("fileExtension");
+            if (fileType.Contains('|'))
+                throw new ArgumentException("fileType cannot contain \'|\' character");
+            if (fileExtension.Contains('|'))
+                throw new ArgumentException("fileExtension cannot contain \'|\' character");
+            /* check whether "<fileType>|<fileExtension>" is a proper SaveFileDialog.Filter */
+            try
+            {
+                new SaveFileDialog().Filter = fileType + "|" + fileExtension;
+            }
+            catch (Exception filterException)
+            {
+                throw new ArgumentException("fileType or fileExtension invalid", filterException);
+            }
+
+            FileType = fileType;
+            FileExtension = fileExtension;
         }
+
+        public abstract void Export(T exportee);
     }
 }

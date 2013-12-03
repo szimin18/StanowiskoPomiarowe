@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace Stanowisko.SharedClasses
 {
 
-    public class Measurement
+    public class Measurement : IEquatable<Measurement>
     {
         private readonly List<Sample> _samples = new List<Sample>();
 
@@ -49,9 +50,14 @@ namespace Stanowisko.SharedClasses
 
         public List<Sample> GetSamples()
         {
-            var res = new List<Sample>();
-            if (_samples != null) res.AddRange(_samples);
-            return res;
+           return new List<Sample>(_samples);
+        }
+
+        public bool Equals(Measurement m)
+        {
+            return m.Id == Id && m.Result == Result 
+                && m.Beginning.Equals(Beginning) && m.End.Equals(End)  &&
+                m._samples.All(s => _samples.Contains(s));
         }
     }
 }

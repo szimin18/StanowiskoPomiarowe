@@ -1,8 +1,8 @@
 ﻿using Stanowisko.SharedClasses;
 
-namespace Rejestrator
+namespace Stanowisko.Recorder
 {
-    interface IRecorder
+    public interface IRecorder
     {
         void startRecording();
         void stopRecording();

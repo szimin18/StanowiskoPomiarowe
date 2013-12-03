@@ -5,25 +5,20 @@ using Stanowisko.SharedClasses;
 
 namespace Stanowisko.Persistance
 {
-    public class Samples : DAO, ISamples
+    public class Samples : DAO
     {
 
-        public Samples(SQLiteDatabase db) : base(db)
+        public Samples(IDatabase db)
+            : base(db)
         {
         }
 
         public void Add(Sample sample, Measurement measurement)
         {
-            var data = new Dictionary<string, string>
-                {
-                    {"ID", sample.Id.ToString()},
-                    {"measurement", measurement.Id.ToString()},
-                    {"value", sample.Value.ToString()},
-                    {"time", sample.Time.ToString()}
-                };
+            var data = ToJSON(sample, measurement);
             try
             {
-                _db.Insert("Samples", data);
+                Db.Insert("Samples", data);
             }
             catch (Exception)
             {
@@ -33,15 +28,25 @@ namespace Stanowisko.Persistance
         public List<Sample> GetAll(Measurement m)
         {
             var columns = new List<string> { "ID", "value", "time" };
-            var data = _db.GetAll("Samples", "measurement", m.Id.ToString(), columns);
-            
+            var data = Db.GetAll("Samples", "measurement", m.Id.ToString(), columns);
+
             var result = data.Select(row =>
-                new Sample( Convert.ToInt32(row["Id"]),
-                            Convert.ToDouble(row["value"]),
-                            Convert.ToDouble(row["time"]))).ToList();
-           
+                new Sample(Convert.ToInt32(row["ID"]),
+                            Convert.ToDouble(row["value"].Replace(".", ",")),
+                            Convert.ToDouble(row["time"].Replace(".", ",")))).ToList();
+
             return result;
         }
 
+        public Dictionary<string, string> ToJSON(Sample s, Measurement m)
+        {
+            return new Dictionary<string, string>
+                {
+                    {"ID", s.Id.ToString()},
+                    {"measurement", m.Id.ToString()},
+                    {"value", s.Value.ToString()},
+                    {"time", s.Time.ToString()}
+                };
+        }
     }
 }

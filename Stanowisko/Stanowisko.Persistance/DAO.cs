@@ -2,11 +2,12 @@
 {
     public abstract class DAO
     {
-        protected readonly SQLiteDatabase _db = new SQLiteDatabase();
+        protected readonly IDatabase Db = new SQLiteDatabase();
 
-        protected DAO(SQLiteDatabase db)
+        protected DAO(IDatabase db)
         {
-            _db = db;
+            Db = db;
         }
+
     }
 }

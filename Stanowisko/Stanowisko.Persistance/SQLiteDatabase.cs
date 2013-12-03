@@ -6,7 +6,7 @@ using System.Data.SQLite;
 
 namespace Stanowisko.Persistance
 {
-    public class SQLiteDatabase
+    public class SQLiteDatabase : IDatabase
     {
         readonly String _dbConnection;
 
@@ -27,11 +27,11 @@ namespace Stanowisko.Persistance
             {
                 var cnn = new SQLiteConnection(_dbConnection);
                 cnn.Open();
-               
-                var mycommand = new SQLiteCommand(cnn) {CommandText = sql};
+
+                var mycommand = new SQLiteCommand(cnn) { CommandText = sql };
                 var reader = mycommand.ExecuteReader();
                 dt.Load(reader);
-                
+
                 reader.Close();
                 cnn.Close();
             }
@@ -46,10 +46,10 @@ namespace Stanowisko.Persistance
         {
             var cnn = new SQLiteConnection(_dbConnection);
             cnn.Open();
-           
-            var mycommand = new SQLiteCommand(cnn) {CommandText = sql};
+
+            var mycommand = new SQLiteCommand(cnn) { CommandText = sql };
             var rowsUpdated = mycommand.ExecuteNonQuery();
-            
+
             cnn.Close();
             return rowsUpdated;
         }
@@ -60,9 +60,9 @@ namespace Stanowisko.Persistance
             var cnn = new SQLiteConnection(_dbConnection);
             cnn.Open();
 
-            var mycommand = new SQLiteCommand(cnn) {CommandText = sql};
+            var mycommand = new SQLiteCommand(cnn) { CommandText = sql };
             var value = mycommand.ExecuteScalar();
-            
+
             cnn.Close();
             return value != null ? value.ToString() : "";
         }
@@ -96,9 +96,9 @@ namespace Stanowisko.Persistance
             var reader = command.ExecuteReader();
             var res = new List<Dictionary<string, string>>();
 
-            while(reader.Read())
+            while (reader.Read())
             {
-                var d = columns.ToDictionary(column => column, column => (string) reader[column]);
+                var d = columns.ToDictionary(column => column, column => (string)reader[column]);
                 res.Add(d);
             }
             cnn.Close();
@@ -109,14 +109,14 @@ namespace Stanowisko.Persistance
         {
             var vals = "";
             var returnCode = true;
-            
+
             if (data.Count >= 1)
             {
-                vals = data.Aggregate(vals, (current, val) => 
+                vals = data.Aggregate(vals, (current, val) =>
                     current + String.Format(" {0} = '{1}',", val.Key.ToString(), val.Value.ToString()));
                 vals = vals.Substring(0, vals.Length - 1);
             }
-           
+
             try
             {
                 ExecuteNonQuery(String.Format("update {0} set {1} where {2};", tableName, vals, where));
@@ -125,25 +125,10 @@ namespace Stanowisko.Persistance
             {
                 returnCode = false;
             }
-            
+
             return returnCode;
         }
 
-        public bool Delete(String tableName, String where)
-        {
-            var returnCode = true;
-            
-            try
-            {
-                ExecuteNonQuery(String.Format("delete from {0} where {1};", tableName, where));
-            }
-            catch (Exception)
-            {
-                returnCode = false;
-            }
-            
-            return returnCode;
-        }
         public bool Insert(String tableName, Dictionary<String, String> data)
         {
             var columns = "";

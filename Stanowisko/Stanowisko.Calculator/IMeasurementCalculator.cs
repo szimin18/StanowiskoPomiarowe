@@ -8,8 +8,15 @@ namespace Stanowisko.Calculator
 {
     public interface IMeasurementCalculator
     {
-        void Calibrate(double heat);
+        double Coefficent 
+        { 
+            set; 
+            get; 
+        }
+        Tuple<int, int> GetBoundaries();
+        void SetBoundaries(Tuple<int, int> boundaries);
+        void InitializeBoundaries();
+        double Calibrate(double heat);
         double CalculateHeat();
-
     }
 }

@@ -3,7 +3,7 @@ using System.IO;
 
 namespace Stanowisko.SharedClasses
 {
-    public class Sample
+    public class Sample : IEquatable<Sample>
     {
         public int Id { get; private set; }
 
@@ -26,5 +26,11 @@ namespace Stanowisko.SharedClasses
             Value = value;
             Time = time;
         }
+
+        public bool Equals(Sample s)
+        {
+            return s.Id == Id && s.Value == Value && s.Time == Time;
+        }
+
     }
 }

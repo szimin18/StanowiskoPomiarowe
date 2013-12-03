@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using Stanowisko.SharedClasses;
-
 namespace Stanowisko.Exporter
 {
-    interface IExperimentExporter
+    public interface IExporterFactory<T>
     {
-        void Export(Experiment experiment);
+        string FileType { get; }
+        string FileExtension { get; }
+
+        Exporter<T> GetExporter();
     }
 }

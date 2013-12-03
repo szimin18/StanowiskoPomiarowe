@@ -5,30 +5,22 @@ using Stanowisko.SharedClasses;
 
 namespace Stanowisko.Persistance
 {
-    public class Experiments : DAO, IExperiments
+    public class Experiments : DAO
     {
-        private Measurements _measurementDAO;
-        public Experiments(SQLiteDatabase db)
+        public Experiments(IDatabase db)
             : base(db)
         {
-            _measurementDAO = new Measurements(db);
+
         }
 
         public void Add(Experiment e)
         {
-            var data = new Dictionary<String, String>
-                {
-                    {"ID", e.Id.ToString()},
-                    {"name", e.Name},
-                    {"description", e.Description},
-                    {"goal", e.Description},
-                    {"result", e.Result.ToString()},
-                    {"summary", e.Summary}
-                };
+            var data = ToJSON(e);
 
             try
             {
-                _db.Insert("Experiments", data);
+                Db.Insert("Experiments", data);
+                Db.Insert("Parameters", e.Parameters);
             }
             catch (Exception)
             {
@@ -39,15 +31,7 @@ namespace Stanowisko.Persistance
 
         public void Update(Experiment e)
         {
-            var data = new Dictionary<String, String>
-                {
-                    {"ID", e.Id.ToString()},
-                    {"name", e.Name},
-                    {"description", e.Description},
-                    {"goal", e.Description},
-                    {"result", e.Result.ToString()},
-                    {"summary", e.Summary}
-                };
+            var data = ToJSON(e);
 
             var parameters = e.Parameters.Select(pair => new Dictionary<String, String>
                 {
@@ -56,10 +40,10 @@ namespace Stanowisko.Persistance
 
             try
             {
-                _db.Update("Experiments", data, where: String.Format("Experiments.ID = {0}", e.Id.ToString()));
+                Db.Update("Experiments", data, where: String.Format("Experiments.ID = {0}", e.Id.ToString()));
                 foreach (var p in parameters.Where(p => p != null))
                 {
-                    _db.Update("Parameters", p, String.Format("Parameters.name = {0} and Parameters.value = {1}", p["Name"], p["Value"]));
+                    Db.Update("Parameters", p, String.Format("Parameters.name = {0} and Parameters.value = {1}", p["Name"], p["Value"]));
                 }
             }
             catch (Exception)
@@ -70,31 +54,37 @@ namespace Stanowisko.Persistance
 
         public List<Experiment> GetAll()
         {
-            var columns = new List<string> {"ID", "name", "description", "goal", "result", "summary"};
-            var experiments = _db.GetAll("Experiments", columns);
-            var result = new List<Experiment>();
+            var columns = new List<string> { "ID", "name", "description", "goal", "result", "summary" };
+            var experiments = Db.GetAll("Experiments", columns);
 
-            foreach (var experiment in experiments)
-            {
-                var eId = Convert.ToInt32(experiment["ID"]);
-                var name = experiment["name"];
+            return (from experiment in experiments
+                    let eId = Convert.ToInt32(experiment["ID"])
+                    let name = experiment["name"]
+                    let paramColumns = new List<string> { "name", "value" }
+                    let ps = Db.GetAll("Parameters", "experiment", eId.ToString(), paramColumns)
+                    let parameters = ps.ToDictionary(parameter => parameter["name"], parameter => parameter["value"])
+                    select new Experiment(eId, name)
+                        {
+                            Description = experiment["description"],
+                            Goal = experiment["goal"],
+                            Result = Convert.ToDouble(experiment["result"]),
+                            Summary = experiment["summary"],
+                            Parameters = parameters
+                        }).ToList();
+        }
 
-                var paramColumns = new List<string> {"name", "value"};
-                var ps = _db.GetAll("Parameters", "experiment", eId.ToString(), paramColumns);
-                var parameters = ps.ToDictionary(parameter => parameter["name"], parameter => parameter["value"]);
+        public Dictionary<string, string> ToJSON(Experiment e)
+        {
+            return new Dictionary<String, String>
+                {
+                    {"ID", e.Id.ToString()},
+                    {"name", e.Name},
+                    {"description", e.Description},
+                    {"goal", e.Goal},
+                    {"result", e.Result.ToString()},
+                    {"summary", e.Summary}
+                };
 
-                var e = new Experiment(eId, name)
-                    {
-                        Description = experiment["description"],
-                        Goal = experiment["goal"],
-                        Result = Convert.ToDouble(experiment["result"]),
-                        Summary = experiment["summary"],
-                        Parameters = parameters
-                    };
-                result.Add(e);
-            }
-
-            return result;
         }
     }
 }
