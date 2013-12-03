@@ -55,7 +55,7 @@
     <Compile Include="MeasurementsTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Symulator.Testy.cs" />
-    <Compile Include="TrapezoidalIntegratingModuleTest.cs" />
+    <Compile Include="IntegratingModuleTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Stanowisko.Calculator\Stanowisko.Calculator.csproj">

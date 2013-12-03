@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Stanowisko.SharedClasses;
 
-namespace Calculator
+namespace Stanowisko.Calculator
 {
     class MonteCarloIntegratingModule
     {
