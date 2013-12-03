@@ -7,7 +7,7 @@ using Stanowisko.SharedClasses;
 
 namespace Stanowisko.Calculator
 {
-    class MonteCarloIntegratingModule
+    public class MonteCarloIntegratingModule : IIntegratingModule
     {
         public double Integrate(List<Sample> samples, int beggining, int end)
         {

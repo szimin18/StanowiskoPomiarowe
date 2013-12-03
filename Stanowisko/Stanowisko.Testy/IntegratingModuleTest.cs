@@ -37,6 +37,7 @@ namespace Stanowisko.Testy
             Assert.IsTrue(Math.Abs(target.Integrate(readings, 0, 10) - expected) < epsilon);
         }
 
+        [TestMethod]
         public void SimpsonsLineIntegrationTest()
         {
             List<Sample> readings = new List<Sample>();
@@ -64,6 +65,7 @@ namespace Stanowisko.Testy
             Assert.IsTrue(Math.Abs(target.Integrate(readings, 0, 10) - expected) < epsilon);
         }
 
+        [TestMethod]
         public void MonteCarloLineIntegrationTest()
         {
             List<Sample> readings = new List<Sample>();
