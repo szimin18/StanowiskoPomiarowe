@@ -49,11 +49,11 @@ namespace Stanowisko.Calculator
             }
         }
 
-        public MeasurementCalculator(Measurement measurements)
+        public MeasurementCalculator(Measurement measurements, IIntegratingModule integrator)
         {
             this._measurement = measurements;
             this.initializeBoundaries();
-            this._integrator = new TrapezoidalIntegratingModule();
+            this._integrator = integrator;
         }
 
         public int CurveBeginning

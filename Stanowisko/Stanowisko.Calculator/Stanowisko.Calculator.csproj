@@ -42,6 +42,7 @@
     <Compile Include="IIntegratingModule.cs" />
     <Compile Include="IMeasurementCalculator.cs" />
     <Compile Include="MeasurementCalculator.cs" />
+    <Compile Include="MonteCarloIntegratingModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SimpsonsIntegratingModule.cs" />
     <Compile Include="TrapezoidalIntegratingModule.cs" />
