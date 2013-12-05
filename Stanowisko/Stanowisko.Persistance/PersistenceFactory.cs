@@ -1,11 +1,13 @@
 ﻿namespace Stanowisko.Persistance
 {
-    static class PersistenceFactory
+    public static class PersistenceFactory
     {
-        
+
+        private static readonly IDatabase _Database = new InMemoryDatabase();
+
         public static IPersistenceManager GetPersistenceManager()
         {
-            return new PersistenceManager(new InMemoryDatabase());
+            return new PersistenceManager(_Database);
         }
     }
 }

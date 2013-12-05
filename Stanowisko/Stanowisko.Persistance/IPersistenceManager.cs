@@ -3,7 +3,7 @@ using Stanowisko.SharedClasses;
 
 namespace Stanowisko.Persistance
 {
-    interface IPersistenceManager
+    public interface IPersistenceManager
     {
         void AddExperiment(Experiment e);
 
