@@ -36,7 +36,10 @@ namespace Stanowisko.Persistance
 
         public List<Dictionary<string, string>> GetAll(string tableName, List<string> columns)
         {
-            return new List<Dictionary<string, string>>();
+            SetTable(tableName);
+
+            return (from row in _table
+                    select columns.ToDictionary(column => column, column => row[column])).ToList();
         }
 
         public List<Dictionary<string, string>> GetAll(string tableName, string idName, string idValue, List<string> columns)
