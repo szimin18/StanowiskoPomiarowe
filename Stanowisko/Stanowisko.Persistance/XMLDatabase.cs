@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Xml;
+using System.Xml.Linq;
 
 namespace Stanowisko.Persistance
 {
@@ -10,13 +13,18 @@ namespace Stanowisko.Persistance
      * When Adding or Updating - adds/updates inMemoryDatabase and updates .xml file
      * 
      */
-    class XMLDatabase : IDatabase
+
+    public class XMLDatabase : IDatabase
     {
         private readonly InMemoryDatabase _db = new InMemoryDatabase();
         private const string Path = "db.xml";
 
         public XMLDatabase()
         {
+            if (!File.Exists(Path))
+            {
+                File.Create(Path);
+            }
             Init();   //initializes InMemoryDatabase with data saved in .xml file
         }
 
@@ -28,6 +36,11 @@ namespace Stanowisko.Persistance
         public List<Dictionary<string, string>> GetAll(string tableName, string idName, string idValue, List<string> columns)
         {
             return _db.GetAll(tableName, idName, idValue, columns);
+        }
+
+        public List<Dictionary<string, string>> GetAll(string pTableName, string pIdName, string pIdValue, string sIdName, string sIdValue, List<string> columns)
+        {
+            return _db.GetAll(pTableName, pIdName, pIdValue, sIdName, sIdValue, columns);
         }
 
         public bool Update(string tableName, Dictionary<string, string> data, string @where)
@@ -50,154 +63,165 @@ namespace Stanowisko.Persistance
 
         private void Update()
         {
-            var xmlDoc = new XmlDocument();
-
-            var root = xmlDoc.CreateElement("experiments");
-            xmlDoc.AppendChild(root);
+            var root = new XElement("experiments");
 
             foreach (var e in _db.Experiments)
             {
                 var eID = e["ID"];
 
-                var experiment = xmlDoc.CreateElement("experiment");
+                var experiment = new XElement("experiment");
 
-                experiment.SetAttribute("ID", eID);
-                experiment.SetAttribute("name", e["name"]);
-                experiment.SetAttribute("description", e["description"]);
-                experiment.SetAttribute("goal", e["goal"]);
-                experiment.SetAttribute("result", e["result"]);
-                experiment.SetAttribute("summary", e["summary"]);
+                experiment.SetAttributeValue("ID", eID);
+                experiment.SetAttributeValue("name", e["name"]);
 
-                var parameters = xmlDoc.CreateElement("parameters");
+                experiment.Add(new XElement("name", e["name"]));
+                experiment.Add(new XElement("description", e["description"]));
+                experiment.Add(new XElement("goal", e["goal"]));
+                experiment.Add(new XElement("result", e["result"]));
+                experiment.Add(new XElement("summary", e["summary"]));
+
+
+
+
+                var parameters = new XElement("parameters");
 
                 foreach (var p in _db.Parameters)
                 {
                     if (p["experiment"] == eID)
                     {
-                        var parameter = xmlDoc.CreateElement("parameter");
+                        var parameter = new XElement("parameter");
 
-                        parameter.SetAttribute("name", p["name"]);
-                        parameter.SetAttribute("value", p["value"]);
+                        parameter.SetAttributeValue("name", p["name"]);
+                        parameter.SetAttributeValue("value", p["value"]);
 
-                        parameters.AppendChild(parameter);
+                        parameters.Add(parameter);
                     }
                 }
 
-                var measurements = xmlDoc.CreateElement("measurements");
+                var measurements = new XElement("measurements");
                 foreach (var m in _db.Measurements)
                 {
                     if (m["experiment"] == eID)
                     {
                         var mID = m["ID"];
 
-                        var measurement = xmlDoc.CreateElement("measurement");
 
-                        measurements.SetAttribute("ID", mID);
-                        measurements.SetAttribute("result", m["result"]);
-                        measurements.SetAttribute("beginning", m["beginning"]);
-                        measurements.SetAttribute("end", m["end"]);
+                        var measurement = new XElement("measurement");
 
-                        var samples = xmlDoc.CreateElement("samples");
+                        measurements.SetAttributeValue("ID", mID);
 
-                        foreach (var s in _db.Samples)
+                        measurements.Add(new XElement("result", m["result"]));
+                        measurements.Add(new XElement("beginning", m["beginning"]));
+                        measurements.Add(new XElement("end", m["end"]));
+
+                        var samples = new XElement("samples");
+
+
+
+                        foreach (var s in _db.Samples.Where(s => s["measurement"] == mID).Where(s => s["experiment"] == eID))
                         {
-                            if(s["measurement"] == mID)
-                            {
-                                var sample = xmlDoc.CreateElement("sample");
 
-                                sample.SetAttribute("ID", s["ID"]);
-                                sample.SetAttribute("value", s["value"]);
-                                sample.SetAttribute("time", s["time"]);
+                            var sample = new XElement("sample");
 
-                                samples.AppendChild(sample);
-                            }
+                            sample.SetAttributeValue("ID", s["ID"]);
+                            sample.SetAttributeValue("value", s["value"]);
+                            sample.SetAttributeValue("time", s["time"]);
+
+                            samples.Add(sample);
                         }
-                        measurement.AppendChild(samples);
-                        measurements.AppendChild(measurement);
+                        measurement.Add(samples);
+                        measurements.Add(measurement);
                     }
                 }
 
-                experiment.AppendChild(parameters);
-                experiment.AppendChild(measurements);
-                root.AppendChild(experiment);
+                experiment.Add(parameters);
+                experiment.Add(measurements);
+                root.Add(experiment);
             }
 
-            xmlDoc.Save(Path);
+            const string newPath = "newDB.xml";
+
+            root.Save(Path);
+
+            //File.Replace(newPath, Path, "db.xml.backup");
+
+            Console.WriteLine("replaced");
         }
 
         private void Init()
         {
-            var xmlDoc = new XmlDocument();
-            xmlDoc.Load(Path);
-
-            var experiments = xmlDoc.GetElementsByTagName("experiment");
-
-            foreach (XmlNode e in experiments)
+            XDocument xmlDoc;
+            try
             {
-                if (e.Attributes != null)
+                xmlDoc = XDocument.Load(Path);
+            }
+            catch (Exception e)
+            {
+                return;
+            }
+
+
+            var experiments = xmlDoc.Descendants("experiments").Elements();
+
+
+            foreach (var e in experiments)
+            {
+                var eID = e.Attribute("ID").Value;
+
+                _db.Experiments.Add(new Dictionary<string, string>
+                    {
+                        {"ID", eID},
+                        {"name", e.Attribute("name").Value},
+                        {"description", e.Element("description").Value},
+                        {"goal", e.Element("goal").Value},
+                        {"result", e.Element("result").Value},
+                        {"summary", e.Element("summary").Value}
+                    });
+
+                var parameters = e.Descendants("parameters").Elements();
+                var measurements = e.Descendants("measurements").Elements();
+
+                foreach (var p in parameters)
                 {
-                    var eID = e.Attributes["ID"].Value;
 
-                    _db.Experiments.Add(new Dictionary<string, string>
-                        {
-                            {"ID", eID},
-                            {"name", e.Attributes["name"].Value},
-                            {"description", e.Attributes["description"].Value},
-                            {"result", e.Attributes["result"].Value},
-                            {"summary", e.Attributes["summary"].Value}
-                        });
-
-                    var parameters = e.SelectNodes(".//parameters");
-                    var measurements = e.SelectNodes(".//measurement");
-
-                    if (parameters != null)
-                        foreach (XmlNode p in parameters)
-                        {
-                            if (p.Attributes != null)
-                                _db.Parameters.Add(new Dictionary<string, string>
-                                    {
-                                        {"experiment", eID},
-                                        {"value", p.Attributes["value"].Value},
-                                        {"name", p.Attributes["name"].Value}
-                                    });
-                        }
-
-
-                    if (measurements != null)
-                        foreach (XmlNode m in measurements)
-                        {
-                            if (m.Attributes != null)
-                            {
-                                var mID = m.Attributes["ID"].Value;
-
-                                _db.Measurements.Add(new Dictionary<string, string>
-                                    {
-                                        {"ID", mID},
-                                        {"experiment", eID},
-                                        {"result", m.Attributes["result"].Value},
-                                        {"beginning", m.Attributes["beginning"].Value},
-                                        {"end", m.Attributes["end"].Value}
-                                    });
-
-                                var samples = m.SelectNodes(".//sample");
-
-                                if (samples != null)
-                                    foreach (XmlNode s in samples)
-                                    {
-                                        if (s.Attributes != null)
-                                        {
-                                            _db.Samples.Add(new Dictionary<string, string>
-                                                {
-                                                    {"ID", s.Attributes["ID"].Value},
-                                                    {"measurement", mID},
-                                                    {"value", s.Attributes["value"].Value},
-                                                    {"Time", s.Attributes["time"].Value}
-                                                });
-                                        }
-                                    }
-                            }
-                        }
+                    _db.Parameters.Add(new Dictionary<string, string>
+                                {
+                                    {"experiment", eID},
+                                    {"value", p.Attribute("value").Value},
+                                    {"name", p.Attribute("name").Value}
+                                });
                 }
+
+                foreach (var m in measurements)
+                {
+
+                    var mID = m.Attribute("ID").Value;
+
+                    _db.Measurements.Add(new Dictionary<string, string>
+                            {
+                                {"ID", mID},
+                                {"experiment", eID},
+                                {"result", m.Element("result").Value},
+                                {"beginning", m.Element("beginning").Value},
+                                {"end", m.Element("end").Value}
+                            });
+
+                    var samples = m.Descendants("samples").Elements();
+
+                    foreach (var s in samples)
+                    {
+                        _db.Samples.Add(new Dictionary<string, string>
+                                    {
+                                        {"ID", s.Attribute("ID").Value},
+                                        {"measurement", mID},
+                                        {"experiment", eID},
+                                        {"value", s.Attribute("value").Value},
+                                        {"time", s.Attribute("time").Value}
+                                    });
+
+                    }
+                }
+
             }
         }
     }

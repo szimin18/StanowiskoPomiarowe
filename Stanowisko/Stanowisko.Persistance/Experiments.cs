@@ -40,7 +40,6 @@ namespace Stanowisko.Persistance
             }
             catch (Exception)
             {
-
             }
 
         }
@@ -68,9 +67,8 @@ namespace Stanowisko.Persistance
                     _measurementsDAO.Update(m, e);
                 }
             }
-            catch (Exception)
+            catch (Exception )
             {
-
             }
         }
 
