@@ -109,10 +109,10 @@ namespace Stanowisko.Persistance
                 {
                     {"ID", e.Id.ToString()},
                     {"name", e.Name},
-                    {"description", e.Description},
-                    {"goal", e.Goal},
-                    {"result", e.Result.ToString()},
-                    {"summary", e.Summary}
+                    {"description", e.Description ?? ""},
+                    {"goal", e.Goal ?? ""},
+                    {"result", e.Result!= null ? e.Result.ToString() : ""},
+                    {"summary", e.Summary ?? ""}
                 };
 
         }

@@ -105,6 +105,11 @@ namespace Stanowisko.Persistance
             return res;
         }
 
+        public List<Dictionary<string, string>> GetAll(string pTableName, string pIdName, string pIdValue, string sIdName, string sIdValue, List<string> columns)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool Update(String tableName, Dictionary<String, String> data, String where)
         {
             var vals = "";

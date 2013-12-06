@@ -3,7 +3,7 @@
     public static class PersistenceFactory
     {
 
-        private static readonly IDatabase _Database = new InMemoryDatabase();
+        private static readonly IDatabase _Database = new XMLDatabase();
 
         public static IPersistenceManager GetPersistenceManager()
         {

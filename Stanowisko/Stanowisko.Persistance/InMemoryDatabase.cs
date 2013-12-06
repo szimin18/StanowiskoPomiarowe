@@ -51,6 +51,16 @@ namespace Stanowisko.Persistance
                     select columns.ToDictionary(column => column, column => row[column])).ToList();
         }
 
+        public List<Dictionary<string, string>> GetAll(string pTableName, string pIdName, string pIdValue, string sIdName, string sIdValue, List<string> columns)
+        {
+            SetTable(pTableName);
+
+            return (from row in _table
+                    where row[pIdName] == pIdValue
+                    where row[sIdName] == sIdValue
+                    select columns.ToDictionary(column => column, column => row[column])).ToList();
+        }
+
         public bool Update(string tableName, Dictionary<string, string> data, string where)
         {
             SetTable(tableName);
@@ -66,7 +76,9 @@ namespace Stanowisko.Persistance
         public bool Insert(string tableName, Dictionary<string, string> data)
         {
             SetTable(tableName);
+            
             _table.Add(data);
+
             return true;
         }
     }

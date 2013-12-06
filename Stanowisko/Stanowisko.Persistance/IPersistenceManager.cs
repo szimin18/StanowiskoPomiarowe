@@ -9,7 +9,7 @@ namespace Stanowisko.Persistance
 
         void AddMeasurement(Measurement m, Experiment e);
 
-        void AddSample(Sample s, Measurement m);
+        void AddSample(Sample s, Measurement m, Experiment e);
 
         void UpdateExperiment(Experiment e);
 
@@ -19,6 +19,6 @@ namespace Stanowisko.Persistance
 
         List<Measurement> GetAllMeasurements(Experiment e);
 
-        List<Sample> GetAllSamples(Measurement m);
+        List<Sample> GetAllSamples(Measurement m, Experiment e);
     }
 }
