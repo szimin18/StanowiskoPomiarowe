@@ -1,8 +1,9 @@
 ﻿<Window x:Class="Stanowisko.GUI.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
-    </Grid>
+        Title="Stanowisko Pomiarowe" ResizeMode="NoResize" SizeToContent="WidthAndHeight">
+    <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15">
+        <Label Content="Witaj w programie Stanowisko Pomiarowe!"/>
+        <Button Content="Połącz z urządzeniem pomiarowym"/>
+    </StackPanel>
 </Window>
