@@ -24,5 +24,11 @@ namespace Stanowisko.GUI
         {
             InitializeComponent();
         }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            //MessageBox.Show("To nie działa! :P", "Figa!");
+            new Recorder.Recorder(new Symulator.Simulator());
+        }
     }
 }

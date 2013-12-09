@@ -10,7 +10,7 @@ namespace Stanowisko.Recorder
     public class Recorder : IRecorder
     {
         #region Private Member Variables
-        private const uint _defaultPeriod = 1000;
+        private const uint DefaultPeriod = 1000;
         private uint _period;
         private List<Sample> _samples;
         private bool _isRecording = false;
@@ -35,7 +35,7 @@ namespace Stanowisko.Recorder
         public Recorder(IMeasuringDevice measuringDevice)
         {
             this._measuringDevice = measuringDevice;
-            _period = _defaultPeriod;
+            _period = DefaultPeriod;
             _timer = new System.Timers.Timer(_period);
             _timer.Elapsed += new ElapsedEventHandler(_timer_Elapsed);
             _samples = new List<Sample>();
