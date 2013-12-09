@@ -21,11 +21,12 @@ namespace Stanowisko.Persistance
 
             try
             {
+                Db.Insert("Measurements", data);
                 foreach (var sample in measurement.GetSamples())
                 {
-                    _samplesDAO.Add(sample, measurement);
+                    _samplesDAO.Add(sample, measurement, experiment);
                 }
-                Db.Insert("Measurements", data);
+                
             }
             catch (Exception)
             {
@@ -56,7 +57,7 @@ namespace Stanowisko.Persistance
             {
                 var m = new Measurement(Convert.ToInt32(row["ID"]));
 
-                var samples = _samplesDAO.GetAll(m);
+                var samples = _samplesDAO.GetAll(m, experiment);
 
                 var beginning = samples.Where(s => s.Id == Convert.ToInt32(row["beginning"])).ToList()[0];
                 var end = samples.Where(s => s.Id == Convert.ToInt32(row["end"])).ToList()[0];
@@ -79,9 +80,9 @@ namespace Stanowisko.Persistance
                 {
                     {"ID", m.Id.ToString()},
                     {"experiment", e.Id.ToString()},
-                    {"result", m.Result.ToString()},
-                    {"beginning", m.Beginning.Id.ToString()},
-                    {"end", m.End.Id.ToString()}
+                    {"result", m.Result != null ? m.Result.ToString() : ""},
+                    {"beginning", m.Beginning != null ?m.Beginning.Id.ToString() : "0"},
+                    {"end", m.End != null ?m.End.Id.ToString() : "0"}
                 };
         }
     }
