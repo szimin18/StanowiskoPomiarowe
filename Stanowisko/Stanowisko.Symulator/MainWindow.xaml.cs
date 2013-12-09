@@ -20,9 +20,10 @@ namespace Stanowisko.Symulator
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        public MainWindow(Simulator simulatorInstance)
         {
             InitializeComponent();
+            LayoutRoot.DataContext = simulatorInstance;
         }
     }
 }

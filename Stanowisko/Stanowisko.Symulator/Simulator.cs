@@ -6,21 +6,20 @@ namespace Stanowisko.Symulator
     public class Simulator : IMeasuringDevice
     {
         #region Private Properties
-        private DateTime StartingTime { set; get; }
-        private bool IsConnected { set; get; }
+        private IEstimatingFunction EstimatingFunction { get; }
         #endregion
 
-        #region Private Methods
-        private double SimulatingFunction(double miliseconds)
+        #region Private Properties
+        private DateTime StartingTime { set; get; }
+        private bool IsConnected { private set; get; }
+
+        private long SapmleInsertionDelay { set; get; }
+        private long InitialValue { set; get; }
+        private long ExperimentDuration { set; get; }
+        private long Amplitude { set; get; }
+        private IEstimatingFunction EstimatingFunctionList
         {
-            if (miliseconds < 1000 || miliseconds > 3000)
-            {
-                return 1;
-            }
-            else
-            {
-                return (miliseconds - 2000) * (2000 - miliseconds) / 1000000 + 2;
-            }
+
         }
         #endregion
 
@@ -57,7 +56,7 @@ namespace Stanowisko.Symulator
             {
                 DateTime currentTime = DateTime.Now;
                 double totalMiliseconds = (currentTime - StartingTime).TotalMilliseconds;
-                return new Sample(SimulatingFunction(totalMiliseconds), totalMiliseconds);
+                return new Sample(EstimatingFunction.GetValue(totalMiliseconds, SapmleInsertionDelay, InitialValue, ExperimentDuration, Amplitude), totalMiliseconds);
             }
             else
             {
