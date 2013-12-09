@@ -32,27 +32,27 @@
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.chart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart)).BeginInit();
             this.SuspendLayout();
             // 
-            // chart1
+            // chart
             // 
             chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
-            this.chart1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.chart.ChartAreas.Add(chartArea1);
+            this.chart.Dock = System.Windows.Forms.DockStyle.Top;
             legend1.Name = "Legend1";
-            this.chart1.Legends.Add(legend1);
-            this.chart1.Location = new System.Drawing.Point(0, 0);
-            this.chart1.Name = "chart1";
+            this.chart.Legends.Add(legend1);
+            this.chart.Location = new System.Drawing.Point(0, 0);
+            this.chart.Name = "chart";
             series1.ChartArea = "ChartArea1";
             series1.Legend = "Legend1";
             series1.Name = "Series1";
-            this.chart1.Series.Add(series1);
-            this.chart1.Size = new System.Drawing.Size(669, 300);
-            this.chart1.TabIndex = 0;
-            this.chart1.Text = "chart1";
+            this.chart.Series.Add(series1);
+            this.chart.Size = new System.Drawing.Size(669, 300);
+            this.chart.TabIndex = 0;
+            this.chart.Text = "chart1";
             // 
             // flowLayoutPanel1
             // 
@@ -68,10 +68,10 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(669, 432);
             this.Controls.Add(this.flowLayoutPanel1);
-            this.Controls.Add(this.chart1);
+            this.Controls.Add(this.chart);
             this.Name = "RecorderWindow";
             this.Text = "Rejestrator";
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chart)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -79,7 +79,7 @@
         #endregion
 
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
     }
 }
