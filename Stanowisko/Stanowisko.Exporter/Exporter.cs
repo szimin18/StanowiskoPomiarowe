@@ -43,6 +43,16 @@ namespace Stanowisko.Exporter
             FileExtension = fileExtension;
         }
 
-        public abstract void Export(T exportee);
+        protected void Export(T exportee)
+        {
+            ExportToFile(exportee);
+            DialogResult dialogResult = MessageBox.Show("Czy chcesz otworzyć plik w domyślnym programie?", "Otwieranie pliku", MessageBoxButtons.YesNo);
+            if (dialogResult == DialogResult.Yes)
+            {
+                System.Diagnostics.Process.Start(OutputFileName);
+            }
+        }
+
+        public abstract void ExportToFile(T exportee);
     }
 }

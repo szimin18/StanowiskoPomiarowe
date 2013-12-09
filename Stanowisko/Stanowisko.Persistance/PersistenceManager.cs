@@ -29,9 +29,9 @@ namespace Stanowisko.Persistance
             _measurements.Add(m, e);
         }
 
-        public void AddSample(Sample s, Measurement m)
+        public void AddSample(Sample s, Measurement m, Experiment e)
         {
-            _samples.Add(s, m);
+            _samples.Add(s, m, e);
         }
 
         public void UpdateExperiment(Experiment e)
@@ -54,9 +54,9 @@ namespace Stanowisko.Persistance
             return _measurements.GetAll(e);
         }
 
-        public List<Sample> GetAllSamples(Measurement m)
+        public List<Sample> GetAllSamples(Measurement m, Experiment e)
         {
-            return _samples.GetAll(m);
+            return _samples.GetAll(m, e);
         }
     }
 }
