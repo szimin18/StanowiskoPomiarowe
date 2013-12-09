@@ -14,10 +14,13 @@ namespace Stanowisko.Recorder
 {
     public partial class RecorderWindow : Form
     {
-        private const String SerieName = "seria";
+        private const String SerieName = "Pomiar z urzadzenia";
 
-        public RecorderWindow()
+        private IRecorder recorder;
+
+        public RecorderWindow(IRecorder recorder)
         {
+            this.recorder = recorder;
             InitializeComponent();
             InitializeChart();
         }
@@ -38,6 +41,16 @@ namespace Stanowisko.Recorder
         {
             chart.Series.Clear();
             chart.Series.Add(SerieName);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            recorder.startRecording();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            recorder.stopRecording();
         }
     }
 }

@@ -21,10 +21,19 @@ namespace Stanowisko.Recorder
         #endregion
 
         #region Private Methods
+
+        private delegate void AddSampleToChartDelegate(Sample sample);
+
         private void _getSample()
         {
             Sample sample = _measuringDevice.GetSample();
             _samples.Add(sample);
+
+            _window.BeginInvoke(new AddSampleToChartDelegate(addSampleToChart), sample);
+        }
+
+        private void addSampleToChart(Sample sample)
+        {
             _window.AddSampleToChart(sample);
         }
         
@@ -42,12 +51,9 @@ namespace Stanowisko.Recorder
             _timer = new System.Timers.Timer(_period);
             _timer.Elapsed += new ElapsedEventHandler(_timer_Elapsed);
             _samples = new List<Sample>();
-            _window = new RecorderWindow();
+            _window = new RecorderWindow(this);
 
             _window.Show();
-            _window.AddSampleToChart(new Sample(
-                5, 4));
-            //startRecording();
         }
         #endregion
 
