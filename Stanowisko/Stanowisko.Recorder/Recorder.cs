@@ -17,6 +17,7 @@ namespace Stanowisko.Recorder
         private bool _isConnected = false;
         private IMeasuringDevice _measuringDevice;
         private System.Timers.Timer _timer;
+        private RecorderWindow _window;
         #endregion
 
         #region Private Methods
@@ -39,6 +40,9 @@ namespace Stanowisko.Recorder
             _timer = new System.Timers.Timer(_period);
             _timer.Elapsed += new ElapsedEventHandler(_timer_Elapsed);
             _samples = new List<Sample>();
+            _window = new RecorderWindow();
+
+            _window.Show();
         }
         #endregion
 
