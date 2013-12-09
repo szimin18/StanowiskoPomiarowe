@@ -23,7 +23,9 @@ namespace Stanowisko.Recorder
         #region Private Methods
         private void _getSample()
         {
-            _samples.Add(_measuringDevice.GetSample());
+            Sample sample = _measuringDevice.GetSample();
+            _samples.Add(sample);
+            _window.AddSampleToChart(sample);
         }
         
         private void _timer_Elapsed(object sender, ElapsedEventArgs e)
@@ -43,6 +45,9 @@ namespace Stanowisko.Recorder
             _window = new RecorderWindow();
 
             _window.Show();
+            _window.AddSampleToChart(new Sample(
+                5, 4));
+            //startRecording();
         }
         #endregion
 
@@ -55,6 +60,7 @@ namespace Stanowisko.Recorder
                 if (errorMessage != null)
                 {
                     MessageBox.Show(errorMessage);
+                    return;
                 }
             }
             _isRecording = true;

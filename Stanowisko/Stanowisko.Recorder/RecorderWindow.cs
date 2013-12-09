@@ -14,30 +14,30 @@ namespace Stanowisko.Recorder
 {
     public partial class RecorderWindow : Form
     {
-        private Series serie;
         private const String SerieName = "seria";
 
         public RecorderWindow()
         {
             InitializeComponent();
             InitializeChart();
-            ClearChart();
         }
 
         private void InitializeChart()
         {
-            serie = chart.Series.Add(SerieName);
-            serie.ChartType = SeriesChartType.FastLine;
+            ClearChart();
+            chart.Series[SerieName].ChartType = SeriesChartType.FastLine;
+            chart.Series[SerieName].Points.AddXY(1, 3);
         }
 
         public void AddSampleToChart(Sample sample)
         {
-            serie.Points.AddXY(sample.Time, sample.Value);
+            chart.Series[SerieName].Points.AddXY(sample.Time, sample.Value);
         }
 
         public void ClearChart()
         {
             chart.Series.Clear();
+            chart.Series.Add(SerieName);
         }
     }
 }
