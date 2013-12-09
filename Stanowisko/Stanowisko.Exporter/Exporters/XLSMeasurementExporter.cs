@@ -30,29 +30,31 @@ namespace Stanowisko.Exporter.Exporters
             {
             }
 
-            public override void Export(Measurement measurement)
+            public override void ExportToFile(Measurement measurement)
             {
                 try
                 {
                     Microsoft.Office.Interop.Excel.Application saveApp = new Microsoft.Office.Interop.Excel.Application();
-                    Microsoft.Office.Interop.Excel.Workbook workbook = saveApp.Workbooks.Open(OutputFileName);
-                    Microsoft.Office.Interop.Excel.Worksheet worksheet = workbook.Worksheets.get_Item(0);
+                    Microsoft.Office.Interop.Excel.Workbook workbook = saveApp.Workbooks.Add(System.Reflection.Missing.Value);
+                    Microsoft.Office.Interop.Excel.Worksheet worksheet = (Microsoft.Office.Interop.Excel.Worksheet)workbook.Worksheets[1];
                     worksheet.Cells[1, 1] = "Id";
                     worksheet.Cells[1, 2] = measurement.Id.ToString(CultureInfo.InvariantCulture);
                     worksheet.Cells[2, 1] = "Result";
                     worksheet.Cells[2, 2] = measurement.Result.ToString(CultureInfo.InvariantCulture);
-                    worksheet.Cells[5, 1] = "Id";
-                    worksheet.Cells[6, 1] = "Time";
-                    worksheet.Cells[7, 1] = "Value";
+                    worksheet.Cells[1, 5] = "Id";
+                    worksheet.Cells[1, 6] = "Time";
+                    worksheet.Cells[1, 7] = "Value";
                     int row = 2;
                     foreach (Sample sample in measurement.GetSamples())
                     {
-                        worksheet.Cells[5, row] = sample.Id.ToString(CultureInfo.InvariantCulture);
-                        worksheet.Cells[6, row] = sample.Time.ToString(CultureInfo.InvariantCulture);
-                        worksheet.Cells[7, row] = sample.Value.ToString(CultureInfo.InvariantCulture);
+                        worksheet.Cells[row, 5] = sample.Id.ToString(CultureInfo.InvariantCulture);
+                        worksheet.Cells[row, 6] = sample.Time.ToString(CultureInfo.InvariantCulture);
+                        worksheet.Cells[row, 7] = sample.Value.ToString(CultureInfo.InvariantCulture);
                         row++;
                     }
-                    workbook.Close(true, OutputFileName);
+                    workbook.SaveAs(OutputFileName, Microsoft.Office.Interop.Excel.XlFileFormat.xlWorkbookNormal);
+                    workbook.Close(true);
+                    saveApp.Quit();
                 }
                 catch (Exception e)
                 {

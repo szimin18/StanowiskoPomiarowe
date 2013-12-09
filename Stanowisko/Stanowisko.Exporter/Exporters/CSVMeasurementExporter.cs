@@ -28,7 +28,7 @@ namespace Stanowisko.Exporter.Exporters
             {
             }
 
-            public override void Export(Measurement measurement)
+            public override void ExportToFile(Measurement measurement)
             {
                 try
                 {

@@ -43,6 +43,11 @@ namespace Stanowisko.Exporter
             FileExtension = fileExtension;
         }
 
-        public abstract void Export(T exportee);
+        protected void Export(T exportee)
+        {
+            ExportToFile(exportee);
+        }
+
+        public abstract void ExportToFile(T exportee);
     }
 }
