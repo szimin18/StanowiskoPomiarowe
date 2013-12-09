@@ -51,6 +51,12 @@
     <Compile Include="IMeasurementExporter.cs" />
     <Compile Include="MockExperimentExporter.cs" />
     <Compile Include="MockMeasurementExporter.cs" />
+    <Compile Include="OpenAfterExportForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OpenAfterExportForm.Designer.cs">
+      <DependentUpon>OpenAfterExportForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="XLSExperimentExporter.cs" />
     <Compile Include="XLSMeasurementExporter.cs" />
@@ -89,6 +95,11 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="OpenAfterExportForm.resx">
+      <DependentUpon>OpenAfterExportForm.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

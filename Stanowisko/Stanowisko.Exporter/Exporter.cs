@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 using Stanowisko.SharedClasses;
 
@@ -57,6 +58,13 @@ namespace Stanowisko.Exporter
             if (_saveMeasurementFileDialog.FileName != "")
             {
                 _measurementExporters[_saveMeasurementFileDialog.FilterIndex - 1].Export(_saveMeasurementFileDialog, measurement);
+            }
+
+            OpenAfterExportForm openExportedFileForm = new OpenAfterExportForm();
+            DialogResult openExportedFileDialog = openExportedFileForm.ShowDialog();
+            if (openExportedFileDialog == DialogResult.OK)
+            {
+                System.Diagnostics.Process.Start(_saveMeasurementFileDialog.FileName);
             }
         }
 
