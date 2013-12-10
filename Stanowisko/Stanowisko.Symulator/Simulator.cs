@@ -1,25 +1,40 @@
 ﻿﻿using Stanowisko.SharedClasses;
 using System;
+using System.Collections.Generic;
 
 namespace Stanowisko.Symulator
 {
     public class Simulator : IMeasuringDevice
     {
+        #region Private Variables
+        private IEstimatingFunction _selectedEstimatingFunction;
+        #endregion
+
         #region Private Properties
         private DateTime StartingTime { set; get; }
         private bool IsConnected { set; get; }
-        #endregion
 
-        #region Private Methods
-        private double SimulatingFunction(double miliseconds)
+        private long SampleInsertionDelay { set; get; }
+        private long InitialValue { set; get; }
+        private long ExperimentDuration { set; get; }
+        private long Amplitude { set; get; }
+        private IEnumerable<IEstimatingFunction> EstimatingFunctionList
         {
-            if (miliseconds < 1000 || miliseconds > 3000)
+            get
             {
-                return 1;
+                return (IEnumerable<IEstimatingFunction>)EstimatingFunctionFactory.EstimatingFunctionsList;
             }
-            else
+        }
+        private IEstimatingFunction SelectedEstimatingFunction
+        {
+            get { return _selectedEstimatingFunction; }
+            set
             {
-                return (miliseconds - 2000) * (2000 - miliseconds) / 1000000 + 2;
+                if (_selectedEstimatingFunction != value)
+                {
+                    _selectedEstimatingFunction = value;
+                    //RaisePropertyChanged("SelectedRank");
+                }
             }
         }
         #endregion
@@ -27,7 +42,11 @@ namespace Stanowisko.Symulator
         #region Consructors
         public Simulator()
         {
-
+            SelectedEstimatingFunction = EstimatingFunctionFactory.Simple;
+            SampleInsertionDelay = 1000;
+            ExperimentDuration = 2000;
+            Amplitude = 1;
+            InitialValue = 1;
         }
         #endregion
 
@@ -57,7 +76,7 @@ namespace Stanowisko.Symulator
             {
                 DateTime currentTime = DateTime.Now;
                 double totalMiliseconds = (currentTime - StartingTime).TotalMilliseconds;
-                return new Sample(SimulatingFunction(totalMiliseconds), totalMiliseconds);
+                return new Sample(SelectedEstimatingFunction.GetValue(totalMiliseconds, SampleInsertionDelay, InitialValue, ExperimentDuration, Amplitude), totalMiliseconds);
             }
             else
             {
