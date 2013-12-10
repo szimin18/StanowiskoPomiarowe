@@ -10,9 +10,12 @@
         <Label Content="Algorytm:" HorizontalAlignment="Left" Margin="24,172,0,0" VerticalAlignment="Top" Width="120"/>
         <ComboBox x:Name="AlgoritmComboBox" HorizontalAlignment="Left" Margin="24,203,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="AlgoritmComboBox_SelectionChanged"/>
         <CheckBox Content="Kalibracja" HorizontalAlignment="Left" Margin="24,320,0,0" VerticalAlignment="Top" Height="19" Width="120" Checked="CheckBox_Checked"/>
-        <Button Content="Oblicz" HorizontalAlignment="Left" Margin="24,356,0,0" VerticalAlignment="Top" Width="120" Height="50"/>
-        <Slider HorizontalAlignment="Left" Margin="173,403,0,0" VerticalAlignment="Top" Width="511"/>
-        <Slider HorizontalAlignment="Left" Margin="173,430,0,0" VerticalAlignment="Top" Width="511"/>
+        <Button x:Name="Oblicz" Content="Oblicz" HorizontalAlignment="Left" Margin="24,356,0,0" VerticalAlignment="Top" Width="120" Height="50" Click="Oblicz_Click"/>
+        <Slider x:Name="Slicer1" HorizontalAlignment="Left" Margin="173,403,0,0" VerticalAlignment="Top" Width="511" ValueChanged="Slicer1_ValueChanged"/>
+        <Slider x:Name="Slicer2" HorizontalAlignment="Left" Margin="173,430,0,0" VerticalAlignment="Top" Width="511" ValueChanged="Slicer2_ValueChanged"/>
+        <TextBox x:Name="Calibration" HorizontalAlignment="Left" Height="23" Margin="24,292,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="Calibration_TextChanged"/>
+        <TextBox x:Name="Wynik" HorizontalAlignment="Left" Height="23" Margin="24,430,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="TextBox_TextChanged"/>
+        <Label Content="Współczynnik kalibracji:&#xD;&#xA;" HorizontalAlignment="Left" Margin="10,251,0,0" VerticalAlignment="Top" Width="134" Height="27"/>
 
     </Grid>
 </Window>

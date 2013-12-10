@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stanowisko.GUI", "Stanowisko.GUI\Stanowisko.GUI.csproj", "{8403D196-780C-4863-B0A2-557DBB51AF00}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stanowisko.Symulator", "Stanowisko.Symulator\Stanowisko.Symulator.csproj", "{00AA9AAD-CD50-4F45-9D73-8CBC41D2F5DD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stanowisko.SharedClasses", "Stanowisko.SharedClasses\Stanowisko.SharedClasses.csproj", "{A0CC950A-D0A7-4912-8396-5EF6CD7F8B35}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stanowisko.Testy", "Stanowisko.Testy\Stanowisko.Testy.csproj", "{C062EE8F-F23E-4EA0-82C2-7F67AB00EE11}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stanowisko.Exporter", "Stanowisko.Exporter\Stanowisko.Exporter.csproj", "{424D01C1-7608-4888-8B3E-CE6FE6012A5A}"
 EndProject
@@ -16,6 +16,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stanowisko.Persistance", "Stanowisko.Persistance\Stanowisko.Persistance.csproj", "{34B68FDC-73D1-4F4B-9A34-79A83F6043E7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stanowisko.Recorder", "Stanowisko.Recorder\Stanowisko.Recorder.csproj", "{EC3D4147-F5B1-4C53-921F-EEDEC6DD4E9A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalculatorGUI", "CalculatorGUI\CalculatorGUI.csproj", "{66E8F994-2BB3-4686-A078-BDB613E57864}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +37,6 @@ Global
 		{A0CC950A-D0A7-4912-8396-5EF6CD7F8B35}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A0CC950A-D0A7-4912-8396-5EF6CD7F8B35}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A0CC950A-D0A7-4912-8396-5EF6CD7F8B35}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C062EE8F-F23E-4EA0-82C2-7F67AB00EE11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C062EE8F-F23E-4EA0-82C2-7F67AB00EE11}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C062EE8F-F23E-4EA0-82C2-7F67AB00EE11}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C062EE8F-F23E-4EA0-82C2-7F67AB00EE11}.Release|Any CPU.Build.0 = Release|Any CPU
 		{424D01C1-7608-4888-8B3E-CE6FE6012A5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{424D01C1-7608-4888-8B3E-CE6FE6012A5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{424D01C1-7608-4888-8B3E-CE6FE6012A5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -55,6 +53,10 @@ Global
 		{EC3D4147-F5B1-4C53-921F-EEDEC6DD4E9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EC3D4147-F5B1-4C53-921F-EEDEC6DD4E9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EC3D4147-F5B1-4C53-921F-EEDEC6DD4E9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66E8F994-2BB3-4686-A078-BDB613E57864}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66E8F994-2BB3-4686-A078-BDB613E57864}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66E8F994-2BB3-4686-A078-BDB613E57864}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66E8F994-2BB3-4686-A078-BDB613E57864}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

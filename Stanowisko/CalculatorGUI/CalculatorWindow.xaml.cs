@@ -31,6 +31,7 @@ namespace CalculatorGUI
 
         private IIntegratingModule algoritm;
         private IMeasurementCalculator calculator;
+        private string CalibText;
 
         public MainWindow()
         {
@@ -46,6 +47,7 @@ namespace CalculatorGUI
             AlgoritmComboBox.Items.Add("Metoda Trapezow");
             AlgoritmComboBox.Items.Add("Metoda Simpsoma");
 
+            CalibText = null;
         }
 
         private void ExperimentComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -64,11 +66,6 @@ namespace CalculatorGUI
             {
                 this.MeasurementComboBox.Items.Add(meas.Id.ToString());
             }
-
-        }
-
-        private void CheckBox_Checked(object sender, RoutedEventArgs e)
-        {
 
         }
 
@@ -92,6 +89,9 @@ namespace CalculatorGUI
             {
                 calculator = new MeasurementCalculator(measurement, algoritm);
             }
+            Slicer1.Value = this.calculator.CurveBeginning;
+            Slicer2.Value = this.calculator.CurveEnd;
+            this.calculator.Coefficent = 1;
         }
 
         private void AlgoritmComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -110,6 +110,55 @@ namespace CalculatorGUI
             {
                 calculator = new MeasurementCalculator(measurement, algoritm);
             }
+        }
+
+        private void Slicer1_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            int var = (int)Slicer1.Value;
+            if (Slicer1.Value > Slicer2.Value)
+            {
+                this.calculator.CurveEnd = var;
+            }
+            else
+            {
+                this.calculator.CurveBeginning = var;
+            }
+        }
+
+        private void Slicer2_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            int var = (int)Slicer2.Value;
+            if (Slicer2.Value > Slicer1.Value)
+            {
+                this.calculator.CurveEnd = var;
+            }
+            else
+            {
+                this.calculator.CurveBeginning = var;
+            }
+        }
+
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            if (Calibration.Text != null)
+            {
+               //this.calculator.Coefficent = this.calculator.Calibrate(double.Parse(CalibText));
+            }
+        }
+
+        private void Calibration_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            CalibText = Calibration.Text;
+        }
+
+        private void Oblicz_Click(object sender, RoutedEventArgs e)
+        {
+            //Wynik.Text = this.calculator.CalculateHeat().ToString();
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
         }
 
     }
