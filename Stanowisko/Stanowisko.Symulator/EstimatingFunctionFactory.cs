@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 namespace Stanowisko.Symulator
 {
     class EstimatingFunctionFactory
@@ -17,12 +19,75 @@ namespace Stanowisko.Symulator
             }
         }
 
-        public static IEnumerable<IEstimatingFunction> EstimatingFunctionsList
+        public static IEnumerable EstimatingFunctionsList
         {
             get
             {
-                return null;
+                return new IEstimatingFunctionsEnumerable(new IEstimatingFunction[] {Simple});
             }
+        }
+
+        public class IEstimatingFunctionsEnumerable : IEnumerable
+        {
+            private IEstimatingFunction[] _estimatingFunctionsList;
+
+            public IEstimatingFunctionsEnumerable(IEstimatingFunction[] list)
+            {
+                _estimatingFunctionsList = list;
+            }
+
+            IEnumerator System.Collections.IEnumerable.GetEnumerator()
+            {
+                return new IEstimatingFunctionsEnumerator(_estimatingFunctionsList);
+            }
+        }
+
+        public class IEstimatingFunctionsEnumerator : IEnumerator<IEstimatingFunction>
+        {
+            public IEstimatingFunction[] _estimatingFunctionsList;
+
+            int position = -1;
+
+            public IEstimatingFunctionsEnumerator(IEstimatingFunction[] list)
+            {
+                _estimatingFunctionsList = list;
+            }
+
+            public bool MoveNext()
+            {
+                position++;
+                return (position < _estimatingFunctionsList.Length);
+            }
+
+            public void Reset()
+            {
+                position = -1;
+            }
+
+            object IEnumerator.Current
+            {
+                get
+                {
+                    return Current;
+                }
+            }
+
+            public IEstimatingFunction Current
+            {
+                get
+                {
+                    try
+                    {
+                        return _estimatingFunctionsList[position];
+                    }
+                    catch (IndexOutOfRangeException)
+                    {
+                        throw new InvalidOperationException();
+                    }
+                }
+            }
+
+            void System.IDisposable.Dispose() { }
         }
     }
 }

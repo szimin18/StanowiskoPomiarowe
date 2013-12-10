@@ -12,9 +12,9 @@ namespace Stanowisko.Symulator
             }
         }
 
-        public override double GetValue(double miliseconds, long sapmleInsertionDelay, long initialValue, long experimentDuration, long amplitude)
+        public double GetValue(double miliseconds, long sampleInsertionDelay, long initialValue, long experimentDuration, long amplitude)
         {
-            if (miliseconds < sapmleInsertionDelay || miliseconds > sapmleInsertionDelay + experimentDuration)
+            if (miliseconds < sampleInsertionDelay || miliseconds > sampleInsertionDelay + experimentDuration)
             {
                 return initialValue;
             }
