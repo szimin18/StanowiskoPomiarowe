@@ -30,6 +30,7 @@ namespace CalculatorGUI
         private Measurement measurement;
 
         private IIntegratingModule algoritm;
+        private IMeasurementCalculator calculator;
 
         public MainWindow()
         {
@@ -40,6 +41,7 @@ namespace CalculatorGUI
                 this.ExperimentComboBox.Items.Add(exp.Name);
             }
             measurement = null;
+            algoritm = null;
 
             AlgoritmComboBox.Items.Add("Metoda Trapezow");
             AlgoritmComboBox.Items.Add("Metoda Simpsoma");
@@ -81,6 +83,15 @@ namespace CalculatorGUI
                     break;
                 }
             }
+
+            if (algoritm == null)
+            {
+                calculator = new MeasurementCalculator(measurement);
+            }
+            else
+            {
+                calculator = new MeasurementCalculator(measurement, algoritm);
+            }
         }
 
         private void AlgoritmComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -92,7 +103,12 @@ namespace CalculatorGUI
             }
             else if (text.Equals("Metoda Simpsona"))
             {
-                algoritm - new S
+                algoritm = new SimpsonsIntegratingModule();
+            }
+
+            if (measurement != null)
+            {
+                calculator = new MeasurementCalculator(measurement, algoritm);
             }
         }
 

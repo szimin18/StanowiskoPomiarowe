@@ -16,7 +16,47 @@ namespace Stanowisko.Calculator
         private double _coefficent;
         private IIntegratingModule _integrator;
 
-        private int CurveBeginning
+        private void initializeBoundaries()
+        //wyznaczam pozycje krzywej, uznając, że zaczyna się wtedy, kiedy wartości
+        //poczynając od końców zmieniają się o więcej niż wyznaczony dośw. epsilon
+        {
+            //wartość wyznaczana doświadczalnie
+            double epsilon = 0.01;
+
+
+            List<Sample> samples = _measurement.GetSamples();
+
+            double firstValue = samples.ElementAt(0).Value;
+            _curveBeginning = 0;
+            for (int i = 1; i < samples.Count; ++i)
+            {
+                if ((Math.Abs(samples.ElementAt(i).Value - firstValue)) > epsilon)
+                {
+                    _curveBeginning = i - 1;
+                    break;
+                }
+            }
+
+            double lastValue = samples.ElementAt(samples.Count - 1).Value;
+            _curveEnd = samples.Count - 1;
+            for (int i = samples.Count - 2; i > 0; --i)
+            {
+                if (Math.Abs(samples.ElementAt(i).Value - lastValue) > epsilon)
+                {
+                    _curveEnd = i + 1;
+                    break;
+                }
+            }
+        }
+
+        public MeasurementCalculator(Measurement measurements, IIntegratingModule integrator)
+        {
+            this._measurement = measurements;
+            this.initializeBoundaries();
+            this._integrator = integrator;
+        }
+
+        public int CurveBeginning
         {
             set
             {
@@ -29,7 +69,7 @@ namespace Stanowisko.Calculator
             }
         }
 
-        private int CurveEnd
+        public int CurveEnd
         {
             set
             {
@@ -65,7 +105,7 @@ namespace Stanowisko.Calculator
         // Calculating coefficent of measuring material, with known heat
         public double Calibrate(double heat)
         {
-            _coefficent=heat / _integrator.Integrate(_measurement.GetSamples(), CurveBeginning, CurveEnd);
+            _coefficent = heat / _integrator.Integrate(_measurement.GetSamples(), CurveBeginning, CurveEnd);
             return Coefficent;
         }
 

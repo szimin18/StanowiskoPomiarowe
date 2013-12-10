@@ -13,6 +13,16 @@ namespace Stanowisko.Calculator
             set; 
             get; 
         }
+        int CurveBeginning
+        {
+            set;
+            get;
+        }
+        int CurveEnd
+        {
+            set;
+            get;
+        }
         Tuple<int, int> GetBoundaries();
         void SetBoundaries(Tuple<int, int> boundaries);
         void InitializeBoundaries();
