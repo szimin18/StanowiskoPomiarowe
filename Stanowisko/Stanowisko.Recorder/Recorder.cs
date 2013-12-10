@@ -1,4 +1,5 @@
-﻿using Stanowisko.SharedClasses;
+﻿using System.IO;
+using Stanowisko.SharedClasses;
 using Stanowisko.Symulator;
 using System;
 using System.Collections.Generic;
@@ -10,11 +11,9 @@ namespace Stanowisko.Recorder
     public class Recorder : IRecorder
     {
         #region Private Member Variables
-        private const uint DefaultPeriod = 1000;
-        private uint _period;
+        private uint _period = 1000;
         private List<Sample> _samples;
         private bool _isRecording = false;
-        private bool _isConnected = false;
         private IMeasuringDevice _measuringDevice;
         private System.Timers.Timer _timer;
         private RecorderWindow _window;
@@ -24,14 +23,6 @@ namespace Stanowisko.Recorder
 
         private delegate void AddSampleToChartDelegate(Sample sample);
 
-        private void _getSample()
-        {
-            Sample sample = _measuringDevice.GetSample();
-            _samples.Add(sample);
-
-            _window.BeginInvoke(new AddSampleToChartDelegate(addSampleToChart), sample);
-        }
-
         private void addSampleToChart(Sample sample)
         {
             _window.AddSampleToChart(sample);
@@ -39,7 +30,14 @@ namespace Stanowisko.Recorder
         
         private void _timer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            _getSample();
+            Sample sample = _measuringDevice.GetSample();
+
+            if (_isRecording)
+            {
+                _samples.Add(sample);
+            }
+
+            _window.BeginInvoke(new AddSampleToChartDelegate(addSampleToChart), sample);
         }
         #endregion
 
@@ -47,46 +45,52 @@ namespace Stanowisko.Recorder
         public Recorder(IMeasuringDevice measuringDevice)
         {
             this._measuringDevice = measuringDevice;
-            _period = DefaultPeriod;
             _timer = new System.Timers.Timer(_period);
             _timer.Elapsed += new ElapsedEventHandler(_timer_Elapsed);
             _samples = new List<Sample>();
             _window = new RecorderWindow(this);
 
+            if (ConnectWithDevice())
+                return;
+
             _window.Show();
+            _timer.Start();
         }
+
+        public Recorder(IMeasuringDevice measuringDevice, uint period)
+            : this(measuringDevice)
+        {
+            if (period <= 0)
+            {
+                throw new InvalidDataException();
+            }
+            this._period = period;
+        }
+
+        private bool ConnectWithDevice()
+        {
+            string errorMessage = _measuringDevice.StartConnection();
+            if (errorMessage != null)
+            {
+                MessageBox.Show(errorMessage);
+                return true;
+            }
+            return false;
+        }
+
         #endregion
 
         #region Public Methods
         public void startRecording()
         {
-            if (!_isConnected)
-            {
-                string errorMessage = _measuringDevice.StartConnection();
-                if (errorMessage != null)
-                {
-                    MessageBox.Show(errorMessage);
-                    return;
-                }
-            }
+            _samples.Clear();
             _isRecording = true;
-            _timer.Start();
+
         }
 
         public void stopRecording()
         {
-            _timer.Stop();
-            _measuringDevice.StopConnection();
-            _isConnected = false;
             _isRecording = false;
-        }
-
-        public void setPeriod(uint period)
-        {
-            if (_isRecording)
-                throw new Exception();
-            this._period = period;
-            _timer.Interval = period;
         }
 
         public Measurement getRecording()
