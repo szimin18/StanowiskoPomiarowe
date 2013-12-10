@@ -19,8 +19,8 @@ namespace Stanowisko.Persistance
 
         int GetNextExperimentID();
 
-        int GetNextMeasurementID(int eId);
+        int GetNextMeasurementID(String eId);
 
-        int GetNextSampleID(int eId, int mId);
+        int GetNextSampleID(String eId, String mId);
     }
 }

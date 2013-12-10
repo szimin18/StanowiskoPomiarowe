@@ -88,17 +88,17 @@ namespace Stanowisko.Persistance
             return Experiments.Count > 0 ? Experiments.Select(e => Convert.ToInt32(e["ID"])).Max() + 1 : 1;
         }
 
-        public int GetNextMeasurementID(int eId)
+        public int GetNextMeasurementID(String eId)
         {
-            var col = Measurements.Where(m => m["experiment"] == eId.ToString());
+            var col = Measurements.Where(m => m["experiment"] == eId);
             return col.Any()
                        ? col.Select(m => Convert.ToInt32(m["ID"])).Max() + 1
                        : 1;
         }
 
-        public int GetNextSampleID(int eId, int mId)
+        public int GetNextSampleID(String eId, String mId)
         {
-            var col = Samples.Where(s => s["measurement"] == mId.ToString() && s["experiment"] == eId.ToString());
+            var col = Samples.Where(s => s["measurement"] == mId && s["experiment"] == eId);
             return col.Any()
                        ? col.Select(s => Convert.ToInt32(s["ID"])).Max() + 1
                        : 1;

@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Security.Permissions;
-using System.Xml;
 using System.Xml.Linq;
 
 namespace Stanowisko.Persistance
@@ -53,8 +50,6 @@ namespace Stanowisko.Persistance
         {
             var res = _db.Insert(tableName, data);
 
-            Console.WriteLine("Insert into " + tableName);
-
             Update();
 
             return res;
@@ -65,12 +60,12 @@ namespace Stanowisko.Persistance
             return _db.GetNextExperimentID();
         }
 
-        public int GetNextMeasurementID(int eId)
+        public int GetNextMeasurementID(String eId)
         {
             return _db.GetNextMeasurementID(eId);
         }
 
-        public int GetNextSampleID(int eId, int mId)
+        public int GetNextSampleID(String eId, String mId)
         {
             return _db.GetNextSampleID(eId, mId);
         }
@@ -168,8 +163,6 @@ namespace Stanowisko.Persistance
             {
                 return;     // wrong base gives us an empty base
             }
-
-            Console.WriteLine("Passed");
 
             var experiments = xmlDoc.Descendants("experiments").Elements();
 

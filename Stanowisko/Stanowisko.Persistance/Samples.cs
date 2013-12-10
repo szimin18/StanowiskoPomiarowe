@@ -19,19 +19,13 @@ namespace Stanowisko.Persistance
 
             var data = ToJSON(s, m, e);
 
-            try
-            {
-                Db.Insert("Samples", data);
-            }
-            catch (Exception)
-            {
-                Console.WriteLine("Error while inserting sample");
-            }
+            Db.Insert("Samples", data);
+
         }
         public List<Sample> GetAll(Measurement m, Experiment e)
         {
             var columns = new List<string> { "ID", "value", "time" };
-            var data = Db.GetAll("Samples", "measurement", m.Id.ToString(),"experiment",e.Id.ToString(), columns);
+            var data = Db.GetAll("Samples", "measurement", m.Id.ToString(), "experiment", e.Id.ToString(), columns);
 
             var result = data.Select(row =>
                 new Sample(Convert.ToInt32(row["ID"]),

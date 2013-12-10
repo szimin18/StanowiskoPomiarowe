@@ -21,33 +21,20 @@ namespace Stanowisko.Persistance
 
             var data = ToJSON(m, e);
 
-            try
+            Db.Insert("Measurements", data);
+            foreach (var sample in m.GetSamples())
             {
-                Db.Insert("Measurements", data);
-                foreach (var sample in m.GetSamples())
-                {
-                    _samplesDAO.Add(sample, m, e);
-                }
-                
+                _samplesDAO.Add(sample, m, e);
             }
-            catch (Exception)
-            {
-                Console.WriteLine("Error while inserting measurement");
-            }
+
+
         }
 
         public void Update(Measurement m, Experiment e)
         {
             var data = ToJSON(m, e);
 
-            try
-            {
-                Db.Update("Measurements", data, String.Format("MEASUREMENTS.ID = {0}", m.Id));
-            }
-            catch (Exception)
-            {
-                Console.WriteLine("Error while updating measurement");
-            }
+            Db.Update("Measurements", data, String.Format("MEASUREMENTS.ID = {0}", m.Id));
         }
 
         public List<Measurement> GetAll(Experiment e)
