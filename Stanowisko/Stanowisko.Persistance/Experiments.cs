@@ -26,8 +26,7 @@ namespace Stanowisko.Persistance
                     {"experiment", e.Id.ToString()}, {"name", pair.Key}, {"value", pair.Value}
                 });
 
-            try
-            {
+
                 Db.Insert("Experiments", data);
 
                 foreach (var parameter in parameters)
@@ -39,10 +38,7 @@ namespace Stanowisko.Persistance
                 {
                     _measurementsDAO.Add(m, e);
                 }
-            }
-            catch (Exception)
-            {
-            }
+
 
         }
 
@@ -55,8 +51,7 @@ namespace Stanowisko.Persistance
                     {"experiment", e.Id.ToString()}, {"name", pair.Key}, {"value", pair.Value}
                 });
 
-            try
-            {
+
                 Db.Update("Experiments", data, where: String.Format("Experiments.ID = {0}", e.Id.ToString()));
 
                 foreach (var p in parameters.Where(p => p != null))
@@ -68,10 +63,7 @@ namespace Stanowisko.Persistance
                 {
                     _measurementsDAO.Update(m, e);
                 }
-            }
-            catch (Exception )
-            {
-            }
+
         }
 
         public List<Experiment> GetAll()

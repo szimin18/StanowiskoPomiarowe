@@ -25,7 +25,7 @@ namespace Stanowisko.Persistance
             }
             catch (Exception)
             {
-
+                Console.WriteLine("Error while inserting sample");
             }
         }
         public List<Sample> GetAll(Measurement m, Experiment e)

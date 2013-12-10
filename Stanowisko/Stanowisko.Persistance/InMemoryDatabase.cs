@@ -90,17 +90,17 @@ namespace Stanowisko.Persistance
 
         public int GetNextMeasurementID(int eId)
         {
-            return Measurements.Count > 0
-                       ? Measurements.Where(m => m["Id"] == eId.ToString())
-                             .Select(m => Convert.ToInt32(m["ID"])).Max() + 1
+            var col = Measurements.Where(m => m["experiment"] == eId.ToString());
+            return col.Any()
+                       ? col.Select(m => Convert.ToInt32(m["ID"])).Max() + 1
                        : 1;
         }
 
         public int GetNextSampleID(int eId, int mId)
         {
-            return Samples.Count > 0
-                       ? Samples.Where(s => s["measurement"] == mId.ToString() && s["experiment"] == eId.ToString())
-                             .Select(s => Convert.ToInt32(s["ID"])).Max() + 1
+            var col = Samples.Where(s => s["measurement"] == mId.ToString() && s["experiment"] == eId.ToString());
+            return col.Any()
+                       ? col.Select(s => Convert.ToInt32(s["ID"])).Max() + 1
                        : 1;
         }
     }

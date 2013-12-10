@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Permissions;
 using System.Xml;
 using System.Xml.Linq;
 
@@ -21,10 +22,6 @@ namespace Stanowisko.Persistance
 
         public XMLDatabase()
         {
-            if (!File.Exists(Path))
-            {
-                File.Create(Path);
-            }
             Init();   //initializes InMemoryDatabase with data saved in .xml file
         }
 
@@ -55,6 +52,8 @@ namespace Stanowisko.Persistance
         public bool Insert(string tableName, Dictionary<string, string> data)
         {
             var res = _db.Insert(tableName, data);
+
+            Console.WriteLine("Insert into " + tableName);
 
             Update();
 
@@ -154,11 +153,7 @@ namespace Stanowisko.Persistance
                 root.Add(experiment);
             }
 
-            const string newPath = "newDB.xml";
-
             root.Save(Path);
-
-            //File.Replace(newPath, Path, "db.xml.backup");
 
         }
 

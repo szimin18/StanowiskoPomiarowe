@@ -32,6 +32,7 @@ namespace Stanowisko.Persistance
             }
             catch (Exception)
             {
+                Console.WriteLine("Error while inserting measurement");
             }
         }
 
@@ -45,6 +46,7 @@ namespace Stanowisko.Persistance
             }
             catch (Exception)
             {
+                Console.WriteLine("Error while updating measurement");
             }
         }
 
