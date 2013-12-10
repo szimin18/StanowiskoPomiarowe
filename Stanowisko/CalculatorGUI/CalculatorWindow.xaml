@@ -4,11 +4,11 @@
         Title="Calculator" Height="500" Width="720">
     <Grid>
         <Label Content="Eksperyment:" HorizontalAlignment="Left" Margin="24,10,0,0" VerticalAlignment="Top" Width="120"/>
-        <ComboBox HorizontalAlignment="Left" Margin="24,41,0,0" VerticalAlignment="Top" Width="120"/>
+        <ComboBox x:Name="ExperimentComboBox" HorizontalAlignment="Left" Margin="24,41,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="ExperimentComboBox_SelectionChanged"/>
         <Label Content="Pomiar:" HorizontalAlignment="Left" Margin="24,68,0,0" VerticalAlignment="Top" Width="120" Height="25"/>
-        <ComboBox HorizontalAlignment="Left" Margin="24,98,0,0" VerticalAlignment="Top" Width="120"/>
+        <ComboBox x:Name="MeasurementComboBox" HorizontalAlignment="Left" Margin="24,98,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="MeasurementComboBox_SelectionChanged"/>
         <Label Content="Algorytm:" HorizontalAlignment="Left" Margin="24,172,0,0" VerticalAlignment="Top" Width="120"/>
-        <ComboBox HorizontalAlignment="Left" Margin="24,203,0,0" VerticalAlignment="Top" Width="120"/>
+        <ComboBox x:Name="AlgoritmComboBox" HorizontalAlignment="Left" Margin="24,203,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="AlgoritmComboBox_SelectionChanged"/>
         <CheckBox Content="Kalibracja" HorizontalAlignment="Left" Margin="24,320,0,0" VerticalAlignment="Top" Height="19" Width="120" Checked="CheckBox_Checked"/>
         <Button Content="Oblicz" HorizontalAlignment="Left" Margin="24,356,0,0" VerticalAlignment="Top" Width="120" Height="50"/>
         <Slider HorizontalAlignment="Left" Margin="173,403,0,0" VerticalAlignment="Top" Width="511"/>

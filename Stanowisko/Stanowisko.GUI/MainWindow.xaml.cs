@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using CalculatorGUI;
 
 namespace Stanowisko.GUI
 {
@@ -20,6 +21,7 @@ namespace Stanowisko.GUI
     /// </summary>
     public partial class MainWindow : Window
     {
+        private CalculatorGUI.MainWindow calculator;
         public MainWindow()
         {
             InitializeComponent();
@@ -29,5 +31,13 @@ namespace Stanowisko.GUI
         {
             new Recorder.Recorder(new Symulator.Simulator());
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            calculator = new CalculatorGUI.MainWindow();
+            calculator.Show();
+        }
+
+
     }
 }

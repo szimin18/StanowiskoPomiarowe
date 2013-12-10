@@ -23,15 +23,71 @@ namespace CalculatorGUI
     /// </summary>
     public partial class MainWindow : Window
     {
+        IPersistenceManager persistence = PersistenceFactory.GetPersistenceManager();
+        private List<Experiment> experiments;
+        private Experiment experiment;
+        private List<Measurement> measurements;
+        private Measurement measurement;
+
+        private IIntegratingModule algoritm;
 
         public MainWindow()
         {
             InitializeComponent();
+            experiments = persistence.GetAllExperiments();
+            foreach (Experiment exp in experiments)
+            {
+                this.ExperimentComboBox.Items.Add(exp.Name);
+            }
+            measurement = null;
+
+            AlgoritmComboBox.Items.Add("Metoda Trapezow");
+            AlgoritmComboBox.Items.Add("Metoda Simpsoma");
+            AlgoritmComboBox.Items.Add("Metoda MonteCarlo");
+
+        }
+
+        private void ExperimentComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            string text = ExperimentComboBox.SelectedItem.ToString();
+            foreach (Experiment exp in experiments)
+            {
+                if (exp.Name.Equals(text))
+                {
+                    measurements = exp.GetMeasurements();
+                    break;
+                }
+            }
+
+            foreach (Measurement meas in measurements)
+            {
+                this.MeasurementComboBox.Items.Add(meas.Id.ToString());
+            }
+
         }
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
         {
 
         }
+
+        private void MeasurementComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            int id = int.Parse(MeasurementComboBox.SelectedItem.ToString());
+            foreach (Measurement meas in measurements)
+            {
+                if (id == meas.Id)
+                {
+                    measurement = meas;
+                    break;
+                }
+            }
+        }
+
+        private void AlgoritmComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            string text = AlgoritmComboBox.SelectedItem.ToString();
+        }
+
     }
 }

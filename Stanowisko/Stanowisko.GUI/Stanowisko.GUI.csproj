@@ -94,6 +94,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CalculatorGUI\CalculatorGUI.csproj">
+      <Project>{66e8f994-2bb3-4686-a078-bdb613e57864}</Project>
+      <Name>CalculatorGUI</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Stanowisko.Recorder\Stanowisko.Recorder.csproj">
       <Project>{ec3d4147-f5b1-4c53-921f-eedec6dd4e9a}</Project>
       <Name>Stanowisko.Recorder</Name>

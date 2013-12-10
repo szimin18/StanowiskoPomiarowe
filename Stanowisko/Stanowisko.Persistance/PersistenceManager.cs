@@ -3,7 +3,7 @@ using Stanowisko.SharedClasses;
 
 namespace Stanowisko.Persistance
 {
-    class PersistenceManager : IPersistenceManager
+    public class PersistenceManager : IPersistenceManager
     {
         private readonly Experiments _experiments;
 
