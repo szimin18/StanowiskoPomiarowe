@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Stanowisko.Persistance
@@ -76,10 +77,31 @@ namespace Stanowisko.Persistance
         public bool Insert(string tableName, Dictionary<string, string> data)
         {
             SetTable(tableName);
-            
+
             _table.Add(data);
 
             return true;
+        }
+
+        public int GetNextExperimentID()
+        {
+            return Experiments.Count > 0 ? Experiments.Select(e => Convert.ToInt32(e["ID"])).Max() + 1 : 1;
+        }
+
+        public int GetNextMeasurementID(int eId)
+        {
+            return Measurements.Count > 0
+                       ? Measurements.Where(m => m["Id"] == eId.ToString())
+                             .Select(m => Convert.ToInt32(m["ID"])).Max() + 1
+                       : 1;
+        }
+
+        public int GetNextSampleID(int eId, int mId)
+        {
+            return Samples.Count > 0
+                       ? Samples.Where(s => s["measurement"] == mId.ToString() && s["experiment"] == eId.ToString())
+                             .Select(s => Convert.ToInt32(s["ID"])).Max() + 1
+                       : 1;
         }
     }
 }

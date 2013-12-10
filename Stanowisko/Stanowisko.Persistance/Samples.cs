@@ -13,9 +13,12 @@ namespace Stanowisko.Persistance
         {
         }
 
-        public void Add(Sample sample, Measurement measurement, Experiment experiment)
+        public void Add(Sample s, Measurement m, Experiment e)
         {
-            var data = ToJSON(sample, measurement, experiment);
+            s.Id = Db.GetNextSampleID(m.Id, e.Id);
+
+            var data = ToJSON(s, m, e);
+
             try
             {
                 Db.Insert("Samples", data);

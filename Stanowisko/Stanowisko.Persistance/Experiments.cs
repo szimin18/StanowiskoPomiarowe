@@ -17,6 +17,8 @@ namespace Stanowisko.Persistance
 
         public void Add(Experiment e)
         {
+            e.Id = Db.GetNextExperimentID();
+
             var data = ToJSON(e);
 
             var parameters = e.Parameters.Select(pair => new Dictionary<String, String>
@@ -76,6 +78,8 @@ namespace Stanowisko.Persistance
         {
             var columns = new List<string> { "ID", "name", "description", "goal", "result", "summary" };
             var experiments = Db.GetAll("Experiments", columns);
+
+            Console.WriteLine("got " + experiments.Count + "experiments");
 
             var es = (from experiment in experiments
                       let eId = Convert.ToInt32(experiment["ID"])

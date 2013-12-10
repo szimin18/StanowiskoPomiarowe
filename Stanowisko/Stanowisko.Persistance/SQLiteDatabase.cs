@@ -79,7 +79,7 @@ namespace Stanowisko.Persistance
 
             while (reader.Read())
             {
-                var d = columns.ToDictionary(column => column, column => (string)reader[column]);
+                var d = columns.ToDictionary(column => column, column => reader[column].ToString());
                 res.Add(d);
             }
             cnn.Close();
@@ -98,16 +98,30 @@ namespace Stanowisko.Persistance
 
             while (reader.Read())
             {
-                var d = columns.ToDictionary(column => column, column => (string)reader[column]);
+                var d = columns.ToDictionary(column => column, column => reader[column].ToString());
                 res.Add(d);
             }
             cnn.Close();
             return res;
         }
 
-        public List<Dictionary<string, string>> GetAll(string pTableName, string pIdName, string pIdValue, string sIdName, string sIdValue, List<string> columns)
+        public List<Dictionary<string, string>> GetAll(string tableName, string pIdName, string pIdValue, string sIdName, string sIdValue, List<string> columns)
         {
-            throw new NotImplementedException();
+            var cnn = new SQLiteConnection(_dbConnection);
+            cnn.Open();
+
+            var sql = String.Format("select * from {0} where {0}.{1} = \"{2}\" and {0}.{3} = \"{4}\"", tableName, pIdName, pIdValue, sIdName, sIdValue);
+            var command = new SQLiteCommand(sql, cnn);
+            var reader = command.ExecuteReader();
+            var res = new List<Dictionary<string, string>>();
+
+            while (reader.Read())
+            {
+                var d = columns.ToDictionary(column => column, column => reader[column].ToString());
+                res.Add(d);
+            }
+            cnn.Close();
+            return res;
         }
 
         public bool Update(String tableName, Dictionary<String, String> data, String where)
@@ -157,5 +171,19 @@ namespace Stanowisko.Persistance
             return returnCode;
         }
 
+        public int GetNextExperimentID()
+        {
+            throw new NotImplementedException();
+        }
+
+        public int GetNextMeasurementID(int eId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int GetNextSampleID(int eId, int mId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

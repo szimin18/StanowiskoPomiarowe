@@ -61,6 +61,21 @@ namespace Stanowisko.Persistance
             return res;
         }
 
+        public int GetNextExperimentID()
+        {
+            return _db.GetNextExperimentID();
+        }
+
+        public int GetNextMeasurementID(int eId)
+        {
+            return _db.GetNextMeasurementID(eId);
+        }
+
+        public int GetNextSampleID(int eId, int mId)
+        {
+            return _db.GetNextSampleID(eId, mId);
+        }
+
         private void Update()
         {
             var root = new XElement("experiments");

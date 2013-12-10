@@ -10,7 +10,7 @@ namespace Stanowisko.SharedClasses
     {
         private readonly List<Sample> _samples = new List<Sample>();
 
-        public int Id { get; private set; }
+        public int Id { get; set; }
 
         public double Result { get; set; }
 
@@ -20,9 +20,6 @@ namespace Stanowisko.SharedClasses
 
         public Measurement()
         {
-            Id = Convert.ToInt32(File.ReadAllText("../../MeasurementID.csv"));
-            var i = Id + 1;
-            File.WriteAllText("../../MeasurementID.csv", i.ToString());
         }
 
         public Measurement(int id)
@@ -32,9 +29,6 @@ namespace Stanowisko.SharedClasses
 
         public Measurement(List<Sample> samples)
         {
-            Id = Convert.ToInt32(File.ReadAllText("../../MeasurementID.csv"));
-            var i = Id + 1;
-            File.WriteAllText("../../MeasurementID.csv", i.ToString());
             Add(samples);
         }
 

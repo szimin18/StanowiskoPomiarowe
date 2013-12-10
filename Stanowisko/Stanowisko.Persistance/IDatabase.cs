@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Stanowisko.SharedClasses;
 
 namespace Stanowisko.Persistance
 {
@@ -15,5 +16,11 @@ namespace Stanowisko.Persistance
         bool Update(String tableName, Dictionary<String, String> data, String where);
 
         bool Insert(String tableName, Dictionary<String, String> data);
+
+        int GetNextExperimentID();
+
+        int GetNextMeasurementID(int eId);
+
+        int GetNextSampleID(int eId, int mId);
     }
 }
