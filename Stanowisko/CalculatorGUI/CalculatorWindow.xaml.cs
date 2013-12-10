@@ -43,7 +43,6 @@ namespace CalculatorGUI
 
             AlgoritmComboBox.Items.Add("Metoda Trapezow");
             AlgoritmComboBox.Items.Add("Metoda Simpsoma");
-            AlgoritmComboBox.Items.Add("Metoda MonteCarlo");
 
         }
 
@@ -87,6 +86,14 @@ namespace CalculatorGUI
         private void AlgoritmComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             string text = AlgoritmComboBox.SelectedItem.ToString();
+            if (text.Equals("Metoda Trapezow"))
+            {
+                algoritm = new TrapezoidalIntegratingModule();
+            }
+            else if (text.Equals("Metoda Simpsona"))
+            {
+                algoritm - new S
+            }
         }
 
     }
