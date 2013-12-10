@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Reflection;
 using System.Collections.Generic;
@@ -19,10 +19,10 @@ namespace CalculatorTest
                 readings.Add(new Sample(i, 0.0));
             }
             Measurement firstMeasurement = new Measurement(readings);
-            MeasurementCalculator firstTarget = new MeasurementCalculator(firstMeasurement);
+            MeasurementCalculator firstTarget = new MeasurementCalculator(firstMeasurement, new TrapezoidalIntegratingModule());
 
-            Assert.AreEqual(0, firstTarget.GetBoundaries().Item1);
-            Assert.AreEqual(9, firstTarget.GetBoundaries().Item2);
+            Assert.AreEqual(0, firstTarget.CurveBeginning);
+            Assert.AreEqual(9, firstTarget.CurveEnd);
 
         }
 
@@ -46,10 +46,10 @@ namespace CalculatorTest
             }
 
             Measurement secondMeasurement = new Measurement(secondReadings);
-            MeasurementCalculator secondTarget = new MeasurementCalculator(secondMeasurement);
+            MeasurementCalculator secondTarget = new MeasurementCalculator(secondMeasurement, new TrapezoidalIntegratingModule());
 
-            Assert.AreEqual(4, secondTarget.GetBoundaries().Item1);
-            Assert.AreEqual(14, secondTarget.GetBoundaries().Item2);
+            Assert.AreEqual(4, secondTarget.CurveBeginning);
+            Assert.AreEqual(14, secondTarget.CurveEnd);
         }
     }
 }
