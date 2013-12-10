@@ -176,12 +176,12 @@ namespace Stanowisko.Persistance
             throw new NotImplementedException();
         }
 
-        public int GetNextMeasurementID(int eId)
+        public int GetNextMeasurementID(String eId)
         {
             throw new NotImplementedException();
         }
 
-        public int GetNextSampleID(int eId, int mId)
+        public int GetNextSampleID(String eId, String mId)
         {
             throw new NotImplementedException();
         }
