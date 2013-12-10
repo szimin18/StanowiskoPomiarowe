@@ -32,9 +32,14 @@ namespace Stanowisko.Persistance
             return _db.GetAll(tableName, idName, idValue, columns);
         }
 
-        public List<Dictionary<string, string>> GetAll(string pTableName, string pIdName, string pIdValue, string sIdName, string sIdValue, List<string> columns)
+        public List<Dictionary<string, string>> GetParameters(string pTableName, string pIdName, string pIdValue, string sIdName, string sIdValue, List<string> columns)
         {
-            return _db.GetAll(pTableName, pIdName, pIdValue, sIdName, sIdValue, columns);
+            return _db.GetParameters(pTableName, pIdName, pIdValue, sIdName, sIdValue, columns);
+        }
+
+        public bool UpdateParameters(Dictionary<string, string> data, string @where)
+        {
+            return _db.UpdateParameters(data, where);
         }
 
         public bool Update(string tableName, Dictionary<string, string> data, string @where)

@@ -54,7 +54,7 @@ namespace Stanowisko.Persistance
 
             foreach (var p in parameters.Where(p => p != null))
             {
-                Db.Update("Parameters", p, String.Format("Parameters.name = {0} and Parameters.value = {1}", p["Name"], p["Value"]));
+                Db.UpdateParameters(p, String.Format("Parameters.name = {0} and Parameters.value = {1}", p["name"], p["value"]));
             }
 
             foreach (var m in e.GetMeasurements())

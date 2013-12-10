@@ -15,7 +15,7 @@ namespace Stanowisko.Persistance
 
         public void Add(Sample s, Measurement m, Experiment e)
         {
-            s.Id = Db.GetNextSampleID(m.Id, e.Id);
+            s.Id = Db.GetNextSampleID(m.Id.ToString(), e.Id.ToString());
 
             var data = ToJSON(s, m, e);
 
@@ -25,7 +25,7 @@ namespace Stanowisko.Persistance
         public List<Sample> GetAll(Measurement m, Experiment e)
         {
             var columns = new List<string> { "ID", "value", "time" };
-            var data = Db.GetAll("Samples", "measurement", m.Id.ToString(), "experiment", e.Id.ToString(), columns);
+            var data = Db.GetParameters("Samples", "measurement", m.Id.ToString(), "experiment", e.Id.ToString(), columns);
 
             var result = data.Select(row =>
                 new Sample(Convert.ToInt32(row["ID"]),

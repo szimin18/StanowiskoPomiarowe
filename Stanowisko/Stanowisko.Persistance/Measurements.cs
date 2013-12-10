@@ -17,7 +17,7 @@ namespace Stanowisko.Persistance
 
         public void Add(Measurement m, Experiment e)
         {
-            m.Id = Db.GetNextMeasurementID(e.Id);
+            m.Id = Db.GetNextMeasurementID(e.Id.ToString());
 
             var data = ToJSON(m, e);
 
@@ -50,8 +50,10 @@ namespace Stanowisko.Persistance
 
                 var samples = _samplesDAO.GetAll(m, e);
 
-                var beginning = samples.Where(s => s.Id == Convert.ToInt32(row["beginning"])).ToList()[0];
-                var end = samples.Where(s => s.Id == Convert.ToInt32(row["end"])).ToList()[0];
+                var bs = samples.Where(s => s.Id == Convert.ToInt32(row["beginning"])).ToList();
+                var es = samples.Where(s => s.Id == Convert.ToInt32(row["end"])).ToList();
+                var beginning = bs.Any() ? bs[0] : null;
+                var end = es.Any() ? es[0] : null;
                 var result = Convert.ToDouble(row["result"]);
 
                 m.Beginning = beginning;

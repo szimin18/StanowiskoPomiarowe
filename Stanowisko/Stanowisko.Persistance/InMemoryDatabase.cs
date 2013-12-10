@@ -52,7 +52,7 @@ namespace Stanowisko.Persistance
                     select columns.ToDictionary(column => column, column => row[column])).ToList();
         }
 
-        public List<Dictionary<string, string>> GetAll(string pTableName, string pIdName, string pIdValue, string sIdName, string sIdValue, List<string> columns)
+        public List<Dictionary<string, string>> GetParameters(string pTableName, string pIdName, string pIdValue, string sIdName, string sIdValue, List<string> columns)
         {
             SetTable(pTableName);
 
@@ -66,8 +66,23 @@ namespace Stanowisko.Persistance
         {
             SetTable(tableName);
 
-            var e = _table.Find(dictionary => dictionary["ID"] == data["ID"]);
+            var e = (tableName == "Experiments") 
+                               ? _table.Find(dictionary => dictionary["ID"] == data["ID"]) 
+                               : _table.Find(dictionary => dictionary["ID"] == data["ID"] && dictionary["experiment"] == data["experiment"]);
             var i = _table.IndexOf(e);
+
+            _table[i].Keys.ToList().ForEach(key => _table[i][key] = data[key]);
+
+            return false;
+        }
+
+        public bool UpdateParameters(Dictionary<string, string> data, string where)
+        {
+
+            SetTable("Parameters");
+
+            var e = Parameters.Find(dictionary => dictionary["experiment"] == data["experiment"]);
+            var i = Parameters.IndexOf(e);
 
             _table[i] = data;
 

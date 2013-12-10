@@ -105,7 +105,7 @@ namespace Stanowisko.Persistance
             return res;
         }
 
-        public List<Dictionary<string, string>> GetAll(string tableName, string pIdName, string pIdValue, string sIdName, string sIdValue, List<string> columns)
+        public List<Dictionary<string, string>> GetParameters(string tableName, string pIdName, string pIdValue, string sIdName, string sIdValue, List<string> columns)
         {
             var cnn = new SQLiteConnection(_dbConnection);
             cnn.Open();
@@ -182,6 +182,10 @@ namespace Stanowisko.Persistance
         }
 
         public int GetNextSampleID(String eId, String mId)
+        {
+            throw new NotImplementedException();
+        }
+        public bool UpdateParameters(Dictionary<string, string> data, string where)
         {
             throw new NotImplementedException();
         }

@@ -50,8 +50,7 @@ namespace Stanowisko.SharedClasses
         public bool Equals(Measurement m)
         {
             return m.Id == Id && m.Result == Result 
-                && m.Beginning.Equals(Beginning) && m.End.Equals(End)  &&
-                m._samples.All(s => _samples.Contains(s));
+                && m._samples.All(s => _samples.Contains(s));
         }
     }
 }
