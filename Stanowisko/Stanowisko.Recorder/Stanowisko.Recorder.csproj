@@ -53,6 +53,18 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Stanowisko.Calculator\Stanowisko.Calculator.csproj">
+      <Project>{3611d09e-bf1c-42b8-9737-92d2556a4000}</Project>
+      <Name>Stanowisko.Calculator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Stanowisko.Exporter\Stanowisko.Exporter.csproj">
+      <Project>{424d01c1-7608-4888-8b3e-ce6fe6012a5a}</Project>
+      <Name>Stanowisko.Exporter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Stanowisko.Persistance\Stanowisko.Persistance.csproj">
+      <Project>{34b68fdc-73d1-4f4b-9a34-79a83f6043e7}</Project>
+      <Name>Stanowisko.Persistance</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Stanowisko.SharedClasses\Stanowisko.SharedClasses.csproj">
       <Project>{a0cc950a-d0a7-4912-8396-5ef6cd7f8b35}</Project>
       <Name>Stanowisko.SharedClasses</Name>

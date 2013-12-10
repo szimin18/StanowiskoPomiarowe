@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
+using Stanowisko.Calculator;
+using Stanowisko.Exporter;
 using Stanowisko.SharedClasses;
 
 namespace Stanowisko.Recorder
@@ -61,6 +63,21 @@ namespace Stanowisko.Recorder
         private void RecorderWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
             recorder.disconnect();
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            // TODO: exporter integration
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            new MeasurementCalculator(recorder.getRecording());
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            // TODO: PM integration
         }
     }
 }
