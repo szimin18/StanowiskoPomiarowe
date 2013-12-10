@@ -123,11 +123,11 @@ namespace Stanowisko.Persistance
 
                         var measurement = new XElement("measurement");
 
-                        measurements.SetAttributeValue("ID", mID);
+                        measurement.SetAttributeValue("ID", mID);
 
-                        measurements.Add(new XElement("result", m["result"]));
-                        measurements.Add(new XElement("beginning", m["beginning"]));
-                        measurements.Add(new XElement("end", m["end"]));
+                        measurement.Add(new XElement("result", m["result"]));
+                        measurement.Add(new XElement("beginning", m["beginning"]));
+                        measurement.Add(new XElement("end", m["end"]));
 
                         var samples = new XElement("samples");
 
@@ -160,7 +160,6 @@ namespace Stanowisko.Persistance
 
             //File.Replace(newPath, Path, "db.xml.backup");
 
-            Console.WriteLine("replaced");
         }
 
         private void Init()
@@ -172,9 +171,10 @@ namespace Stanowisko.Persistance
             }
             catch (Exception e)
             {
-                return;
+                return;     // wrong base gives us an empty base
             }
 
+            Console.WriteLine("Passed");
 
             var experiments = xmlDoc.Descendants("experiments").Elements();
 

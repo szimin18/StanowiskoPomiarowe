@@ -4,10 +4,12 @@
     {
 
         //private static readonly IDatabase _Database = new SQLiteDatabase("D:\\Dropbox\\Minions\\Dawid\\TO\\DBtest.db");
-        private static readonly IDatabase _Database = new XMLDatabase();
+
+        private static readonly IDatabase Database = new XMLDatabase();
+
         public static IPersistenceManager GetPersistenceManager()
         {
-            return new PersistenceManager(_Database);
+            return new PersistenceManager(Database);
         }
     }
 }
