@@ -52,5 +52,15 @@ namespace Stanowisko.Recorder
         {
             recorder.stopRecording();
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            recorder.disconnect();
+        }
+
+        private void RecorderWindow_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            recorder.disconnect();
+        }
     }
 }

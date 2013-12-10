@@ -7,5 +7,6 @@ namespace Stanowisko.Recorder
         void startRecording();
         void stopRecording();
         Measurement getRecording();
+        void disconnect();
     }
 }

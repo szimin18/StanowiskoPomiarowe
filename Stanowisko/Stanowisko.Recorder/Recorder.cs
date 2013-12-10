@@ -14,6 +14,7 @@ namespace Stanowisko.Recorder
         private uint _period = 1000;
         private List<Sample> _samples;
         private bool _isRecording = false;
+        private bool _isConnected = false;
         private IMeasuringDevice _measuringDevice;
         private System.Timers.Timer _timer;
         private RecorderWindow _window;
@@ -51,7 +52,9 @@ namespace Stanowisko.Recorder
             _window = new RecorderWindow(this);
 
             if (ConnectWithDevice())
+            {
                 return;
+            }
 
             _window.Show();
             _timer.Start();
@@ -75,6 +78,7 @@ namespace Stanowisko.Recorder
                 MessageBox.Show(errorMessage);
                 return true;
             }
+            _isConnected = true;
             return false;
         }
 
@@ -83,6 +87,11 @@ namespace Stanowisko.Recorder
         #region Public Methods
         public void startRecording()
         {
+            if (!_isConnected)
+            {
+                MessageBox.Show("Polaczenie z urzadzeniem zostalo zakonczone");
+                return;
+            }
             _samples.Clear();
             _isRecording = true;
 
@@ -97,6 +106,17 @@ namespace Stanowisko.Recorder
         {
             Measurement measurement = new Measurement(_samples);
             return measurement;
+        }
+
+        public void disconnect()
+        {
+            if (_isRecording)
+            {
+                stopRecording();
+            }
+            _timer.Stop();
+            _measuringDevice.StopConnection();
+            _isConnected = false;
         }
         #endregion
     }
