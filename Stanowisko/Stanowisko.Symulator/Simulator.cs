@@ -1,6 +1,7 @@
 ﻿﻿using Stanowisko.SharedClasses;
 using System;
 using System.Collections.Generic;
+using System.Windows.Input;
 
 namespace Stanowisko.Symulator
 {
@@ -8,6 +9,30 @@ namespace Stanowisko.Symulator
     {
         #region Private Variables
         private IEstimatingFunction _selectedEstimatingFunction;
+        #endregion
+
+        #region private classes
+        private class RelayCommand : ICommand
+        {
+            Action _action;
+
+            public RelayCommand(Action execute)
+            {
+                _action = execute;
+            }
+
+            public bool CanExecute(object parameter)
+            {
+                return true;
+            }
+
+            public event EventHandler CanExecuteChanged;
+
+            public void Execute(object parameter)
+            {
+                _action();
+            }
+        }
         #endregion
 
         #region Private Properties
@@ -37,6 +62,14 @@ namespace Stanowisko.Symulator
                 }
             }
         }
+        private ICommand CancelCommand
+        {
+            get { return new RelayCommand(Cancel); }
+        }
+        private ICommand ApplyCommand
+        {
+            get { return new RelayCommand(Apply); }
+        }
         #endregion
 
         #region Consructors
@@ -47,6 +80,17 @@ namespace Stanowisko.Symulator
             ExperimentDuration = 2000;
             Amplitude = 1;
             InitialValue = 1;
+        }
+        #endregion
+
+        #region Private Methods
+        private void Apply()
+        {
+
+        }
+        private void Cancel()
+        {
+
         }
         #endregion
 

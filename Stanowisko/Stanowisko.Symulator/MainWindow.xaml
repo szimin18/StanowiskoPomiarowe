@@ -25,12 +25,12 @@
         <Label Content="Experiment duration [ms]:" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="2" Grid.Column="0" Margin="5"/>
         <Label Content="Amplitude [mV]:" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="3" Grid.Column="0" Margin="5"/>
         <Label Content="Estimating function:" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.Row="4" Grid.Column="0" Margin="5"/>
-        <Button Content="Cancel" Height="50" Width="100" Grid.Row="5" Grid.Column="2" Margin="5"></Button>
-        <Button Content="Apply" HorizontalAlignment="Right" Height="50" Width="100" Grid.Row="5" Grid.Column="1" Margin="5"></Button>
+        <Button Content="Cancel" Height="50" Width="100" Grid.Row="5" Grid.Column="2" Margin="5" Command="{Binding CancelCommand, Mode=OneWay}"/>
+        <Button Content="Apply" HorizontalAlignment="Right" Height="50" Width="100" Grid.Row="5" Grid.Column="1" Margin="5" Command="{Binding ApplyCommand, Mode=OneWay}"/>
         <TextBox FontSize="18" Height="50" Width="440" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" DataContext="{Binding Source=SampleInsertionDelay}"/>
         <TextBox FontSize="18" Height="50" Width="440" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" DataContext="{Binding Source=InitialValue}"/>
         <TextBox FontSize="18" Height="50" Width="440" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" DataContext="{Binding Source=ExperimentDuration}"/>
         <TextBox FontSize="18" Height="50" Width="440" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" DataContext="{Binding Source=Amplitude}"/>
-        <ComboBox FontSize="18" Height="50" Width="440" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" ItemsSource="{Binding Path=EstimatingFunctionsList}" SelectedValue="{Binding Path=SelectedEstimatingFnction}"/>
+        <ComboBox FontSize="18" Height="50" Width="440" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" ItemsSource="{Binding Path=EstimatingFunctionsList}" SelectedValue="{Binding Path=SelectedEstimatingFnction, Mode=TwoWay}"/>
     </Grid>
 </Window>
