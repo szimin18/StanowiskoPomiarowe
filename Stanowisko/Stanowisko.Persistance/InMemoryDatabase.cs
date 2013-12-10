@@ -36,7 +36,10 @@ namespace Stanowisko.Persistance
 
         public List<Dictionary<string, string>> GetAll(string tableName, List<string> columns)
         {
-            return new List<Dictionary<string, string>>();
+            SetTable(tableName);
+
+            return (from row in _table
+                    select columns.ToDictionary(column => column, column => row[column])).ToList();
         }
 
         public List<Dictionary<string, string>> GetAll(string tableName, string idName, string idValue, List<string> columns)
@@ -45,6 +48,16 @@ namespace Stanowisko.Persistance
 
             return (from row in _table
                     where row[idName] == idValue
+                    select columns.ToDictionary(column => column, column => row[column])).ToList();
+        }
+
+        public List<Dictionary<string, string>> GetAll(string pTableName, string pIdName, string pIdValue, string sIdName, string sIdValue, List<string> columns)
+        {
+            SetTable(pTableName);
+
+            return (from row in _table
+                    where row[pIdName] == pIdValue
+                    where row[sIdName] == sIdValue
                     select columns.ToDictionary(column => column, column => row[column])).ToList();
         }
 
@@ -63,7 +76,9 @@ namespace Stanowisko.Persistance
         public bool Insert(string tableName, Dictionary<string, string> data)
         {
             SetTable(tableName);
+            
             _table.Add(data);
+
             return true;
         }
     }

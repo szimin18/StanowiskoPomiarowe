@@ -13,9 +13,9 @@ namespace Stanowisko.Persistance
         {
         }
 
-        public void Add(Sample sample, Measurement measurement)
+        public void Add(Sample sample, Measurement measurement, Experiment experiment)
         {
-            var data = ToJSON(sample, measurement);
+            var data = ToJSON(sample, measurement, experiment);
             try
             {
                 Db.Insert("Samples", data);
@@ -25,10 +25,10 @@ namespace Stanowisko.Persistance
 
             }
         }
-        public List<Sample> GetAll(Measurement m)
+        public List<Sample> GetAll(Measurement m, Experiment e)
         {
             var columns = new List<string> { "ID", "value", "time" };
-            var data = Db.GetAll("Samples", "measurement", m.Id.ToString(), columns);
+            var data = Db.GetAll("Samples", "measurement", m.Id.ToString(),"experiment",e.Id.ToString(), columns);
 
             var result = data.Select(row =>
                 new Sample(Convert.ToInt32(row["ID"]),
@@ -38,12 +38,13 @@ namespace Stanowisko.Persistance
             return result;
         }
 
-        public Dictionary<string, string> ToJSON(Sample s, Measurement m)
+        public Dictionary<string, string> ToJSON(Sample s, Measurement m, Experiment e)
         {
             return new Dictionary<string, string>
                 {
                     {"ID", s.Id.ToString()},
                     {"measurement", m.Id.ToString()},
+                    {"experiment",e.Id.ToString()},
                     {"value", s.Value.ToString()},
                     {"time", s.Time.ToString()}
                 };

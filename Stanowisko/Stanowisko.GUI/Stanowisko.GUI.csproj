@@ -93,6 +93,16 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Stanowisko.Recorder\Stanowisko.Recorder.csproj">
+      <Project>{ec3d4147-f5b1-4c53-921f-eedec6dd4e9a}</Project>
+      <Name>Stanowisko.Recorder</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Stanowisko.Symulator\Stanowisko.Symulator.csproj">
+      <Project>{00aa9aad-cd50-4f45-9d73-8cbc41d2f5dd}</Project>
+      <Name>Stanowisko.Symulator</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -10,19 +10,31 @@ namespace Stanowisko.Recorder
     public class Recorder : IRecorder
     {
         #region Private Member Variables
-        private const uint _defaultPeriod = 1000;
+        private const uint DefaultPeriod = 1000;
         private uint _period;
         private List<Sample> _samples;
         private bool _isRecording = false;
         private bool _isConnected = false;
         private IMeasuringDevice _measuringDevice;
         private System.Timers.Timer _timer;
+        private RecorderWindow _window;
         #endregion
 
         #region Private Methods
+
+        private delegate void AddSampleToChartDelegate(Sample sample);
+
         private void _getSample()
         {
-            _samples.Add(_measuringDevice.GetSample());
+            Sample sample = _measuringDevice.GetSample();
+            _samples.Add(sample);
+
+            _window.BeginInvoke(new AddSampleToChartDelegate(addSampleToChart), sample);
+        }
+
+        private void addSampleToChart(Sample sample)
+        {
+            _window.AddSampleToChart(sample);
         }
         
         private void _timer_Elapsed(object sender, ElapsedEventArgs e)
@@ -35,10 +47,13 @@ namespace Stanowisko.Recorder
         public Recorder(IMeasuringDevice measuringDevice)
         {
             this._measuringDevice = measuringDevice;
-            _period = _defaultPeriod;
+            _period = DefaultPeriod;
             _timer = new System.Timers.Timer(_period);
             _timer.Elapsed += new ElapsedEventHandler(_timer_Elapsed);
             _samples = new List<Sample>();
+            _window = new RecorderWindow(this);
+
+            _window.Show();
         }
         #endregion
 
@@ -51,6 +66,7 @@ namespace Stanowisko.Recorder
                 if (errorMessage != null)
                 {
                     MessageBox.Show(errorMessage);
+                    return;
                 }
             }
             _isRecording = true;
