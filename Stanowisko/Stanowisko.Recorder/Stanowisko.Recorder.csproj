@@ -43,8 +43,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IRecorder.cs" />
+    <Compile Include="IRecorderFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Recorder.cs" />
+    <Compile Include="DefaultRecorderFactory.cs" />
     <Compile Include="RecorderWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -53,6 +55,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Stanowisko.Persistance\Stanowisko.Persistance.csproj">
+      <Project>{34b68fdc-73d1-4f4b-9a34-79a83f6043e7}</Project>
+      <Name>Stanowisko.Persistance</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Stanowisko.SharedClasses\Stanowisko.SharedClasses.csproj">
       <Project>{a0cc950a-d0a7-4912-8396-5ef6cd7f8b35}</Project>
       <Name>Stanowisko.SharedClasses</Name>

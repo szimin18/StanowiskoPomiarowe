@@ -10,7 +10,6 @@ namespace Stanowisko.Recorder
 {
     public class Recorder : IRecorder
     {
-        #region Private Member Variables
         private uint period = 1000;
         private List<Sample> samples;
         private bool isRecording = false;
@@ -18,9 +17,60 @@ namespace Stanowisko.Recorder
         private IMeasuringDevice measuringDevice;
         private System.Timers.Timer timer;
         private RecorderWindow window;
-        #endregion
 
-        #region Private Methods
+        public Recorder(IMeasuringDevice device)
+        {
+            measuringDevice = device;
+            timer = new System.Timers.Timer(period);
+            timer.Elapsed += new ElapsedEventHandler(timerElapsed);
+            samples = new List<Sample>();
+            window = new RecorderWindow(this);
+
+            if (ConnectWithDevice())
+            {
+                throw new Exception();
+            }
+
+            window.Show();
+            timer.Start();
+        }
+
+        public void startRecording()
+        {
+            if (!isConnected)
+            {
+                MessageBox.Show("Brak polaczenia z urzadzeniem pomairowym.");
+                return;
+            }
+            samples.Clear();
+            isRecording = true;
+        }
+
+        public void stopRecording()
+        {
+            isRecording = false;
+        }
+
+        public Measurement getRecording()
+        {
+            return new Measurement(samples);
+        }
+
+        public bool recording()
+        {
+            return isRecording;
+        }
+
+        public void disconnectDevice()
+        {
+            if (isRecording)
+            {
+                stopRecording();
+            }
+            timer.Stop();
+            measuringDevice.StopConnection();
+            isConnected = false;
+        }
 
         private delegate void AddSampleToChartDelegate(Sample sample);
 
@@ -40,29 +90,6 @@ namespace Stanowisko.Recorder
 
             window.BeginInvoke(new AddSampleToChartDelegate(addSampleToChart), sample);
         }
-        #endregion
-
-        #region Constructors
-        public Recorder()
-        {
-        }
-
-        public Recorder(IMeasuringDevice measuringDevice)
-        {
-            this.measuringDevice = measuringDevice;
-            timer = new System.Timers.Timer(period);
-            timer.Elapsed += new ElapsedEventHandler(timerElapsed);
-            samples = new List<Sample>();
-            window = new RecorderWindow(this);
-
-            if (ConnectWithDevice())
-            {
-                throw new Exception();
-            }
-
-            window.Show();
-            timer.Start();
-        }
 
         private bool ConnectWithDevice()
         {
@@ -76,46 +103,5 @@ namespace Stanowisko.Recorder
             return false;
         }
 
-        #endregion
-
-        #region Public Methods
-        public void startRecording()
-        {
-            if (!isConnected)
-            {
-                MessageBox.Show("Polaczenie z urzadzeniem zostalo zakonczone");
-                return;
-            }
-            samples.Clear();
-            isRecording = true;
-
-        }
-
-        public void stopRecording()
-        {
-            isRecording = false;
-        }
-
-        public Measurement getRecording()
-        {
-            return new Measurement(samples);
-        }
-
-        public void connectWithDevice(IMeasuringDevice device)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void disconnectWithDevice()
-        {
-            if (isRecording)
-            {
-                stopRecording();
-            }
-            timer.Stop();
-            measuringDevice.StopConnection();
-            isConnected = false;
-        }
-        #endregion
     }
 }

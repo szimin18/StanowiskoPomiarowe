@@ -8,13 +8,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
+using Stanowisko.Persistance;
 using Stanowisko.SharedClasses;
 
 namespace Stanowisko.Recorder
 {
     public partial class RecorderWindow : Form
     {
-        private const String SerieName = "Pomiar z urzadzenia";
+        private const String serieName = "Pomiar z urzadzenia";
+        private const String startButtonText = "Rozpocznij rejestracje";
+        private const String stopButtonText = "Zatrzymaj rejestracje";
 
         private IRecorder recorder;
 
@@ -28,39 +31,47 @@ namespace Stanowisko.Recorder
         private void InitializeChart()
         {
             ClearChart();
-            chart.Series[SerieName].ChartType = SeriesChartType.FastLine;
-            chart.Series[SerieName].Points.AddXY(1, 3);
+            chart.Series[serieName].ChartType = SeriesChartType.FastLine;
+            chart.Series[serieName].Points.AddXY(1, 3);
         }
 
         public void AddSampleToChart(Sample sample)
         {
-            chart.Series[SerieName].Points.AddXY(sample.Time, sample.Value);
+            chart.Series[serieName].Points.AddXY(sample.Time, sample.Value);
         }
 
         public void ClearChart()
         {
             chart.Series.Clear();
-            chart.Series.Add(SerieName);
+            chart.Series.Add(serieName);
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            recorder.startRecording();
-        }
-
-        private void button2_Click(object sender, EventArgs e)
-        {
-            recorder.stopRecording();
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            recorder.disconnectWithDevice();
+            if (recorder.recording())
+            {
+                recorder.stopRecording();
+                this.button1.Text = startButtonText;
+            }
+            else
+            {
+                recorder.startRecording();
+                this.button1.Text = stopButtonText;
+            }
         }
 
         private void RecorderWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
-            recorder.disconnectWithDevice();
+            recorder.disconnectDevice();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Experiment exp = new Experiment("experiment");
+            List<Measurement> list = new List<Measurement>();
+            list.Add(recorder.getRecording());
+            exp.AddMeasurements(list);
+            PersistenceFactory.GetPersistenceManager().AddExperiment(exp);
         }
     }
 }

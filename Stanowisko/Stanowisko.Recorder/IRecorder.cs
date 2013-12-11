@@ -5,10 +5,10 @@ namespace Stanowisko.Recorder
 {
     public interface IRecorder
     {
-        void connectWithDevice(IMeasuringDevice device);
-        void disconnectWithDevice();
         void startRecording();
         void stopRecording();
         Measurement getRecording();
+        bool recording();
+        void disconnectDevice();
     }
 }
