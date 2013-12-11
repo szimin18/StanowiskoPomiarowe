@@ -15,10 +15,11 @@ namespace Stanowisko.Persistance
     public class XMLDatabase : IDatabase
     {
         private readonly InMemoryDatabase _db = new InMemoryDatabase();
-        private const string Path = "db.xml";
+        private readonly string Path;
 
-        public XMLDatabase()
+        public XMLDatabase(string path)
         {
+            Path = path;
             Init();   //initializes InMemoryDatabase with data saved in .xml file
         }
 

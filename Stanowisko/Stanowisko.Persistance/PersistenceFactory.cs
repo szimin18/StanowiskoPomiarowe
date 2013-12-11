@@ -3,11 +3,9 @@
     public static class PersistenceFactory
     {
 
-        //private static readonly IDatabase Database = new SQLiteDatabase("ex1.db");
+        //private static readonly IDatabase Database = new SQLiteDatabase("../../../database.db");
 
-        //private static readonly IDatabase Database = new XMLDatabase();
-
-        private static readonly IDatabase Database = new InMemoryDatabase();
+        private static readonly IDatabase Database = new XMLDatabase("../../../database.xml");
 
         public static IPersistenceManager GetPersistenceManager()
         {
