@@ -19,8 +19,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalculatorGUI", "Calculator
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stanowisko.Testy", "Stanowisko.Testy\Stanowisko.Testy.csproj", "{C062EE8F-F23E-4EA0-82C2-7F67AB00EE11}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stanowisko.UnnecessaryProject", "Stanowisko.UnnecessaryProject\Stanowisko.UnnecessaryProject.csproj", "{FAC79C2E-0AB5-4E59-839C-9FD44B3E35F8}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,10 +61,6 @@ Global
 		{C062EE8F-F23E-4EA0-82C2-7F67AB00EE11}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C062EE8F-F23E-4EA0-82C2-7F67AB00EE11}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C062EE8F-F23E-4EA0-82C2-7F67AB00EE11}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FAC79C2E-0AB5-4E59-839C-9FD44B3E35F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FAC79C2E-0AB5-4E59-839C-9FD44B3E35F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FAC79C2E-0AB5-4E59-839C-9FD44B3E35F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FAC79C2E-0AB5-4E59-839C-9FD44B3E35F8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
