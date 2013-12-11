@@ -43,10 +43,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IRecorder.cs" />
-    <Compile Include="IRecorderFactory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Recorder.cs" />
-    <Compile Include="DefaultRecorderFactory.cs" />
     <Compile Include="RecorderWindow.cs">
       <SubType>Form</SubType>
     </Compile>
