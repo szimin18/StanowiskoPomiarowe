@@ -11,7 +11,7 @@ namespace Stanowisko.SharedClasses
 
         private readonly List<Measurement> _measurements = new List<Measurement>();
 
-        public int Id { get; private set; }
+        public int Id { get; set; }
 
         public string Name { get; private set; }
 
@@ -37,9 +37,6 @@ namespace Stanowisko.SharedClasses
 
         public Experiment(String name)
         {
-            Id = Convert.ToInt32(File.ReadAllText("../../ExperimentID.csv"));
-            var i = Id + 1;
-            File.WriteAllText("../../ExperimentID.csv", i.ToString());
             Name = name;
         }
 

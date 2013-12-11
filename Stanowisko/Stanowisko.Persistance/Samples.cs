@@ -13,22 +13,19 @@ namespace Stanowisko.Persistance
         {
         }
 
-        public void Add(Sample sample, Measurement measurement, Experiment experiment)
+        public void Add(Sample s, Measurement m, Experiment e)
         {
-            var data = ToJSON(sample, measurement, experiment);
-            try
-            {
-                Db.Insert("Samples", data);
-            }
-            catch (Exception)
-            {
+            s.Id = Db.GetNextSampleID(m.Id.ToString(), e.Id.ToString());
 
-            }
+            var data = ToJSON(s, m, e);
+
+            Db.Insert("Samples", data);
+
         }
         public List<Sample> GetAll(Measurement m, Experiment e)
         {
             var columns = new List<string> { "ID", "value", "time" };
-            var data = Db.GetAll("Samples", "measurement", m.Id.ToString(),"experiment",e.Id.ToString(), columns);
+            var data = Db.GetParameters("Samples", "measurement", m.Id.ToString(), "experiment", e.Id.ToString(), columns);
 
             var result = data.Select(row =>
                 new Sample(Convert.ToInt32(row["ID"]),

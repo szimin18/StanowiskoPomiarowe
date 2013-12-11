@@ -15,41 +15,33 @@ namespace Stanowisko.Persistance
             _samplesDAO = new Samples(db);
         }
 
-        public void Add(Measurement measurement, Experiment experiment)
+        public void Add(Measurement m, Experiment e)
         {
-            var data = ToJSON(measurement, experiment);
+            m.Id = Db.GetNextMeasurementID(e.Id.ToString());
 
-            try
+            var data = ToJSON(m, e);
+
+            Db.Insert("Measurements", data);
+            foreach (var sample in m.GetSamples())
             {
-                Db.Insert("Measurements", data);
-                foreach (var sample in measurement.GetSamples())
-                {
-                    _samplesDAO.Add(sample, measurement, experiment);
-                }
                 
+                _samplesDAO.Add(sample, m, e);
             }
-            catch (Exception)
-            {
-            }
+
+
         }
 
-        public void Update(Measurement measurement, Experiment experiment)
+        public void Update(Measurement m, Experiment e)
         {
-            var data = ToJSON(measurement, experiment);
+            var data = ToJSON(m, e);
 
-            try
-            {
-                Db.Update("Measurements", data, String.Format("MEASUREMENTS.ID = {0}", measurement.Id));
-            }
-            catch (Exception)
-            {
-            }
+            Db.Update("Measurements", data, String.Format("MEASUREMENTS.ID = {0}", m.Id));
         }
 
-        public List<Measurement> GetAll(Experiment experiment)
+        public List<Measurement> GetAll(Experiment e)
         {
             var columns = new List<string> { "ID", "result", "beginning", "end" };
-            var data = Db.GetAll("Measurements", "experiment", experiment.Id.ToString(), columns);
+            var data = Db.GetAll("Measurements", "experiment", e.Id.ToString(), columns);
 
             var res = new List<Measurement>();
 
@@ -57,10 +49,12 @@ namespace Stanowisko.Persistance
             {
                 var m = new Measurement(Convert.ToInt32(row["ID"]));
 
-                var samples = _samplesDAO.GetAll(m, experiment);
+                var samples = _samplesDAO.GetAll(m, e);
 
-                var beginning = samples.Where(s => s.Id == Convert.ToInt32(row["beginning"])).ToList()[0];
-                var end = samples.Where(s => s.Id == Convert.ToInt32(row["end"])).ToList()[0];
+                var bs = samples.Where(s => s.Id == Convert.ToInt32(row["beginning"])).ToList();
+                var es = samples.Where(s => s.Id == Convert.ToInt32(row["end"])).ToList();
+                var beginning = bs.Any() ? bs[0] : null;
+                var end = es.Any() ? es[0] : null;
                 var result = Convert.ToDouble(row["result"]);
 
                 m.Beginning = beginning;
