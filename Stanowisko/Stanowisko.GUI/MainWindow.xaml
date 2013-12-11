@@ -4,7 +4,7 @@
         Title="Stanowisko Pomiarowe" ResizeMode="NoResize" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" Height="160">
     <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Margin="15">
         <Label Content="Witaj w programie Stanowisko Pomiarowe!"/>
-        <Button Content="Połącz z urządzeniem pomiarowym" Click="Button_Click_1"/>
+        <Button Content="Rejestruj pomiary" Click="Button_Click_1"/>
         <Button Content="Calculator" Width="240" RenderTransformOrigin="0.507,1.682" Height="21" Click="Button_Click"/>
     </StackPanel>
 </Window>

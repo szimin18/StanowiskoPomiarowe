@@ -46,7 +46,7 @@ namespace Stanowisko.Recorder
             chart.Series.Add(serieName);
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void button1_Click_1(object sender, EventArgs e)
         {
             if (recorder.recording())
             {
@@ -65,9 +65,9 @@ namespace Stanowisko.Recorder
             recorder.disconnectDevice();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void button2_Click_1(object sender, EventArgs e)
         {
-            Experiment exp = new Experiment("experiment");
+            Experiment exp = new Experiment(textBox1.Text);
             List<Measurement> list = new List<Measurement>();
             list.Add(recorder.getRecording());
             exp.AddMeasurements(list);
