@@ -17,6 +17,7 @@ namespace Stanowisko.Persistance
 
         public void Add(Experiment e)
         {
+
             e.Id = Db.GetNextExperimentID();
 
             var data = ToJSON(e);

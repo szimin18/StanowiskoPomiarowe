@@ -20,6 +20,8 @@ namespace Stanowisko.Persistance
             _dbConnection = String.Format("Data Source={0}", inputFile);
         }
 
+
+
         public DataTable GetDataTable(string sql)
         {
             var dt = new DataTable();
@@ -173,21 +175,49 @@ namespace Stanowisko.Persistance
 
         public int GetNextExperimentID()
         {
-            throw new NotImplementedException();
+            const string query = "SELECT MAX(id)  FROM Experiments";
+            var res = ExecuteScalar(query);
+            return res == "" ? 1 : Convert.ToInt32(res) + 1;
+
         }
 
         public int GetNextMeasurementID(String eId)
         {
-            throw new NotImplementedException();
+            var query = String.Format("SELECT MAX(id)  FROM Measurements as m where m.experiment = {0}", eId);
+            var res = ExecuteScalar(query);
+            return res == "" ? 1 : Convert.ToInt32(res) + 1;
         }
 
-        public int GetNextSampleID(String eId, String mId)
+        public int GetNextSampleID(String mId, String eId)
         {
-            throw new NotImplementedException();
+            var query = String.Format("SELECT MAX(id)  FROM Samples as s where s.experiment = {0} and s.measurement = {1}", eId, mId);
+            var res = ExecuteScalar(query);
+            return res == "" ? 1 : Convert.ToInt32(res) + 1;
         }
         public bool UpdateParameters(Dictionary<string, string> data, string where)
         {
-            throw new NotImplementedException();
+            {
+                var vals = "";
+                var returnCode = true;
+
+                if (data.Count >= 1)
+                {
+                    vals = data.Aggregate(vals, (current, val) =>
+                        current + String.Format(" {0} = '{1}',", val.Key.ToString(), val.Value.ToString()));
+                    vals = vals.Substring(0, vals.Length - 1);
+                }
+
+                try
+                {
+                    ExecuteNonQuery(String.Format("update {0} set {1} where {2};", "Parameters", vals, where));
+                }
+                catch (Exception)
+                {
+                    returnCode = false;
+                }
+
+                return returnCode;
+            }
         }
     }
 }

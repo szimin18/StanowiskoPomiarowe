@@ -24,6 +24,7 @@ namespace Stanowisko.Persistance
             Db.Insert("Measurements", data);
             foreach (var sample in m.GetSamples())
             {
+                
                 _samplesDAO.Add(sample, m, e);
             }
 

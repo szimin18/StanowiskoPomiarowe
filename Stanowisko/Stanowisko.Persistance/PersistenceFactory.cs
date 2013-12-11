@@ -3,11 +3,11 @@
     public static class PersistenceFactory
     {
 
-        //private static readonly IDatabase _Database = new SQLiteDatabase("D:\\Dropbox\\Minions\\Dawid\\TO\\DBtest.db");
+        private static readonly IDatabase Database = new SQLiteDatabase("D:\\Dropbox\\Minions\\Dawid\\TO\\ex1.db");
 
         //private static readonly IDatabase Database = new XMLDatabase();
 
-        private static readonly IDatabase Database = new InMemoryDatabase();
+        //private static readonly IDatabase Database = new InMemoryDatabase();
 
         public static IPersistenceManager GetPersistenceManager()
         {
