@@ -17,6 +17,9 @@ namespace Stanowisko.Persistance
 
         public void Add(Experiment e)
         {
+
+            e.Id = Db.GetNextExperimentID();
+
             var data = ToJSON(e);
 
             var parameters = e.Parameters.Select(pair => new Dictionary<String, String>
@@ -24,23 +27,18 @@ namespace Stanowisko.Persistance
                     {"experiment", e.Id.ToString()}, {"name", pair.Key}, {"value", pair.Value}
                 });
 
-            try
-            {
-                Db.Insert("Experiments", data);
+            Db.Insert("Experiments", data);
 
-                foreach (var parameter in parameters)
-                {
-                    Db.Insert("Parameters", parameter);    
-                }
-                
-                foreach (var m in e.GetMeasurements())
-                {
-                    _measurementsDAO.Add(m, e);
-                }
-            }
-            catch (Exception)
+            foreach (var parameter in parameters)
             {
+                Db.Insert("Parameters", parameter);
             }
+
+            foreach (var m in e.GetMeasurements())
+            {
+                _measurementsDAO.Add(m, e);
+            }
+
 
         }
 
@@ -52,24 +50,19 @@ namespace Stanowisko.Persistance
                 {
                     {"experiment", e.Id.ToString()}, {"name", pair.Key}, {"value", pair.Value}
                 });
+            
+            Db.Update("Experiments", data, where: String.Format("Experiments.ID = {0}", e.Id.ToString()));
 
-            try
+            foreach (var p in parameters.Where(p => p != null))
             {
-                Db.Update("Experiments", data, where: String.Format("Experiments.ID = {0}", e.Id.ToString()));
-
-                foreach (var p in parameters.Where(p => p != null))
-                {
-                    Db.Update("Parameters", p, String.Format("Parameters.name = {0} and Parameters.value = {1}", p["Name"], p["Value"]));
-                }
-
-                foreach (var m in e.GetMeasurements())
-                {
-                    _measurementsDAO.Update(m, e);
-                }
+                Db.UpdateParameters(p, String.Format("Parameters.name = {0} and Parameters.value = {1}", p["name"], p["value"]));
             }
-            catch (Exception )
+
+            foreach (var m in e.GetMeasurements())
             {
+                _measurementsDAO.Update(m, e);
             }
+
         }
 
         public List<Experiment> GetAll()

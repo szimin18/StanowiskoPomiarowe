@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Globalization;
 using System.IO;
-using Microsoft.Office.Core;
 using Microsoft.Office.Interop;
 
 using Stanowisko.SharedClasses;

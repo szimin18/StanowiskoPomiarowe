@@ -3,11 +3,13 @@
     public static class PersistenceFactory
     {
 
-        private static readonly IDatabase _Database = new XMLDatabase();
+        //private static readonly IDatabase Database = new SQLiteDatabase("../../../database.db");
+
+        private static readonly IDatabase Database = new XMLDatabase("../../../database.xml");
 
         public static IPersistenceManager GetPersistenceManager()
         {
-            return new PersistenceManager(_Database);
+            return new PersistenceManager(Database);
         }
     }
 }

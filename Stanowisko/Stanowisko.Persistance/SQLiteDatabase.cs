@@ -20,6 +20,8 @@ namespace Stanowisko.Persistance
             _dbConnection = String.Format("Data Source={0}", inputFile);
         }
 
+
+
         public DataTable GetDataTable(string sql)
         {
             var dt = new DataTable();
@@ -79,7 +81,7 @@ namespace Stanowisko.Persistance
 
             while (reader.Read())
             {
-                var d = columns.ToDictionary(column => column, column => (string)reader[column]);
+                var d = columns.ToDictionary(column => column, column => reader[column].ToString());
                 res.Add(d);
             }
             cnn.Close();
@@ -98,16 +100,30 @@ namespace Stanowisko.Persistance
 
             while (reader.Read())
             {
-                var d = columns.ToDictionary(column => column, column => (string)reader[column]);
+                var d = columns.ToDictionary(column => column, column => reader[column].ToString());
                 res.Add(d);
             }
             cnn.Close();
             return res;
         }
 
-        public List<Dictionary<string, string>> GetAll(string pTableName, string pIdName, string pIdValue, string sIdName, string sIdValue, List<string> columns)
+        public List<Dictionary<string, string>> GetParameters(string tableName, string pIdName, string pIdValue, string sIdName, string sIdValue, List<string> columns)
         {
-            throw new NotImplementedException();
+            var cnn = new SQLiteConnection(_dbConnection);
+            cnn.Open();
+
+            var sql = String.Format("select * from {0} where {0}.{1} = \"{2}\" and {0}.{3} = \"{4}\"", tableName, pIdName, pIdValue, sIdName, sIdValue);
+            var command = new SQLiteCommand(sql, cnn);
+            var reader = command.ExecuteReader();
+            var res = new List<Dictionary<string, string>>();
+
+            while (reader.Read())
+            {
+                var d = columns.ToDictionary(column => column, column => reader[column].ToString());
+                res.Add(d);
+            }
+            cnn.Close();
+            return res;
         }
 
         public bool Update(String tableName, Dictionary<String, String> data, String where)
@@ -157,5 +173,51 @@ namespace Stanowisko.Persistance
             return returnCode;
         }
 
+        public int GetNextExperimentID()
+        {
+            const string query = "SELECT MAX(id)  FROM Experiments";
+            var res = ExecuteScalar(query);
+            return res == "" ? 1 : Convert.ToInt32(res) + 1;
+
+        }
+
+        public int GetNextMeasurementID(String eId)
+        {
+            var query = String.Format("SELECT MAX(id)  FROM Measurements as m where m.experiment = {0}", eId);
+            var res = ExecuteScalar(query);
+            return res == "" ? 1 : Convert.ToInt32(res) + 1;
+        }
+
+        public int GetNextSampleID(String mId, String eId)
+        {
+            var query = String.Format("SELECT MAX(id)  FROM Samples as s where s.experiment = {0} and s.measurement = {1}", eId, mId);
+            var res = ExecuteScalar(query);
+            return res == "" ? 1 : Convert.ToInt32(res) + 1;
+        }
+        public bool UpdateParameters(Dictionary<string, string> data, string where)
+        {
+            {
+                var vals = "";
+                var returnCode = true;
+
+                if (data.Count >= 1)
+                {
+                    vals = data.Aggregate(vals, (current, val) =>
+                        current + String.Format(" {0} = '{1}',", val.Key.ToString(), val.Value.ToString()));
+                    vals = vals.Substring(0, vals.Length - 1);
+                }
+
+                try
+                {
+                    ExecuteNonQuery(String.Format("update {0} set {1} where {2};", "Parameters", vals, where));
+                }
+                catch (Exception)
+                {
+                    returnCode = false;
+                }
+
+                return returnCode;
+            }
+        }
     }
 }

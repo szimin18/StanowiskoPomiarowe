@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Stanowisko.Persistance
@@ -51,7 +52,7 @@ namespace Stanowisko.Persistance
                     select columns.ToDictionary(column => column, column => row[column])).ToList();
         }
 
-        public List<Dictionary<string, string>> GetAll(string pTableName, string pIdName, string pIdValue, string sIdName, string sIdValue, List<string> columns)
+        public List<Dictionary<string, string>> GetParameters(string pTableName, string pIdName, string pIdValue, string sIdName, string sIdValue, List<string> columns)
         {
             SetTable(pTableName);
 
@@ -65,8 +66,23 @@ namespace Stanowisko.Persistance
         {
             SetTable(tableName);
 
-            var e = _table.Find(dictionary => dictionary["ID"] == data["ID"]);
+            var e = (tableName == "Experiments") 
+                               ? _table.Find(dictionary => dictionary["ID"] == data["ID"]) 
+                               : _table.Find(dictionary => dictionary["ID"] == data["ID"] && dictionary["experiment"] == data["experiment"]);
             var i = _table.IndexOf(e);
+
+            _table[i].Keys.ToList().ForEach(key => _table[i][key] = data[key]);
+
+            return false;
+        }
+
+        public bool UpdateParameters(Dictionary<string, string> data, string where)
+        {
+
+            SetTable("Parameters");
+
+            var e = Parameters.Find(dictionary => dictionary["experiment"] == data["experiment"]);
+            var i = Parameters.IndexOf(e);
 
             _table[i] = data;
 
@@ -76,10 +92,31 @@ namespace Stanowisko.Persistance
         public bool Insert(string tableName, Dictionary<string, string> data)
         {
             SetTable(tableName);
-            
+
             _table.Add(data);
 
             return true;
+        }
+
+        public int GetNextExperimentID()
+        {
+            return Experiments.Count > 0 ? Experiments.Select(e => Convert.ToInt32(e["ID"])).Max() + 1 : 1;
+        }
+
+        public int GetNextMeasurementID(String eId)
+        {
+            var col = Measurements.Where(m => m["experiment"] == eId);
+            return col.Any()
+                       ? col.Select(m => Convert.ToInt32(m["ID"])).Max() + 1
+                       : 1;
+        }
+
+        public int GetNextSampleID(String eId, String mId)
+        {
+            var col = Samples.Where(s => s["measurement"] == mId && s["experiment"] == eId);
+            return col.Any()
+                       ? col.Select(s => Convert.ToInt32(s["ID"])).Max() + 1
+                       : 1;
         }
     }
 }

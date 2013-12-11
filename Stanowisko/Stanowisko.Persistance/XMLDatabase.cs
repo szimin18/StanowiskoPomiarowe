@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Xml;
 using System.Xml.Linq;
 
 namespace Stanowisko.Persistance
@@ -17,14 +15,11 @@ namespace Stanowisko.Persistance
     public class XMLDatabase : IDatabase
     {
         private readonly InMemoryDatabase _db = new InMemoryDatabase();
-        private const string Path = "db.xml";
+        private readonly string Path;
 
-        public XMLDatabase()
+        public XMLDatabase(string path)
         {
-            if (!File.Exists(Path))
-            {
-                File.Create(Path);
-            }
+            Path = path;
             Init();   //initializes InMemoryDatabase with data saved in .xml file
         }
 
@@ -38,9 +33,14 @@ namespace Stanowisko.Persistance
             return _db.GetAll(tableName, idName, idValue, columns);
         }
 
-        public List<Dictionary<string, string>> GetAll(string pTableName, string pIdName, string pIdValue, string sIdName, string sIdValue, List<string> columns)
+        public List<Dictionary<string, string>> GetParameters(string pTableName, string pIdName, string pIdValue, string sIdName, string sIdValue, List<string> columns)
         {
-            return _db.GetAll(pTableName, pIdName, pIdValue, sIdName, sIdValue, columns);
+            return _db.GetParameters(pTableName, pIdName, pIdValue, sIdName, sIdValue, columns);
+        }
+
+        public bool UpdateParameters(Dictionary<string, string> data, string @where)
+        {
+            return _db.UpdateParameters(data, where);
         }
 
         public bool Update(string tableName, Dictionary<string, string> data, string @where)
@@ -59,6 +59,21 @@ namespace Stanowisko.Persistance
             Update();
 
             return res;
+        }
+
+        public int GetNextExperimentID()
+        {
+            return _db.GetNextExperimentID();
+        }
+
+        public int GetNextMeasurementID(String eId)
+        {
+            return _db.GetNextMeasurementID(eId);
+        }
+
+        public int GetNextSampleID(String eId, String mId)
+        {
+            return _db.GetNextSampleID(eId, mId);
         }
 
         private void Update()
@@ -108,11 +123,11 @@ namespace Stanowisko.Persistance
 
                         var measurement = new XElement("measurement");
 
-                        measurements.SetAttributeValue("ID", mID);
+                        measurement.SetAttributeValue("ID", mID);
 
-                        measurements.Add(new XElement("result", m["result"]));
-                        measurements.Add(new XElement("beginning", m["beginning"]));
-                        measurements.Add(new XElement("end", m["end"]));
+                        measurement.Add(new XElement("result", m["result"]));
+                        measurement.Add(new XElement("beginning", m["beginning"]));
+                        measurement.Add(new XElement("end", m["end"]));
 
                         var samples = new XElement("samples");
 
@@ -139,13 +154,8 @@ namespace Stanowisko.Persistance
                 root.Add(experiment);
             }
 
-            const string newPath = "newDB.xml";
-
             root.Save(Path);
 
-            //File.Replace(newPath, Path, "db.xml.backup");
-
-            Console.WriteLine("replaced");
         }
 
         private void Init()
@@ -157,9 +167,8 @@ namespace Stanowisko.Persistance
             }
             catch (Exception e)
             {
-                return;
+                return;     // wrong base gives us an empty base
             }
-
 
             var experiments = xmlDoc.Descendants("experiments").Elements();
 

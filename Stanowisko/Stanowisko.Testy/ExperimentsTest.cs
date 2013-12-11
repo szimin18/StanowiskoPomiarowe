@@ -38,7 +38,7 @@ namespace Stanowisko.Testy
         {
             db = new InMemoryDatabase();
             experimentsDAO = new Experiments(db);
-            e = new Experiment(1, "e")
+            e = new Experiment("e")
                 {
                     Description = "d",
                     Result = 3.14,
@@ -50,7 +50,7 @@ namespace Stanowisko.Testy
                             {"b", "b"}
                         }
                 };
-            e2 =  new Experiment(2, "e2")
+            e2 = new Experiment("e2")
             {
                 Description = "d",
                 Result = 3.14,
@@ -64,7 +64,7 @@ namespace Stanowisko.Testy
             };
             d = new Dictionary<string, string>
                 {
-                    {"ID", e.Id.ToString()},
+                    {"ID", "1"},
                     {"name", e.Name},
                     {"description", e.Description},
                     {"goal", e.Goal},
@@ -91,9 +91,9 @@ namespace Stanowisko.Testy
             m2.Add(new List<Sample> { s4, s5, s6 });
             m3.Add(new List<Sample> { s7, s8 });
 
-            p = new List<Dictionary<string, string>>  {p1, p2};
-            e.AddMeasurements(new List<Measurement>{m1, m2});
-            e2.AddMeasurements(new List<Measurement>{m3});
+            p = new List<Dictionary<string, string>> { p1, p2 };
+            e.AddMeasurements(new List<Measurement> { m1, m2 });
+            e2.AddMeasurements(new List<Measurement> { m3 });
         }
 
         [TestMethod]
@@ -103,6 +103,7 @@ namespace Stanowisko.Testy
 
             experimentsDAO.Add(e);
 
+            Assert.IsTrue(e.Id == 1);
             var e2 = db.Experiments[0];
             Assert.IsTrue(e2.Count == d.Count && !e2.Except(d).Any());
         }
@@ -111,18 +112,24 @@ namespace Stanowisko.Testy
         public void UpdateExperiment()
         {
 
-
             SetUp();
+
+            db = new InMemoryDatabase();
+            experimentsDAO = new Experiments(db);
+
             experimentsDAO.Add(e);
+
             e.Summary = "summary";
             experimentsDAO.Update(e);
 
             d["summary"] = "summary";
 
             Assert.IsTrue(db.Experiments.Count() == 1);
+
             var e2 = db.Experiments[0];
 
-            Assert.IsTrue(e2.Count == d.Count && !e2.Except(d).Any());
+            Assert.IsTrue(e2.Count == d.Count);
+            Assert.IsFalse(e2.Except(d).Any());
 
         }
 
