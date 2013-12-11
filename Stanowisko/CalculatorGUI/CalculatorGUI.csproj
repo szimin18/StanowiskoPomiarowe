@@ -36,6 +36,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -97,6 +98,10 @@
     <ProjectReference Include="..\Stanowisko.Calculator\Stanowisko.Calculator.csproj">
       <Project>{3611d09e-bf1c-42b8-9737-92d2556a4000}</Project>
       <Name>Stanowisko.Calculator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Stanowisko.Exporter\Stanowisko.Exporter.csproj">
+      <Project>{424d01c1-7608-4888-8b3e-ce6fe6012a5a}</Project>
+      <Name>Stanowisko.Exporter</Name>
     </ProjectReference>
     <ProjectReference Include="..\Stanowisko.Persistance\Stanowisko.Persistance.csproj">
       <Project>{34b68fdc-73d1-4f4b-9a34-79a83f6043e7}</Project>

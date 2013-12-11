@@ -8,7 +8,7 @@ using Stanowisko.SharedClasses;
 
 namespace Stanowisko.Exporter.Forms
 {
-    class MeasurementExporterDialog : ExporterDialog<Measurement>
+    public class MeasurementExporterDialog : ExporterDialog<Measurement>
     {
         public override Measurement Exportee
         {

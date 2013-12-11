@@ -28,7 +28,7 @@ namespace Stanowisko.Exporter.Exporters
             {
             }
 
-            public override void ExportToFile(Experiment experiment)
+            protected override void ExportToFile(Experiment experiment)
             {
                 try
                 {

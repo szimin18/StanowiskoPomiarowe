@@ -29,7 +29,7 @@ namespace Stanowisko.Exporter.Exporters
             {
             }
 
-            public override void ExportToFile(Measurement measurement)
+            protected override void ExportToFile(Measurement measurement)
             {
                 try
                 {

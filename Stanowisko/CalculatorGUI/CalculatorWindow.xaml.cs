@@ -12,9 +12,12 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Forms;
 using Stanowisko.Persistance;
 using Stanowisko.Calculator;
 using Stanowisko.SharedClasses;
+using Stanowisko.Exporter;
+using Stanowisko.Exporter.Forms;
 
 namespace CalculatorGUI
 {
@@ -47,6 +50,9 @@ namespace CalculatorGUI
             AlgoritmComboBox.Items.Add("Metoda Trapezow");
             AlgoritmComboBox.Items.Add("Metoda Simpsoma");
 
+            SaveMeasurementButton.IsEnabled = false;
+            SaveExperimentButton.IsEnabled = false;
+
             CalibText = null;
         }
 
@@ -57,10 +63,13 @@ namespace CalculatorGUI
             {
                 if (exp.Name.Equals(text))
                 {
+                    experiment = exp;
                     measurements = exp.GetMeasurements();
                     break;
                 }
             }
+
+            SaveExperimentButton.IsEnabled = true;
 
             foreach (Measurement meas in measurements)
             {
@@ -80,6 +89,8 @@ namespace CalculatorGUI
                     break;
                 }
             }
+
+            SaveMeasurementButton.IsEnabled = true;
 
             if (algoritm == null)
             {
@@ -159,6 +170,36 @@ namespace CalculatorGUI
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
 
+        }
+
+        private void SaveExperiment(object sender, RoutedEventArgs e)
+        {
+            if (experiment != null)
+            {
+                ExperimentExporterDialog dialog = new ExperimentExporterDialog();
+                dialog.ExporterFilter = ExporterFactory<Experiment>.GetAllExporters();
+                dialog.Dialog.ShowDialog();
+                Exporter<Experiment> exporter = dialog.GetExporter();
+                if (exporter != null)
+                {
+                    exporter.Export(experiment);
+                }
+            }
+        }
+
+        private void SaveMeasurement(object sender, RoutedEventArgs e)
+        {
+            if (measurement != null)
+            {
+                MeasurementExporterDialog dialog = new MeasurementExporterDialog();
+                dialog.ExporterFilter = ExporterFactory<Measurement>.GetAllExporters();
+                dialog.Dialog.ShowDialog();
+                Exporter<Measurement> exporter = dialog.GetExporter();
+                if (exporter != null)
+                {
+                    exporter.Export(measurement);
+                }
+            }
         }
 
     }

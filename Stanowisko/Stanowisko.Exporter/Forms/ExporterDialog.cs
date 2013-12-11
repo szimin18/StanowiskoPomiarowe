@@ -37,10 +37,10 @@ namespace Stanowisko.Exporter.Forms
             foreach (IExporterFactory<T> factory in factories)
             {
                 filter += GetFilterStringFromFactory(factory);
+                filter += "|";
             }
-            filter.TrimEnd(new char[] {'|'});
 
-            return filter;
+            return filter.TrimEnd(new char[] {'|'});
         }
         
         #endregion
@@ -77,7 +77,7 @@ namespace Stanowisko.Exporter.Forms
         {
             if (IsExporterFilterUsed)
             {
-                Exporter<T> exporter = _exporterFilter[Dialog.FilterIndex].GetExporter();
+                Exporter<T> exporter = _exporterFilter[Dialog.FilterIndex - 1].GetExporter();
                 exporter.OutputFileName = Dialog.FileName;
                 return exporter;
             }

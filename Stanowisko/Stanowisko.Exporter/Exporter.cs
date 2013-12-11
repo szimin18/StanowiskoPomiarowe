@@ -43,16 +43,21 @@ namespace Stanowisko.Exporter
             FileExtension = fileExtension;
         }
 
-        protected void Export(T exportee)
+        public void Export(T exportee)
         {
             ExportToFile(exportee);
-            DialogResult dialogResult = MessageBox.Show("Czy chcesz otworzyć plik w domyślnym programie?", "Otwieranie pliku", MessageBoxButtons.YesNo);
-            if (dialogResult == DialogResult.Yes)
+            if (File.Exists(OutputFileName))
             {
-                System.Diagnostics.Process.Start(OutputFileName);
+                DialogResult dialogResult = MessageBox.Show("Czy chcesz otworzyć plik w domyślnym programie?", "Otwieranie pliku", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    System.Diagnostics.Process.Start(OutputFileName);
+                }
             }
+            else
+                MessageBox.Show("Zapis pliku nie powiódł się", "Zapis pliku", MessageBoxButtons.OK);
         }
 
-        public abstract void ExportToFile(T exportee);
+        protected abstract void ExportToFile(T exportee);
     }
 }

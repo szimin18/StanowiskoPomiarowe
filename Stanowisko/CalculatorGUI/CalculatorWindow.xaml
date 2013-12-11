@@ -3,9 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Calculator" Height="500" Width="720">
     <Grid>
-        <Label Content="Eksperyment:" HorizontalAlignment="Left" Margin="24,10,0,0" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Eksperyment:" HorizontalAlignment="Left" Margin="24,10,0,0" VerticalAlignment="Top" Width="87"/>
         <ComboBox x:Name="ExperimentComboBox" HorizontalAlignment="Left" Margin="24,41,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="ExperimentComboBox_SelectionChanged"/>
-        <Label Content="Pomiar:" HorizontalAlignment="Left" Margin="24,68,0,0" VerticalAlignment="Top" Width="120" Height="25"/>
+        <Label Content="Pomiar:" HorizontalAlignment="Left" Margin="24,68,0,0" VerticalAlignment="Top" Width="87" Height="25"/>
         <ComboBox x:Name="MeasurementComboBox" HorizontalAlignment="Left" Margin="24,98,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="MeasurementComboBox_SelectionChanged"/>
         <Label Content="Algorytm:" HorizontalAlignment="Left" Margin="24,172,0,0" VerticalAlignment="Top" Width="120"/>
         <ComboBox x:Name="AlgoritmComboBox" HorizontalAlignment="Left" Margin="24,203,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="AlgoritmComboBox_SelectionChanged"/>
@@ -16,6 +16,8 @@
         <TextBox x:Name="Calibration" HorizontalAlignment="Left" Height="23" Margin="24,292,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="Calibration_TextChanged"/>
         <TextBox x:Name="Wynik" HorizontalAlignment="Left" Height="23" Margin="24,430,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="TextBox_TextChanged"/>
         <Label Content="Współczynnik kalibracji:&#xD;&#xA;" HorizontalAlignment="Left" Margin="10,251,0,0" VerticalAlignment="Top" Width="134" Height="27"/>
+        <Button x:Name="SaveExperimentButton" Content="Save" HorizontalAlignment="Left" Height="26" Margin="116,10,0,0" VerticalAlignment="Top" Width="28" Click="SaveExperiment"/>
+        <Button x:Name="SaveMeasurementButton" Content="Save" HorizontalAlignment="Left" Height="26" Margin="116,67,0,0" VerticalAlignment="Top" Width="28" Click="SaveMeasurement"/>
 
     </Grid>
 </Window>
