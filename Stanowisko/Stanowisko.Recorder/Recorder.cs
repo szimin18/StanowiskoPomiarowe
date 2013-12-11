@@ -11,13 +11,13 @@ namespace Stanowisko.Recorder
     public class Recorder : IRecorder
     {
         #region Private Member Variables
-        private uint _period = 1000;
-        private List<Sample> _samples;
-        private bool _isRecording = false;
-        private bool _isConnected = false;
-        private IMeasuringDevice _measuringDevice;
-        private System.Timers.Timer _timer;
-        private RecorderWindow _window;
+        private uint period = 1000;
+        private List<Sample> samples;
+        private bool isRecording = false;
+        private bool isConnected = false;
+        private IMeasuringDevice measuringDevice;
+        private System.Timers.Timer timer;
+        private RecorderWindow window;
         #endregion
 
         #region Private Methods
@@ -26,59 +26,53 @@ namespace Stanowisko.Recorder
 
         private void addSampleToChart(Sample sample)
         {
-            _window.AddSampleToChart(sample);
+            window.AddSampleToChart(sample);
         }
         
-        private void _timer_Elapsed(object sender, ElapsedEventArgs e)
+        private void timerElapsed(object sender, ElapsedEventArgs e)
         {
-            Sample sample = _measuringDevice.GetSample();
+            Sample sample = measuringDevice.GetSample();
 
-            if (_isRecording)
+            if (isRecording)
             {
-                _samples.Add(sample);
+                samples.Add(sample);
             }
 
-            _window.BeginInvoke(new AddSampleToChartDelegate(addSampleToChart), sample);
+            window.BeginInvoke(new AddSampleToChartDelegate(addSampleToChart), sample);
         }
         #endregion
 
         #region Constructors
+        public Recorder()
+        {
+        }
+
         public Recorder(IMeasuringDevice measuringDevice)
         {
-            this._measuringDevice = measuringDevice;
-            _timer = new System.Timers.Timer(_period);
-            _timer.Elapsed += new ElapsedEventHandler(_timer_Elapsed);
-            _samples = new List<Sample>();
-            _window = new RecorderWindow(this);
+            this.measuringDevice = measuringDevice;
+            timer = new System.Timers.Timer(period);
+            timer.Elapsed += new ElapsedEventHandler(timerElapsed);
+            samples = new List<Sample>();
+            window = new RecorderWindow(this);
 
             if (ConnectWithDevice())
             {
-                return;
+                throw new Exception();
             }
 
-            _window.Show();
-            _timer.Start();
-        }
-
-        public Recorder(IMeasuringDevice measuringDevice, uint period)
-            : this(measuringDevice)
-        {
-            if (period <= 0)
-            {
-                throw new InvalidDataException();
-            }
-            this._period = period;
+            window.Show();
+            timer.Start();
         }
 
         private bool ConnectWithDevice()
         {
-            string errorMessage = _measuringDevice.StartConnection();
+            string errorMessage = measuringDevice.StartConnection();
             if (errorMessage != null)
             {
                 MessageBox.Show(errorMessage);
                 return true;
             }
-            _isConnected = true;
+            isConnected = true;
             return false;
         }
 
@@ -87,36 +81,40 @@ namespace Stanowisko.Recorder
         #region Public Methods
         public void startRecording()
         {
-            if (!_isConnected)
+            if (!isConnected)
             {
                 MessageBox.Show("Polaczenie z urzadzeniem zostalo zakonczone");
                 return;
             }
-            _samples.Clear();
-            _isRecording = true;
+            samples.Clear();
+            isRecording = true;
 
         }
 
         public void stopRecording()
         {
-            _isRecording = false;
+            isRecording = false;
         }
 
         public Measurement getRecording()
         {
-            Measurement measurement = new Measurement(_samples);
-            return measurement;
+            return new Measurement(samples);
         }
 
-        public void disconnect()
+        public void connectWithDevice(IMeasuringDevice device)
         {
-            if (_isRecording)
+            throw new NotImplementedException();
+        }
+
+        public void disconnectWithDevice()
+        {
+            if (isRecording)
             {
                 stopRecording();
             }
-            _timer.Stop();
-            _measuringDevice.StopConnection();
-            _isConnected = false;
+            timer.Stop();
+            measuringDevice.StopConnection();
+            isConnected = false;
         }
         #endregion
     }

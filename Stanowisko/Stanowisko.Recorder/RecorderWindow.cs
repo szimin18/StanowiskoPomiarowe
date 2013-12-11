@@ -55,12 +55,12 @@ namespace Stanowisko.Recorder
 
         private void button3_Click(object sender, EventArgs e)
         {
-            recorder.disconnect();
+            recorder.disconnectWithDevice();
         }
 
         private void RecorderWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
-            recorder.disconnect();
+            recorder.disconnectWithDevice();
         }
     }
 }
