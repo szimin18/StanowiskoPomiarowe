@@ -40,6 +40,7 @@ namespace CalculatorGUI
         {
             InitializeComponent();
             experiments = persistence.GetAllExperiments();
+            this.ExperimentComboBox.Items.Clear();
             foreach (Experiment exp in experiments)
             {
                 this.ExperimentComboBox.Items.Add(exp.Name);
@@ -48,12 +49,13 @@ namespace CalculatorGUI
             algoritm = null;
 
             AlgoritmComboBox.Items.Add("Metoda Trapezow");
-            AlgoritmComboBox.Items.Add("Metoda Simpsoma");
+            AlgoritmComboBox.Items.Add("Metoda Simpsona");
 
             SaveMeasurementButton.IsEnabled = false;
             SaveExperimentButton.IsEnabled = false;
 
             CalibText = null;
+            
         }
 
         private void ExperimentComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -71,6 +73,7 @@ namespace CalculatorGUI
 
             SaveExperimentButton.IsEnabled = true;
 
+            this.MeasurementComboBox.Items.Clear();
             foreach (Measurement meas in measurements)
             {
                 this.MeasurementComboBox.Items.Add(meas.Id.ToString());
@@ -80,7 +83,9 @@ namespace CalculatorGUI
 
         private void MeasurementComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            int id = int.Parse(MeasurementComboBox.SelectedItem.ToString());
+            int id = 0;
+            if(MeasurementComboBox.SelectedItem != null)
+                id = int.Parse(MeasurementComboBox.SelectedItem.ToString());
             foreach (Measurement meas in measurements)
             {
                 if (id == meas.Id)
@@ -100,6 +105,7 @@ namespace CalculatorGUI
             {
                 calculator = new MeasurementCalculator(measurement, algoritm);
             }
+            this.calculator.InitializeBoundaries();
             Slicer1.Value = this.calculator.CurveBeginning;
             Slicer2.Value = this.calculator.CurveEnd;
             this.calculator.Coefficent = 1;
@@ -153,7 +159,7 @@ namespace CalculatorGUI
         {
             if (Calibration.Text != null)
             {
-               //this.calculator.Coefficent = this.calculator.Calibrate(double.Parse(CalibText));
+               this.calculator.Coefficent = this.calculator.Calibrate(double.Parse(CalibText));
             }
         }
 
@@ -164,7 +170,7 @@ namespace CalculatorGUI
 
         private void Oblicz_Click(object sender, RoutedEventArgs e)
         {
-            //Wynik.Text = this.calculator.CalculateHeat().ToString();
+           // Wynik.Text = this.calculator.CalculateHeat().ToString();
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)

@@ -16,8 +16,8 @@
         <TextBox x:Name="Calibration" HorizontalAlignment="Left" Height="23" Margin="24,292,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="Calibration_TextChanged"/>
         <TextBox x:Name="Wynik" HorizontalAlignment="Left" Height="23" Margin="24,430,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="TextBox_TextChanged"/>
         <Label Content="Współczynnik kalibracji:&#xD;&#xA;" HorizontalAlignment="Left" Margin="10,251,0,0" VerticalAlignment="Top" Width="134" Height="27"/>
-        <Button x:Name="SaveExperimentButton" Content="Save" HorizontalAlignment="Left" Height="26" Margin="116,10,0,0" VerticalAlignment="Top" Width="28" Click="SaveExperiment"/>
-        <Button x:Name="SaveMeasurementButton" Content="Save" HorizontalAlignment="Left" Height="26" Margin="116,67,0,0" VerticalAlignment="Top" Width="28" Click="SaveMeasurement"/>
+        <Button x:Name="SaveExperimentButton" Content="Save" HorizontalAlignment="Left" Height="26" Margin="105,10,0,0" VerticalAlignment="Top" Width="39" Click="SaveExperiment"/>
+        <Button x:Name="SaveMeasurementButton" Content="Save" HorizontalAlignment="Left" Height="26" Margin="105,67,0,0" VerticalAlignment="Top" Width="39" Click="SaveMeasurement"/>
 
     </Grid>
 </Window>
