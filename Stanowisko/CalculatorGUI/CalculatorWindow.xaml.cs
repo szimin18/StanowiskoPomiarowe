@@ -18,6 +18,7 @@ using Stanowisko.Calculator;
 using Stanowisko.SharedClasses;
 using Stanowisko.Exporter;
 using Stanowisko.Exporter.Forms;
+using ZedGraph;
 
 namespace CalculatorGUI
 {
@@ -108,11 +109,10 @@ namespace CalculatorGUI
                 calculator = new MeasurementCalculator(measurement, algoritm);
             }
             this.calculator.InitializeBoundaries();
-            Slicer1.Value = this.calculator.CurveBeginning;
             minSlicer = this.calculator.CurveBeginning;
-            Slicer2.Value = this.calculator.CurveEnd;
             maxSlicer = this.calculator.CurveEnd;
-            this.calculator.Coefficent = 1;
+            Slicer1.Value = this.calculator.CurveBeginning;
+            Slicer2.Value = this.calculator.CurveEnd;
 
             Console.WriteLine(maxSlicer);
             Console.WriteLine(minSlicer);
