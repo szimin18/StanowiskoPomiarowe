@@ -36,6 +36,9 @@ namespace CalculatorGUI
         private IMeasurementCalculator calculator;
         private string CalibText;
 
+        private double maxSlicer;
+        private double minSlicer;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -55,7 +58,6 @@ namespace CalculatorGUI
             SaveExperimentButton.IsEnabled = false;
 
             CalibText = null;
-            
         }
 
         private void ExperimentComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -107,8 +109,13 @@ namespace CalculatorGUI
             }
             this.calculator.InitializeBoundaries();
             Slicer1.Value = this.calculator.CurveBeginning;
+            minSlicer = this.calculator.CurveBeginning;
             Slicer2.Value = this.calculator.CurveEnd;
+            maxSlicer = this.calculator.CurveEnd;
             this.calculator.Coefficent = 1;
+
+            Console.WriteLine(maxSlicer);
+            Console.WriteLine(minSlicer);
         }
 
         private void AlgoritmComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -131,6 +138,15 @@ namespace CalculatorGUI
 
         private void Slicer1_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
+            if (Slicer1.Value > maxSlicer)
+            {
+                Slicer1.Value = maxSlicer;
+            }
+            else if (Slicer1.Value < minSlicer)
+            {
+                Slicer1.Value = minSlicer;
+            }
+
             int var = (int)Slicer1.Value;
             if (Slicer1.Value > Slicer2.Value)
             {
@@ -144,6 +160,15 @@ namespace CalculatorGUI
 
         private void Slicer2_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
+            if (Slicer2.Value > maxSlicer)
+            {
+                Slicer2.Value = maxSlicer;
+            }
+            else if (Slicer2.Value < minSlicer)
+            {
+                Slicer2.Value = minSlicer;
+            }
+
             int var = (int)Slicer2.Value;
             if (Slicer2.Value > Slicer1.Value)
             {
@@ -166,11 +191,19 @@ namespace CalculatorGUI
         private void Calibration_TextChanged(object sender, TextChangedEventArgs e)
         {
             CalibText = Calibration.Text;
+            if (Kalibracja.IsChecked.Value && Calibration.Text != null)
+            {
+                this.calculator.Coefficent = this.calculator.Calibrate(double.Parse(CalibText));
+            }
         }
 
         private void Oblicz_Click(object sender, RoutedEventArgs e)
         {
-           // Wynik.Text = this.calculator.CalculateHeat().ToString();
+            if (!Kalibracja.IsChecked.Value)
+            {
+                this.calculator.Coefficent = 1;
+            }
+           Wynik.Text = this.calculator.CalculateHeat().ToString();
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
