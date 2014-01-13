@@ -9,6 +9,6 @@ namespace Stanowisko.Calculator
 {
     public interface ICalculatorFactory
     {
-        IMeasurementCalculator CreateCalculator(Measurement measurement, IIntegratingModule integrator);
+        IMeasurementCalculator CreateCalculator(Measurement measurement, IntegratingModuleType integratorType);
     }
 }

@@ -7,11 +7,22 @@ using Stanowisko.SharedClasses;
 
 namespace Stanowisko.Calculator
 {
-    class CalculatorFactory : ICalculatorFactory
+    public class CalculatorFactory : ICalculatorFactory
     {
-        public IMeasurementCalculator CreateCalculator(Measurement measurement, IIntegratingModule integrator)
+        public IMeasurementCalculator CreateCalculator(Measurement measurement, IntegratingModuleType integratorType)
         {
-            return new MeasurementCalculator(measurement, integrator);
+            if (integratorType == IntegratingModuleType.Simpsons)
+            {
+                return new MeasurementCalculator(measurement, new SimpsonsIntegratingModule());
+            }
+            else if (integratorType == IntegratingModuleType.Trapezoidal)
+            {
+                return new MeasurementCalculator(measurement, new TrapezoidalIntegratingModule());
+            }
+            else
+            {
+                throw new ArgumentException();
+            }
         }
     }
 }

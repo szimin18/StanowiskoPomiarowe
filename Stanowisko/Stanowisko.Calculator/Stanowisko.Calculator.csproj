@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CalculatorFactory.cs" />
+    <Compile Include="IntegratingModuleType.cs" />
     <Compile Include="ICalculatorFactory.cs" />
     <Compile Include="IIntegratingModule.cs" />
     <Compile Include="IMeasurementCalculator.cs" />
