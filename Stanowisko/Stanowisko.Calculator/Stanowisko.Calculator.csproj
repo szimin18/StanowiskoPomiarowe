@@ -39,10 +39,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CalculatorFactory.cs" />
+    <Compile Include="ICalculatorFactory.cs" />
     <Compile Include="IIntegratingModule.cs" />
-    <Compile Include="IIntegratingModuleCreator.cs" />
     <Compile Include="IMeasurementCalculator.cs" />
-    <Compile Include="IntegratingModuleCreator.cs" />
     <Compile Include="MeasurementCalculator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SimpsonsIntegratingModule.cs" />
