@@ -7,8 +7,8 @@ using Stanowisko.SharedClasses;
 
 namespace Stanowisko.Calculator
 {
-    class ICalculatorFactory
+    public interface ICalculatorFactory
     {
-        public IMeasurementCalculator CreateCalculator(Measurement measurement, IIntegratingModule integrator);
+        IMeasurementCalculator CreateCalculator(Measurement measurement, IIntegratingModule integrator);
     }
 }
