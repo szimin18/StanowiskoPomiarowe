@@ -1,6 +1,7 @@
-﻿<Window x:Class="CalculatorGUI.MainWindow"
+﻿<Window
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:chartingToolkit="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit" x:Class="CalculatorGUI.MainWindow"
         Title="Calculator" Height="500" Width="720">
     <Grid>
         <Label Content="Eksperyment:" HorizontalAlignment="Left" Margin="24,10,0,0" VerticalAlignment="Top" Width="87"/>
@@ -15,9 +16,14 @@
         <Slider x:Name="Slicer2" HorizontalAlignment="Left" Margin="173,430,0,0" VerticalAlignment="Top" Width="511" ValueChanged="Slicer2_ValueChanged"/>
         <TextBox x:Name="Calibration" HorizontalAlignment="Left" Height="23" Margin="24,292,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="Calibration_TextChanged"/>
         <TextBox x:Name="Wynik" HorizontalAlignment="Left" Height="23" Margin="24,430,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" TextChanged="TextBox_TextChanged"/>
-        <Label Content="Współczynnik kalibracji:&#xD;&#xA;" HorizontalAlignment="Left" Margin="10,251,0,0" VerticalAlignment="Top" Width="134" Height="27"/>
+        <Label Content="Współczynnik kalibracji:&#xA;" HorizontalAlignment="Left" Margin="10,251,0,0" VerticalAlignment="Top" Width="134" Height="27"/>
         <Button x:Name="SaveExperimentButton" Content="Save" HorizontalAlignment="Left" Height="26" Margin="105,10,0,0" VerticalAlignment="Top" Width="39" Click="SaveExperiment"/>
         <Button x:Name="SaveMeasurementButton" Content="Save" HorizontalAlignment="Left" Height="26" Margin="105,67,0,0" VerticalAlignment="Top" Width="39" Click="SaveMeasurement"/>
+
+        <chartingToolkit:Chart x:Name="LineChart" Margin="173,25,10,0" Title="Wykres ciepła od czasu" VerticalAlignment="Top" Height="365" LegendTitle="" IsEnabled="False">
+
+            <chartingToolkit:AreaSeries x:Name="MyChart" DependentValuePath="X" IndependentValuePath="Y" ItemsSource="{Binding}" Title="Ciepło" Margin="0,0,0,0" IsSelectionEnabled="True" DataContextChanged="Chart_Changed"/>
+        </chartingToolkit:Chart>
 
     </Grid>
 </Window>

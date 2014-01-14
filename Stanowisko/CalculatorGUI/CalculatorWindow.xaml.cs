@@ -21,8 +21,9 @@ namespace CalculatorGUI
         private List<Measurement> measurements;
         private Measurement measurement;
 
-        private IIntegratingModule algoritm;
-        private IMeasurementCalculator calculator;
+        private IntegratingModuleType algoritm;
+        ICalculatorFactory factory;
+        IMeasurementCalculator calculator;
         private string CalibText;
 
         private double maxSlicer;
@@ -38,7 +39,6 @@ namespace CalculatorGUI
                 this.ExperimentComboBox.Items.Add(exp.Name);
             }
             measurement = null;
-            algoritm = null;
 
             AlgoritmComboBox.Items.Add("Metoda Trapezow");
             AlgoritmComboBox.Items.Add("Metoda Simpsona");
@@ -87,14 +87,10 @@ namespace CalculatorGUI
             }
 
             SaveMeasurementButton.IsEnabled = true;
-
-            if (algoritm == null)
+            if (algoritm != null)
             {
-                calculator = new MeasurementCalculator(measurement);
-            }
-            else
-            {
-                calculator = new MeasurementCalculator(measurement, algoritm);
+                factory = new CalculatorFactory();
+                calculator = factory.CreateCalculator(measurement, algoritm);
             }
             this.calculator.InitializeBoundaries();
             minSlicer = this.calculator.CurveBeginning;
@@ -111,16 +107,17 @@ namespace CalculatorGUI
             string text = AlgoritmComboBox.SelectedItem.ToString();
             if (text.Equals("Metoda Trapezow"))
             {
-                algoritm = new TrapezoidalIntegratingModule();
+                algoritm = IntegratingModuleType.Trapezoidal;
             }
             else if (text.Equals("Metoda Simpsona"))
             {
-                algoritm = new SimpsonsIntegratingModule();
+                algoritm = IntegratingModuleType.Simpsons;
             }
 
             if (measurement != null)
             {
-                calculator = new MeasurementCalculator(measurement, algoritm);
+                factory = new CalculatorFactory();
+                calculator = factory.CreateCalculator(measurement, algoritm);
             }
         }
 
@@ -192,6 +189,11 @@ namespace CalculatorGUI
                 this.calculator.Coefficent = 1;
             }
            Wynik.Text = this.calculator.CalculateHeat().ToString();
+           //this.LineChart.Series[0] = this.MyChart;
+           //foreach (Sample sample in measurement.GetSamples())
+           //{
+           //    this.LineChart.Series["Ciepło"].Points.AddXY(sample.Value, sample.Time)
+           //}
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -227,6 +229,10 @@ namespace CalculatorGUI
                     exporter.Export(measurement);
                 }
             }
+        }
+        private void Chart_Changed(object sender, RoutedEventArgs e)
+        {
+
         }
 
     }
