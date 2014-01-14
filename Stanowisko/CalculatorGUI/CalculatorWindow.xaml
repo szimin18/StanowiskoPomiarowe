@@ -22,7 +22,7 @@
 
         <chartingToolkit:Chart x:Name="LineChart" Margin="173,25,10,0" Title="Wykres ciepła od czasu" VerticalAlignment="Top" Height="365" LegendTitle="" IsEnabled="False">
 
-            <chartingToolkit:AreaSeries x:Name="MyChart" DependentValuePath="X" IndependentValuePath="Y" ItemsSource="{Binding}" Title="Ciepło" Margin="0,0,0,0" IsSelectionEnabled="True"/>
+            <chartingToolkit:AreaSeries x:Name="MyChart" DependentValuePath="X" IndependentValuePath="Y" ItemsSource="{Binding}" Title="Ciepło" Margin="0,0,0,0" IsSelectionEnabled="True" DataContextChanged="Chart_Changed"/>
         </chartingToolkit:Chart>
 
     </Grid>
